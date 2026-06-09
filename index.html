@@ -6,7 +6,6 @@
 <title>Parallel Universe</title>
 
 <style>
-/* ===== KEEPING YOUR ORIGINAL STYLE (unchanged) ===== */
 * {
     margin: 0;
     padding: 0;
@@ -19,16 +18,12 @@ body {
     min-height: 100vh;
     color: #e0e0ff;
     padding: 20px;
-    overflow-x: hidden;
 }
 
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background:
         radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1), transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(176, 14, 255, 0.1), transparent 50%),
@@ -37,7 +32,7 @@ body::before {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: auto;
     position: relative;
     z-index: 1;
@@ -57,41 +52,55 @@ h1 {
 
 .input-section {
     background: rgba(26,31,79,0.6);
-    padding: 30px;
+    padding: 25px;
     border-radius: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
 }
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 12px;
 }
 
 input, textarea {
-    width: 100%;
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #00d9ff55;
     background: rgba(255,255,255,0.05);
     color: white;
+    outline: none;
+}
+
+textarea {
+    width: 100%;
+    margin-top: 10px;
+    min-height: 90px;
 }
 
 button {
-    padding: 12px 25px;
+    margin-top: 15px;
+    padding: 12px 22px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-}
-
-.btn {
-    background: #00d9ff;
-    color: black;
     font-weight: bold;
+    background: #00d9ff;
 }
 
-.btn:hover {
-    transform: translateY(-2px);
+button:hover {
+    transform: scale(1.02);
+}
+
+.loading, .error {
+    display: none;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.loading.active, .error.active {
+    display: block;
 }
 
 .results-section {
@@ -103,33 +112,15 @@ button {
 }
 
 .universe-card {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.06);
     padding: 20px;
-    margin: 15px 0;
+    margin-bottom: 15px;
     border-radius: 15px;
     border-left: 4px solid #00d9ff;
 }
 
-.loading {
-    display: none;
-    text-align: center;
-    padding: 20px;
-}
-
-.loading.active {
-    display: block;
-}
-
-.error {
-    display: none;
-    background: rgba(255,0,0,0.2);
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.error.active {
-    display: block;
+.universe-card h3 {
+    color: #00d9ff;
 }
 </style>
 </head>
@@ -140,10 +131,10 @@ button {
 
 <header>
     <h1>✨ Parallel Universe</h1>
-    <p>AI-powered alternate life generator</p>
+    <p>AI-powered life path generator</p>
 </header>
 
-<div class="error" id="errorBox"></div>
+<div class="error" id="error"></div>
 
 <div class="input-section">
     <form id="form">
@@ -155,20 +146,18 @@ button {
             <input id="decision" placeholder="Big decision" />
         </div>
 
-        <br/>
+        <textarea id="details" placeholder="Tell more about your situation..."></textarea>
 
-        <textarea id="details" placeholder="Tell more..."></textarea>
-
-        <br/><br/>
-
-        <button class="btn" type="submit">Generate Universes</button>
+        <button type="submit">Generate Universes</button>
     </form>
 </div>
 
-<div class="loading" id="loading">🌌 Generating universes...</div>
+<div class="loading" id="loading">
+🌌 AI is scanning alternate timelines...
+</div>
 
 <div class="results-section" id="results">
-    <h2>Your Universes</h2>
+    <h2>Your Parallel Futures</h2>
     <div id="cards"></div>
 </div>
 
@@ -176,33 +165,26 @@ button {
 
 <script>
 
-/* ================================
-   🔥 BACKEND CONFIG (CHANGE THIS)
-================================ */
-const BACKEND_URL = "https://parallel-backend-wq04.onrender.com/generate";
+const API = "https://parallel-backend-wq04.onrender.com/generate";
 
-/* ================================
-   UI ELEMENTS
-================================ */
 const form = document.getElementById("form");
 const loading = document.getElementById("loading");
 const results = document.getElementById("results");
 const cards = document.getElementById("cards");
-const errorBox = document.getElementById("errorBox");
+const error = document.getElementById("error");
 
-/* ================================
-   FORM SUBMIT
-================================ */
+/* ================= SUBMIT ================= */
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    hideError();
+    error.classList.remove("active");
 
     const payload = {
-        name: name.value,
-        interests: interests.value,
-        situation: situation.value,
-        decision: decision.value,
-        details: details.value
+        name: name.value.trim(),
+        interests: interests.value.trim(),
+        situation: situation.value.trim(),
+        decision: decision.value.trim(),
+        details: details.value.trim()
     };
 
     if (!payload.name || !payload.interests || !payload.situation || !payload.decision || !payload.details) {
@@ -214,7 +196,8 @@ form.addEventListener("submit", async (e) => {
     results.classList.remove("active");
 
     try {
-        const res = await fetch(BACKEND_URL, {
+
+        const res = await fetch(API, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -222,77 +205,65 @@ form.addEventListener("submit", async (e) => {
 
         const data = await res.json();
 
-        const universes = extractUniverses(data);
+        console.log("Backend:", data);
 
-        if (!universes || universes.length === 0) {
-            throw new Error("No universes returned");
-        }
+        const universes = parse(data);
 
-        renderUniverses(universes);
+        if (!universes.length) throw new Error("No universes");
+
+        render(universes);
+
         results.classList.add("active");
 
     } catch (err) {
         console.error(err);
-        showError("❌ Backend error or invalid response");
+        showError("AI failed to generate response. Check backend.");
     } finally {
         loading.classList.remove("active");
     }
 });
 
-/* ================================
-   SMART AI RESPONSE HANDLER
-================================ */
-function extractUniverses(data) {
+/* ================= PARSER ================= */
 
-    // Case 1: normal backend
+function parse(data) {
+
     if (data.universes && Array.isArray(data.universes)) {
         return data.universes;
     }
 
-    // Case 2: direct array
-    if (Array.isArray(data)) {
-        return data;
-    }
-
-    // Case 3: Gemini raw text fallback
-    const text = data.output || data.text || data.response;
-
-    if (typeof text === "string") {
+    if (typeof data.result === "string") {
         try {
-            const start = text.indexOf("[");
-            const end = text.lastIndexOf("]") + 1;
+            let cleaned = data.result
+                .replace(/```json/g, "")
+                .replace(/```/g, "")
+                .trim();
 
-            if (start !== -1 && end !== -1) {
-                return JSON.parse(text.slice(start, end));
-            }
+            const parsed = JSON.parse(cleaned);
+            return parsed.universes || [];
         } catch (e) {
-            console.log("Parse failed");
+            console.log("Parse error");
         }
     }
 
     return [];
 }
 
-/* ================================
-   RENDER UI
-================================ */
-function renderUniverses(universes) {
+/* ================= RENDER ================= */
+
+function render(universes) {
     cards.innerHTML = "";
 
     universes.forEach(u => {
         const div = document.createElement("div");
+
         div.className = "universe-card";
 
         div.innerHTML = `
-            <h3>${u.title || "Universe"}</h3>
-            <p><b>${u.subtitle || ""}</b></p>
-            <br/>
-            <p>${u.description || ""}</p>
-            <br/>
-            <p><b>Career:</b> ${u.careerPath || ""}</p>
-            <br/>
-            <p><b>Outcome:</b> ${u.outcome || ""}</p>
-            <br/>
+            <h3>${u.title}</h3>
+            <p><b>${u.subtitle}</b></p>
+            <p>${u.description}</p>
+            <p><b>Career:</b> ${u.careerPath}</p>
+            <p><b>Outcome:</b> ${u.outcome}</p>
             <ul>
                 ${(u.keyEvents || []).map(e => `<li>${e}</li>`).join("")}
             </ul>
@@ -302,16 +273,11 @@ function renderUniverses(universes) {
     });
 }
 
-/* ================================
-   ERROR HANDLING
-================================ */
-function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.classList.add("active");
-}
+/* ================= ERROR ================= */
 
-function hideError() {
-    errorBox.classList.remove("active");
+function showError(msg) {
+    error.textContent = msg;
+    error.classList.add("active");
 }
 
 </script>
