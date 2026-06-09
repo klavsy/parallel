@@ -3,100 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parallel Universe</title>
+<title>Parallel Universe AI</title>
 
 <style>
-/* ================= YOUR ORIGINAL DESIGN (UNCHANGED STYLE CORE) ================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1f4f 25%, #2d0a4e 50%, #1a0033 75%, #0a0e27 100%);
-    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#0a0e27,#1a1f4f,#2d0a4e);
     color: #e0e0ff;
+    margin: 0;
     padding: 20px;
 }
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
+.container { max-width: 1100px; margin: auto; }
 
 h1 {
-    font-size: 3em;
-    background: linear-gradient(135deg, #00d9ff, #b00eff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-align:center;
+    background: linear-gradient(90deg,#00d9ff,#b00eff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-.input-section {
-    background: rgba(26,31,79,0.6);
-    padding: 30px;
-    border-radius: 20px;
+.input {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
     border: 1px solid rgba(0,217,255,0.3);
-    margin-bottom: 30px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 15px;
 }
 
 input, textarea {
     width: 100%;
+    margin: 8px 0;
     padding: 12px;
-    border-radius: 10px;
-    border: 1px solid rgba(0,217,255,0.3);
-    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    border: 1px solid #00d9ff55;
+    background: rgba(0,0,0,0.2);
     color: white;
 }
 
 button {
-    padding: 12px 25px;
+    background: linear-gradient(90deg,#00d9ff,#00a8cc);
     border: none;
+    padding: 12px 20px;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-}
-
-.btn {
-    background: linear-gradient(135deg,#00d9ff,#00a8cc);
-    color: black;
-}
-
-.results {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .card {
-    background: rgba(26,31,79,0.7);
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 15px;
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    margin-top: 10px;
     border-left: 4px solid #00d9ff;
-    animation: fadeIn 0.5s ease;
+    border-radius: 10px;
+    animation: fade 0.4s ease;
 }
 
-@keyframes fadeIn {
+@keyframes fade {
     from {opacity:0; transform:translateY(10px);}
     to {opacity:1; transform:translateY(0);}
 }
 
-.loading {
-    display: none;
-    text-align: center;
-    margin: 20px 0;
+#status {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #00d9ff;
+}
+
+.error {
+    color: #ff6b6b;
 }
 </style>
 </head>
@@ -105,36 +80,21 @@ button {
 
 <div class="container">
 
-<header>
-    <h1>✨ Parallel Universe</h1>
-    <p>AI generates your alternate life paths</p>
-</header>
+<h1>✨ Parallel Universe AI</h1>
 
-<div class="input-section">
+<div class="input">
+    <input id="name" placeholder="Your name">
+    <input id="interests" placeholder="Interests">
+    <input id="situation" placeholder="Current situation">
+    <input id="decision" placeholder="Big decision">
+    <textarea id="details" placeholder="More details"></textarea>
 
-    <form id="form">
+    <button onclick="generate()">Generate Universes</button>
 
-        <div class="form-grid">
-            <input id="name" placeholder="Your name" required>
-            <input id="interests" placeholder="Your interests" required>
-            <input id="situation" placeholder="Current situation" required>
-            <input id="decision" placeholder="Big decision" required>
-        </div>
-
-        <br>
-
-        <textarea id="details" placeholder="Tell more..." required></textarea>
-
-        <br><br>
-
-        <button class="btn" type="submit">Generate Universes</button>
-
-    </form>
+    <div id="status"></div>
 </div>
 
-<div class="loading" id="loading">Generating your universes...</div>
-
-<div class="results" id="results"></div>
+<div id="results"></div>
 
 </div>
 
@@ -142,63 +102,136 @@ button {
 
 const BACKEND_URL = "https://parallel-backend-wq04.onrender.com";
 
-const form = document.getElementById("form");
-const loading = document.getElementById("loading");
+const statusBox = document.getElementById("status");
 const results = document.getElementById("results");
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+// ================= MAIN FUNCTION =================
+async function generate() {
 
-    loading.style.display = "block";
     results.innerHTML = "";
+    setStatus("Connecting to AI backend...");
 
     const data = {
-        name: document.getElementById("name").value,
-        interests: document.getElementById("interests").value,
-        situation: document.getElementById("situation").value,
-        decision: document.getElementById("decision").value,
-        details: document.getElementById("details").value
+        name: val("name"),
+        interests: val("interests"),
+        situation: val("situation"),
+        decision: val("decision"),
+        details: val("details")
     };
 
     try {
-        const res = await fetch(`${BACKEND_URL}/generate`, {
+        const response = await fetchWithRetry(`${BACKEND_URL}/generate`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
 
-        const json = await res.json();
+        setStatus("Processing AI response...");
 
-        let text = json.result;
+        const json = await response.json();
 
-        // remove markdown if backend returns it
-        text = text.replace(/```json|```/g, "");
+        if (!json.result) {
+            throw new Error("Invalid backend response format");
+        }
 
-        const parsed = JSON.parse(text);
+        let clean = json.result.replace(/```json|```/g, "").trim();
 
-        loading.style.display = "none";
+        let parsed;
+        try {
+            parsed = JSON.parse(clean);
+        } catch (e) {
+            throw new Error("AI returned invalid JSON");
+        }
 
-        parsed.universes.forEach(u => {
-            const div = document.createElement("div");
-            div.className = "card";
+        if (!parsed.universes || !Array.isArray(parsed.universes)) {
+            throw new Error("Missing universes array in response");
+        }
 
-            div.innerHTML = `
-                <h3>${u.title}</h3>
-                <p><b>${u.subtitle}</b></p>
-                <p>${u.description}</p>
-                <hr>
-                <p><b>Outcome:</b> ${u.outcome}</p>
-            `;
+        setStatus("Done ✨");
 
-            results.appendChild(div);
-        });
+        render(parsed.universes);
 
     } catch (err) {
-        loading.style.display = "none";
-        results.innerHTML = "<p style='color:red'>Error connecting to AI backend.</p>";
         console.error(err);
+        setStatus("❌ " + friendlyError(err), true);
     }
-});
+}
+
+// ================= RETRY SYSTEM =================
+async function fetchWithRetry(url, options, retries = 2) {
+    try {
+        const res = await fetch(url, options);
+
+        if (!res.ok) {
+            throw new Error("HTTP " + res.status);
+        }
+
+        return res;
+
+    } catch (err) {
+        if (retries > 0) {
+            setStatus("Retrying connection...");
+            await new Promise(r => setTimeout(r, 1200));
+            return fetchWithRetry(url, options, retries - 1);
+        }
+        throw err;
+    }
+}
+
+// ================= RENDER =================
+function render(universes) {
+    results.innerHTML = "";
+
+    universes.forEach((u, i) => {
+        const div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+            <h3>Universe ${i + 1}: ${u.title}</h3>
+            <p><b>${u.subtitle}</b></p>
+            <p>${u.description}</p>
+            <hr>
+            <p>${u.outcome}</p>
+        `;
+
+        results.appendChild(div);
+    });
+}
+
+// ================= STATUS =================
+function setStatus(msg, isError=false) {
+    statusBox.textContent = msg;
+    statusBox.className = isError ? "error" : "";
+}
+
+// ================= ERROR TRANSLATOR =================
+function friendlyError(err) {
+
+    const msg = err.message.toLowerCase();
+
+    if (msg.includes("failed to fetch")) {
+        return "Backend is not reachable (Render might be waking up)";
+    }
+
+    if (msg.includes("cors")) {
+        return "CORS blocked request (backend config issue)";
+    }
+
+    if (msg.includes("500")) {
+        return "AI server error (check backend logs)";
+    }
+
+    if (msg.includes("invalid json")) {
+        return "AI returned broken response format";
+    }
+
+    return "Unexpected error: " + err.message;
+}
+
+// ================= HELPERS =================
+function val(id) {
+    return document.getElementById(id).value;
+}
 
 </script>
 
