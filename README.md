@@ -19,6 +19,8 @@ Explore “what if” life scenarios
 Click and view different life paths
 Chat with your “future self” (optional feature)
 Simple and interactive design
+
+
 🎯 Purpose
 
 This project helps people:
