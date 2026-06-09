@@ -93,6 +93,43 @@
             }
         }
 
+        /* Language selector (matches theme) */
+        .lang-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .lang-bar label {
+            color: #b0a8ff;
+            font-size: 0.95em;
+        }
+
+        .lang-select {
+            padding: 10px 15px;
+            background: rgba(26, 31, 79, 0.7);
+            border: 1.5px solid rgba(0, 217, 255, 0.4);
+            border-radius: 10px;
+            color: #e0e0ff;
+            font-family: inherit;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-select:focus {
+            outline: none;
+            border-color: #00d9ff;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .lang-select option {
+            background: #1a1f4f;
+            color: #e0e0ff;
+        }
+
         .input-section {
             background: rgba(26, 31, 79, 0.6);
             border: 2px solid rgba(0, 217, 255, 0.3);
@@ -443,65 +480,1048 @@
     <div class="container">
         <header>
             <h1>✨ Parallel Universe ✨</h1>
-            <p>Explore alternate realities based on your actual history</p>
+            <p data-i18n="subtitle">Explore alternate realities based on your actual history</p>
         </header>
+
+        <div class="lang-bar">
+            <label for="langSelect" data-i18n="langLabel">Language</label>
+            <select id="langSelect" class="lang-select">
+                <option value="en">English</option>
+                <option value="sq">Shqip</option>
+                <option value="eu">Euskara</option>
+                <option value="bs">Bosanski</option>
+                <option value="bg">Български</option>
+                <option value="ca">Català</option>
+                <option value="hr">Hrvatski</option>
+                <option value="cs">Čeština</option>
+                <option value="da">Dansk</option>
+                <option value="nl">Nederlands</option>
+                <option value="et">Eesti</option>
+                <option value="fi">Suomi</option>
+                <option value="fr">Français</option>
+                <option value="gl">Galego</option>
+                <option value="de">Deutsch</option>
+                <option value="el">Ελληνικά</option>
+                <option value="hu">Magyar</option>
+                <option value="is">Íslenska</option>
+                <option value="ga">Gaeilge</option>
+                <option value="it">Italiano</option>
+                <option value="lv">Latviešu</option>
+                <option value="lt">Lietuvių</option>
+                <option value="lb">Lëtzebuergesch</option>
+                <option value="mk">Македонски</option>
+                <option value="mt">Malti</option>
+                <option value="no">Norsk</option>
+                <option value="pl">Polski</option>
+                <option value="pt">Português</option>
+                <option value="ro">Română</option>
+                <option value="sr">Српски</option>
+                <option value="sk">Slovenčina</option>
+                <option value="sl">Slovenščina</option>
+                <option value="es">Español</option>
+                <option value="sv">Svenska</option>
+                <option value="tr">Türkçe</option>
+                <option value="cy">Cymraeg</option>
+            </select>
+        </div>
 
         <div class="error-message" id="errorMessage"></div>
 
         <div class="input-section">
-            <h2>Tell Me About Yourself</h2>
+            <h2 data-i18n="sectionTitle">Tell Me About Yourself</h2>
             <form id="inputForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" placeholder="e.g., Alex" required>
+                        <label for="name" data-i18n="labelName">Your Name</label>
+                        <input type="text" id="name" data-i18n-ph="phName" placeholder="e.g., Alex" required>
                     </div>
                     <div class="form-group">
-                        <label for="interests">Your Interests</label>
-                        <input type="text" id="interests" placeholder="e.g., technology, music, sports" required>
+                        <label for="interests" data-i18n="labelInterests">Your Interests</label>
+                        <input type="text" id="interests" data-i18n-ph="phInterests" placeholder="e.g., technology, music, sports" required>
                     </div>
                     <div class="form-group">
-                        <label for="situation">Current Situation</label>
-                        <input type="text" id="situation" placeholder="e.g., student, working in tech, freelancer" required>
+                        <label for="situation" data-i18n="labelSituation">Current Situation</label>
+                        <input type="text" id="situation" data-i18n-ph="phSituation" placeholder="e.g., student, working in tech, freelancer" required>
                     </div>
                     <div class="form-group">
-                        <label for="decision">Big Life Decision</label>
-                        <input type="text" id="decision" placeholder="e.g., change careers, move abroad, start a business" required>
+                        <label for="decision" data-i18n="labelDecision">Big Life Decision</label>
+                        <input type="text" id="decision" data-i18n-ph="phDecision" placeholder="e.g., change careers, move abroad, start a business" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="details">Tell me more about your situation</label>
-                    <textarea id="details" placeholder="Provide more context to make your universes more personalized..." required></textarea>
+                    <label for="details" data-i18n="labelDetails">Tell me more about your situation</label>
+                    <textarea id="details" data-i18n-ph="phDetails" placeholder="Provide more context to make your universes more personalized..." required></textarea>
                 </div>
                 <div class="button-container">
-                    <button type="submit" class="btn-generate">Generate Universes</button>
-                    <button type="reset" class="btn-reset">Clear</button>
+                    <button type="submit" class="btn-generate" data-i18n="btnGenerate">Generate Universes</button>
+                    <button type="reset" class="btn-reset" data-i18n="btnClear">Clear</button>
                 </div>
             </form>
         </div>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p class="loading-text">Scanning parallel universes...</p>
+            <p class="loading-text" data-i18n="loading">Scanning parallel universes...</p>
         </div>
 
         <div class="results-section" id="resultsSection">
-            <h2 class="results-title">Your 3 Parallel Universes</h2>
+            <h2 class="results-title" data-i18n="resultsTitle">Your 3 Parallel Universes</h2>
             <div class="universes-grid" id="universesContainer"></div>
             <div class="button-container">
-                <button class="btn-generate" onclick="scrollToForm()">Generate New Universes</button>
+                <button class="btn-generate" onclick="scrollToForm()" data-i18n="btnNew">Generate New Universes</button>
             </div>
         </div>
 
         <footer>
-            <p>🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌</p>
+            <p data-i18n="footer">🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌</p>
         </footer>
     </div>
 
     <script>
         // ====== CONFIG ======
-        // Your Render backend URL. Change this if your service URL changes.
         const BACKEND_URL = "https://parallel-backend-wq04.onrender.com/generate";
+
+        // ====== TRANSLATIONS ======
+        const I18N = {
+            en: {
+                langLabel: "Language",
+                subtitle: "Explore alternate realities based on your actual history",
+                sectionTitle: "Tell Me About Yourself",
+                labelName: "Your Name",
+                labelInterests: "Your Interests",
+                labelSituation: "Current Situation",
+                labelDecision: "Big Life Decision",
+                labelDetails: "Tell me more about your situation",
+                phName: "e.g., Alex",
+                phInterests: "e.g., technology, music, sports",
+                phSituation: "e.g., student, working in tech, freelancer",
+                phDecision: "e.g., change careers, move abroad, start a business",
+                phDetails: "Provide more context to make your universes more personalized...",
+                btnGenerate: "Generate Universes",
+                btnClear: "Clear",
+                btnNew: "Generate New Universes",
+                loading: "Scanning parallel universes...",
+                resultsTitle: "Your 3 Parallel Universes",
+                story: "The Story",
+                career: "Career Path",
+                events: "Key Events",
+                outcome: "Outcome",
+                footer: "🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌",
+                errFill: "Please fill in all fields"
+            },
+            lv: {
+                langLabel: "Valoda",
+                subtitle: "Izpēti alternatīvas realitātes, balstoties uz tavu patieso dzīvesstāstu",
+                sectionTitle: "Pastāsti par sevi",
+                labelName: "Tavs vārds",
+                labelInterests: "Tavas intereses",
+                labelSituation: "Pašreizējā situācija",
+                labelDecision: "Liels dzīves lēmums",
+                labelDetails: "Pastāsti vairāk par savu situāciju",
+                phName: "piem., Aleksis",
+                phInterests: "piem., tehnoloģijas, mūzika, sports",
+                phSituation: "piem., students, strādā IT jomā, frīlanceris",
+                phDecision: "piem., mainīt karjeru, pārcelties uz ārzemēm, sākt biznesu",
+                phDetails: "Sniedz vairāk konteksta, lai padarītu tavus visumus personīgākus...",
+                btnGenerate: "Ģenerēt visumus",
+                btnClear: "Notīrīt",
+                btnNew: "Ģenerēt jaunus visumus",
+                loading: "Skenē paralēlos visumus...",
+                resultsTitle: "Tavi 3 paralēlie visumi",
+                story: "Stāsts",
+                career: "Karjeras ceļš",
+                events: "Galvenie notikumi",
+                outcome: "Iznākums",
+                footer: "🌌 Atceries: tava nākotne nekad nav noteikta. Katra izvēle rada jaunas iespējas. 🌌",
+                errFill: "Lūdzu, aizpildi visus laukus"
+            },
+            pl: {
+                langLabel: "Język",
+                subtitle: "Odkryj alternatywne rzeczywistości na podstawie swojej prawdziwej historii",
+                sectionTitle: "Opowiedz o sobie",
+                labelName: "Twoje imię",
+                labelInterests: "Twoje zainteresowania",
+                labelSituation: "Obecna sytuacja",
+                labelDecision: "Ważna życiowa decyzja",
+                labelDetails: "Opowiedz więcej o swojej sytuacji",
+                phName: "np. Alex",
+                phInterests: "np. technologia, muzyka, sport",
+                phSituation: "np. student, praca w IT, freelancer",
+                phDecision: "np. zmiana kariery, wyjazd za granicę, założenie firmy",
+                phDetails: "Podaj więcej szczegółów, aby spersonalizować swoje wszechświaty...",
+                btnGenerate: "Generuj wszechświaty",
+                btnClear: "Wyczyść",
+                btnNew: "Generuj nowe wszechświaty",
+                loading: "Skanowanie równoległych wszechświatów...",
+                resultsTitle: "Twoje 3 równoległe wszechświaty",
+                story: "Historia",
+                career: "Ścieżka kariery",
+                events: "Kluczowe wydarzenia",
+                outcome: "Rezultat",
+                footer: "🌌 Pamiętaj: Twoja przyszłość nigdy nie jest przesądzona. Każdy wybór tworzy nowe możliwości. 🌌",
+                errFill: "Proszę wypełnić wszystkie pola"
+            },
+            es: {
+                langLabel: "Idioma",
+                subtitle: "Explora realidades alternativas basadas en tu historia real",
+                sectionTitle: "Cuéntame sobre ti",
+                labelName: "Tu nombre",
+                labelInterests: "Tus intereses",
+                labelSituation: "Situación actual",
+                labelDecision: "Gran decisión de vida",
+                labelDetails: "Cuéntame más sobre tu situación",
+                phName: "p. ej., Alex",
+                phInterests: "p. ej., tecnología, música, deportes",
+                phSituation: "p. ej., estudiante, trabajo en tecnología, autónomo",
+                phDecision: "p. ej., cambiar de carrera, mudarse al extranjero, montar un negocio",
+                phDetails: "Proporciona más contexto para personalizar tus universos...",
+                btnGenerate: "Generar universos",
+                btnClear: "Borrar",
+                btnNew: "Generar nuevos universos",
+                loading: "Escaneando universos paralelos...",
+                resultsTitle: "Tus 3 universos paralelos",
+                story: "La historia",
+                career: "Trayectoria profesional",
+                events: "Eventos clave",
+                outcome: "Resultado",
+                footer: "🌌 Recuerda: tu futuro nunca está fijado. Cada decisión crea nuevas posibilidades. 🌌",
+                errFill: "Por favor, completa todos los campos"
+            },
+            fr: {
+                langLabel: "Langue",
+                subtitle: "Explorez des réalités alternatives basées sur votre histoire réelle",
+                sectionTitle: "Parlez-moi de vous",
+                labelName: "Votre nom",
+                labelInterests: "Vos centres d'intérêt",
+                labelSituation: "Situation actuelle",
+                labelDecision: "Grande décision de vie",
+                labelDetails: "Parlez-moi davantage de votre situation",
+                phName: "ex. : Alex",
+                phInterests: "ex. : technologie, musique, sport",
+                phSituation: "ex. : étudiant, travail dans la tech, freelance",
+                phDecision: "ex. : changer de carrière, partir à l'étranger, créer une entreprise",
+                phDetails: "Donnez plus de contexte pour personnaliser vos univers...",
+                btnGenerate: "Générer des univers",
+                btnClear: "Effacer",
+                btnNew: "Générer de nouveaux univers",
+                loading: "Analyse des univers parallèles...",
+                resultsTitle: "Vos 3 univers parallèles",
+                story: "L'histoire",
+                career: "Parcours professionnel",
+                events: "Événements clés",
+                outcome: "Résultat",
+                footer: "🌌 Rappelez-vous : votre avenir n'est jamais figé. Chaque choix crée de nouvelles possibilités. 🌌",
+                errFill: "Veuillez remplir tous les champs"
+            },
+            de: {
+                langLabel: "Sprache",
+                subtitle: "Erkunde alternative Realitäten basierend auf deiner echten Geschichte",
+                sectionTitle: "Erzähl mir von dir",
+                labelName: "Dein Name",
+                labelInterests: "Deine Interessen",
+                labelSituation: "Aktuelle Situation",
+                labelDecision: "Große Lebensentscheidung",
+                labelDetails: "Erzähl mir mehr über deine Situation",
+                phName: "z. B. Alex",
+                phInterests: "z. B. Technologie, Musik, Sport",
+                phSituation: "z. B. Student, Arbeit in der Tech-Branche, Freiberufler",
+                phDecision: "z. B. Berufswechsel, ins Ausland ziehen, ein Unternehmen gründen",
+                phDetails: "Gib mehr Kontext an, um deine Universen persönlicher zu gestalten...",
+                btnGenerate: "Universen generieren",
+                btnClear: "Löschen",
+                btnNew: "Neue Universen generieren",
+                loading: "Scanne parallele Universen...",
+                resultsTitle: "Deine 3 Paralleluniversen",
+                story: "Die Geschichte",
+                career: "Karriereweg",
+                events: "Wichtige Ereignisse",
+                outcome: "Ergebnis",
+                footer: "🌌 Denk daran: Deine Zukunft steht nie fest. Jede Entscheidung schafft neue Möglichkeiten. 🌌",
+                errFill: "Bitte fülle alle Felder aus"
+            },
+            it: {
+                langLabel: "Lingua",
+                subtitle: "Esplora realtà alternative basate sulla tua storia reale",
+                sectionTitle: "Parlami di te",
+                labelName: "Il tuo nome",
+                labelInterests: "I tuoi interessi",
+                labelSituation: "Situazione attuale",
+                labelDecision: "Grande decisione di vita",
+                labelDetails: "Raccontami di più sulla tua situazione",
+                phName: "es. Alex",
+                phInterests: "es. tecnologia, musica, sport",
+                phSituation: "es. studente, lavoro nel settore tech, freelance",
+                phDecision: "es. cambiare carriera, trasferirsi all'estero, avviare un'impresa",
+                phDetails: "Fornisci più contesto per personalizzare i tuoi universi...",
+                btnGenerate: "Genera universi",
+                btnClear: "Cancella",
+                btnNew: "Genera nuovi universi",
+                loading: "Scansione degli universi paralleli...",
+                resultsTitle: "I tuoi 3 universi paralleli",
+                story: "La storia",
+                career: "Percorso professionale",
+                events: "Eventi chiave",
+                outcome: "Risultato",
+                footer: "🌌 Ricorda: il tuo futuro non è mai fissato. Ogni scelta crea nuove possibilità. 🌌",
+                errFill: "Compila tutti i campi"
+            },
+            pt: {
+                langLabel: "Idioma",
+                subtitle: "Explore realidades alternativas com base na sua história real",
+                sectionTitle: "Fale-me sobre você",
+                labelName: "Seu nome",
+                labelInterests: "Seus interesses",
+                labelSituation: "Situação atual",
+                labelDecision: "Grande decisão de vida",
+                labelDetails: "Conte-me mais sobre a sua situação",
+                phName: "ex.: Alex",
+                phInterests: "ex.: tecnologia, música, esportes",
+                phSituation: "ex.: estudante, trabalho em tecnologia, freelancer",
+                phDecision: "ex.: mudar de carreira, mudar para o exterior, abrir um negócio",
+                phDetails: "Forneça mais contexto para personalizar os seus universos...",
+                btnGenerate: "Gerar universos",
+                btnClear: "Limpar",
+                btnNew: "Gerar novos universos",
+                loading: "Examinando universos paralelos...",
+                resultsTitle: "Os seus 3 universos paralelos",
+                story: "A história",
+                career: "Trajetória profissional",
+                events: "Eventos principais",
+                outcome: "Resultado",
+                footer: "🌌 Lembre-se: o seu futuro nunca está definido. Cada escolha cria novas possibilidades. 🌌",
+                errFill: "Por favor, preencha todos os campos"
+            },
+            nl: {
+                langLabel: "Taal",
+                subtitle: "Verken alternatieve werkelijkheden op basis van je echte geschiedenis",
+                sectionTitle: "Vertel me over jezelf",
+                labelName: "Je naam",
+                labelInterests: "Je interesses",
+                labelSituation: "Huidige situatie",
+                labelDecision: "Grote levensbeslissing",
+                labelDetails: "Vertel me meer over je situatie",
+                phName: "bijv. Alex",
+                phInterests: "bijv. technologie, muziek, sport",
+                phSituation: "bijv. student, werk in tech, freelancer",
+                phDecision: "bijv. van carrière veranderen, naar het buitenland verhuizen, een bedrijf starten",
+                phDetails: "Geef meer context om je universums persoonlijker te maken...",
+                btnGenerate: "Universums genereren",
+                btnClear: "Wissen",
+                btnNew: "Nieuwe universums genereren",
+                loading: "Parallelle universums scannen...",
+                resultsTitle: "Jouw 3 parallelle universums",
+                story: "Het verhaal",
+                career: "Carrièrepad",
+                events: "Belangrijke gebeurtenissen",
+                outcome: "Uitkomst",
+                footer: "🌌 Onthoud: je toekomst ligt nooit vast. Elke keuze schept nieuwe mogelijkheden. 🌌",
+                errFill: "Vul alle velden in"
+            },
+            el: {
+                langLabel: "Γλώσσα",
+                subtitle: "Εξερεύνησε εναλλακτικές πραγματικότητες με βάση την πραγματική σου ιστορία",
+                sectionTitle: "Πες μου για σένα",
+                labelName: "Το όνομά σου",
+                labelInterests: "Τα ενδιαφέροντά σου",
+                labelSituation: "Τρέχουσα κατάσταση",
+                labelDecision: "Μεγάλη απόφαση ζωής",
+                labelDetails: "Πες μου περισσότερα για την κατάστασή σου",
+                phName: "π.χ. Άλεξ",
+                phInterests: "π.χ. τεχνολογία, μουσική, αθλήματα",
+                phSituation: "π.χ. φοιτητής, εργασία στην τεχνολογία, ελεύθερος επαγγελματίας",
+                phDecision: "π.χ. αλλαγή καριέρας, μετακόμιση στο εξωτερικό, έναρξη επιχείρησης",
+                phDetails: "Δώσε περισσότερες λεπτομέρειες για να εξατομικεύσεις τα σύμπαντά σου...",
+                btnGenerate: "Δημιουργία συμπάντων",
+                btnClear: "Καθαρισμός",
+                btnNew: "Δημιουργία νέων συμπάντων",
+                loading: "Σάρωση παράλληλων συμπάντων...",
+                resultsTitle: "Τα 3 παράλληλα σύμπαντά σου",
+                story: "Η ιστορία",
+                career: "Επαγγελματική πορεία",
+                events: "Βασικά γεγονότα",
+                outcome: "Έκβαση",
+                footer: "🌌 Θυμήσου: το μέλλον σου δεν είναι ποτέ προκαθορισμένο. Κάθε επιλογή δημιουργεί νέες δυνατότητες. 🌌",
+                errFill: "Συμπλήρωσε όλα τα πεδία"
+            },
+            sv: {
+                langLabel: "Språk",
+                subtitle: "Utforska alternativa verkligheter baserade på din verkliga historia",
+                sectionTitle: "Berätta om dig själv",
+                labelName: "Ditt namn",
+                labelInterests: "Dina intressen",
+                labelSituation: "Nuvarande situation",
+                labelDecision: "Stort livsbeslut",
+                labelDetails: "Berätta mer om din situation",
+                phName: "t.ex. Alex",
+                phInterests: "t.ex. teknik, musik, sport",
+                phSituation: "t.ex. student, jobb inom tech, frilansare",
+                phDecision: "t.ex. byta karriär, flytta utomlands, starta företag",
+                phDetails: "Ge mer sammanhang för att göra dina universum mer personliga...",
+                btnGenerate: "Generera universum",
+                btnClear: "Rensa",
+                btnNew: "Generera nya universum",
+                loading: "Skannar parallella universum...",
+                resultsTitle: "Dina 3 parallella universum",
+                story: "Berättelsen",
+                career: "Karriärväg",
+                events: "Viktiga händelser",
+                outcome: "Resultat",
+                footer: "🌌 Kom ihåg: din framtid är aldrig förutbestämd. Varje val skapar nya möjligheter. 🌌",
+                errFill: "Fyll i alla fält"
+            },
+            da: {
+                langLabel: "Sprog",
+                subtitle: "Udforsk alternative virkeligheder baseret på din virkelige historie",
+                sectionTitle: "Fortæl om dig selv",
+                labelName: "Dit navn",
+                labelInterests: "Dine interesser",
+                labelSituation: "Nuværende situation",
+                labelDecision: "Stor livsbeslutning",
+                labelDetails: "Fortæl mig mere om din situation",
+                phName: "f.eks. Alex",
+                phInterests: "f.eks. teknologi, musik, sport",
+                phSituation: "f.eks. studerende, arbejde i tech, freelancer",
+                phDecision: "f.eks. skifte karriere, flytte til udlandet, starte en virksomhed",
+                phDetails: "Giv mere kontekst for at gøre dine universer mere personlige...",
+                btnGenerate: "Generer universer",
+                btnClear: "Ryd",
+                btnNew: "Generer nye universer",
+                loading: "Scanner parallelle universer...",
+                resultsTitle: "Dine 3 parallelle universer",
+                story: "Historien",
+                career: "Karrierevej",
+                events: "Vigtige begivenheder",
+                outcome: "Resultat",
+                footer: "🌌 Husk: din fremtid er aldrig fastlagt. Hvert valg skaber nye muligheder. 🌌",
+                errFill: "Udfyld venligst alle felter"
+            },
+            fi: {
+                langLabel: "Kieli",
+                subtitle: "Tutki vaihtoehtoisia todellisuuksia oman tarinasi pohjalta",
+                sectionTitle: "Kerro itsestäsi",
+                labelName: "Nimesi",
+                labelInterests: "Kiinnostuksen kohteesi",
+                labelSituation: "Nykyinen tilanne",
+                labelDecision: "Suuri elämänpäätös",
+                labelDetails: "Kerro lisää tilanteestasi",
+                phName: "esim. Alex",
+                phInterests: "esim. teknologia, musiikki, urheilu",
+                phSituation: "esim. opiskelija, töissä tekniikan alalla, freelancer",
+                phDecision: "esim. vaihtaa alaa, muuttaa ulkomaille, perustaa yritys",
+                phDetails: "Anna lisää taustatietoa, jotta universumeistasi tulee henkilökohtaisempia...",
+                btnGenerate: "Luo universumeja",
+                btnClear: "Tyhjennä",
+                btnNew: "Luo uusia universumeja",
+                loading: "Skannataan rinnakkaisuniversumeja...",
+                resultsTitle: "Kolme rinnakkaisuniversumiasi",
+                story: "Tarina",
+                career: "Urapolku",
+                events: "Keskeiset tapahtumat",
+                outcome: "Lopputulos",
+                footer: "🌌 Muista: tulevaisuutesi ei ole koskaan ennalta määrätty. Jokainen valinta luo uusia mahdollisuuksia. 🌌",
+                errFill: "Täytä kaikki kentät"
+            },
+            no: {
+                langLabel: "Språk",
+                subtitle: "Utforsk alternative virkeligheter basert på din virkelige historie",
+                sectionTitle: "Fortell om deg selv",
+                labelName: "Navnet ditt",
+                labelInterests: "Interessene dine",
+                labelSituation: "Nåværende situasjon",
+                labelDecision: "Stor livsavgjørelse",
+                labelDetails: "Fortell meg mer om situasjonen din",
+                phName: "f.eks. Alex",
+                phInterests: "f.eks. teknologi, musikk, sport",
+                phSituation: "f.eks. student, jobb i tech, frilanser",
+                phDecision: "f.eks. bytte karriere, flytte utenlands, starte en bedrift",
+                phDetails: "Gi mer kontekst for å gjøre universene dine mer personlige...",
+                btnGenerate: "Generer universer",
+                btnClear: "Tøm",
+                btnNew: "Generer nye universer",
+                loading: "Skanner parallelle universer...",
+                resultsTitle: "Dine 3 parallelle universer",
+                story: "Historien",
+                career: "Karrierevei",
+                events: "Viktige hendelser",
+                outcome: "Resultat",
+                footer: "🌌 Husk: fremtiden din er aldri fastlagt. Hvert valg skaper nye muligheter. 🌌",
+                errFill: "Vennligst fyll ut alle feltene"
+            },
+            is: {
+                langLabel: "Tungumál",
+                subtitle: "Kannaðu aðra veruleika byggða á þinni raunverulegu sögu",
+                sectionTitle: "Segðu mér frá þér",
+                labelName: "Nafnið þitt",
+                labelInterests: "Áhugamál þín",
+                labelSituation: "Núverandi staða",
+                labelDecision: "Stór lífsákvörðun",
+                labelDetails: "Segðu mér meira um aðstæður þínar",
+                phName: "t.d. Alex",
+                phInterests: "t.d. tækni, tónlist, íþróttir",
+                phSituation: "t.d. nemandi, vinna í tækni, sjálfstætt starfandi",
+                phDecision: "t.d. skipta um starfsferil, flytja erlendis, stofna fyrirtæki",
+                phDetails: "Gefðu meira samhengi til að gera alheima þína persónulegri...",
+                btnGenerate: "Búa til alheima",
+                btnClear: "Hreinsa",
+                btnNew: "Búa til nýja alheima",
+                loading: "Skanna samhliða alheima...",
+                resultsTitle: "Þrír samhliða alheimar þínir",
+                story: "Sagan",
+                career: "Starfsferill",
+                events: "Lykilatburðir",
+                outcome: "Niðurstaða",
+                footer: "🌌 Mundu: framtíð þín er aldrei fastákveðin. Hvert val skapar nýja möguleika. 🌌",
+                errFill: "Vinsamlegast fylltu út alla reiti"
+            },
+            ga: {
+                langLabel: "Teanga",
+                subtitle: "Déan iniúchadh ar réaltachtaí malartacha bunaithe ar do stair féin",
+                sectionTitle: "Inis dom fút féin",
+                labelName: "D'ainm",
+                labelInterests: "Do chuid spéiseanna",
+                labelSituation: "Staid reatha",
+                labelDecision: "Cinneadh mór saoil",
+                labelDetails: "Inis dom níos mó faoi do staid",
+                phName: "m.sh. Alex",
+                phInterests: "m.sh. teicneolaíocht, ceol, spórt",
+                phSituation: "m.sh. mac léinn, ag obair sa teicneolaíocht, neamhspleách",
+                phDecision: "m.sh. gairm a athrú, bogadh thar lear, gnó a thosú",
+                phDetails: "Tabhair tuilleadh comhthéacs chun do chruinní a phearsantú...",
+                btnGenerate: "Cruthaigh cruinní",
+                btnClear: "Glan",
+                btnNew: "Cruthaigh cruinní nua",
+                loading: "Ag scanadh cruinní comhthreomhara...",
+                resultsTitle: "Do 3 chruinne chomhthreomhara",
+                story: "An scéal",
+                career: "Conair ghairme",
+                events: "Príomhimeachtaí",
+                outcome: "Toradh",
+                footer: "🌌 Cuimhnigh: níl do thodhchaí socraithe riamh. Cruthaíonn gach rogha féidearthachtaí nua. 🌌",
+                errFill: "Líon isteach na réimsí go léir le do thoil"
+            },
+            cs: {
+                langLabel: "Jazyk",
+                subtitle: "Prozkoumej alternativní reality založené na tvém skutečném příběhu",
+                sectionTitle: "Řekni mi o sobě",
+                labelName: "Tvé jméno",
+                labelInterests: "Tvé zájmy",
+                labelSituation: "Současná situace",
+                labelDecision: "Velké životní rozhodnutí",
+                labelDetails: "Řekni mi více o své situaci",
+                phName: "např. Alex",
+                phInterests: "např. technologie, hudba, sport",
+                phSituation: "např. student, práce v IT, freelancer",
+                phDecision: "např. změnit kariéru, odstěhovat se do zahraničí, založit firmu",
+                phDetails: "Uveď více souvislostí, aby byly tvé vesmíry osobnější...",
+                btnGenerate: "Generovat vesmíry",
+                btnClear: "Vymazat",
+                btnNew: "Generovat nové vesmíry",
+                loading: "Skenování paralelních vesmírů...",
+                resultsTitle: "Tvé 3 paralelní vesmíry",
+                story: "Příběh",
+                career: "Kariérní dráha",
+                events: "Klíčové události",
+                outcome: "Výsledek",
+                footer: "🌌 Pamatuj: tvá budoucnost není nikdy daná. Každá volba vytváří nové možnosti. 🌌",
+                errFill: "Vyplň prosím všechna pole"
+            },
+            sk: {
+                langLabel: "Jazyk",
+                subtitle: "Preskúmaj alternatívne reality na základe svojho skutočného príbehu",
+                sectionTitle: "Povedz mi o sebe",
+                labelName: "Tvoje meno",
+                labelInterests: "Tvoje záujmy",
+                labelSituation: "Súčasná situácia",
+                labelDecision: "Veľké životné rozhodnutie",
+                labelDetails: "Povedz mi viac o svojej situácii",
+                phName: "napr. Alex",
+                phInterests: "napr. technológie, hudba, šport",
+                phSituation: "napr. študent, práca v IT, freelancer",
+                phDecision: "napr. zmeniť kariéru, presťahovať sa do zahraničia, založiť firmu",
+                phDetails: "Uveď viac súvislostí, aby boli tvoje vesmíry osobnejšie...",
+                btnGenerate: "Generovať vesmíry",
+                btnClear: "Vymazať",
+                btnNew: "Generovať nové vesmíry",
+                loading: "Skenovanie paralelných vesmírov...",
+                resultsTitle: "Tvoje 3 paralelné vesmíry",
+                story: "Príbeh",
+                career: "Kariérna dráha",
+                events: "Kľúčové udalosti",
+                outcome: "Výsledok",
+                footer: "🌌 Pamätaj: tvoja budúcnosť nie je nikdy daná. Každá voľba vytvára nové možnosti. 🌌",
+                errFill: "Vyplň prosím všetky polia"
+            },
+            hu: {
+                langLabel: "Nyelv",
+                subtitle: "Fedezz fel alternatív valóságokat a saját valós történeted alapján",
+                sectionTitle: "Mesélj magadról",
+                labelName: "A neved",
+                labelInterests: "Az érdeklődési köröd",
+                labelSituation: "Jelenlegi helyzet",
+                labelDecision: "Nagy életdöntés",
+                labelDetails: "Mesélj többet a helyzetedről",
+                phName: "pl. Alex",
+                phInterests: "pl. technológia, zene, sport",
+                phSituation: "pl. diák, IT-ban dolgozik, szabadúszó",
+                phDecision: "pl. karrierváltás, külföldre költözés, vállalkozás indítása",
+                phDetails: "Adj meg több részletet, hogy az univerzumaid személyre szabottabbak legyenek...",
+                btnGenerate: "Univerzumok generálása",
+                btnClear: "Törlés",
+                btnNew: "Új univerzumok generálása",
+                loading: "Párhuzamos univerzumok keresése...",
+                resultsTitle: "A 3 párhuzamos univerzumod",
+                story: "A történet",
+                career: "Karrierút",
+                events: "Kulcsfontosságú események",
+                outcome: "Eredmény",
+                footer: "🌌 Ne feledd: a jövőd sosincs kőbe vésve. Minden döntés új lehetőségeket teremt. 🌌",
+                errFill: "Kérlek, tölts ki minden mezőt"
+            },
+            ro: {
+                langLabel: "Limbă",
+                subtitle: "Explorează realități alternative bazate pe povestea ta reală",
+                sectionTitle: "Spune-mi despre tine",
+                labelName: "Numele tău",
+                labelInterests: "Interesele tale",
+                labelSituation: "Situația actuală",
+                labelDecision: "Decizie importantă de viață",
+                labelDetails: "Spune-mi mai multe despre situația ta",
+                phName: "ex.: Alex",
+                phInterests: "ex.: tehnologie, muzică, sport",
+                phSituation: "ex.: student, lucrez în tehnologie, freelancer",
+                phDecision: "ex.: schimbarea carierei, mutarea în străinătate, începerea unei afaceri",
+                phDetails: "Oferă mai mult context pentru a-ți personaliza universurile...",
+                btnGenerate: "Generează universuri",
+                btnClear: "Șterge",
+                btnNew: "Generează universuri noi",
+                loading: "Se scanează universurile paralele...",
+                resultsTitle: "Cele 3 universuri paralele ale tale",
+                story: "Povestea",
+                career: "Traseu profesional",
+                events: "Evenimente cheie",
+                outcome: "Rezultat",
+                footer: "🌌 Amintește-ți: viitorul tău nu este niciodată fix. Fiecare alegere creează noi posibilități. 🌌",
+                errFill: "Te rog completează toate câmpurile"
+            },
+            bg: {
+                langLabel: "Език",
+                subtitle: "Изследвай алтернативни реалности въз основа на истинската си история",
+                sectionTitle: "Разкажи ми за себе си",
+                labelName: "Твоето име",
+                labelInterests: "Твоите интереси",
+                labelSituation: "Настояща ситуация",
+                labelDecision: "Голямо житейско решение",
+                labelDetails: "Разкажи ми повече за ситуацията си",
+                phName: "напр. Алекс",
+                phInterests: "напр. технологии, музика, спорт",
+                phSituation: "напр. студент, работа в технологиите, фрийлансър",
+                phDecision: "напр. смяна на кариерата, преместване в чужбина, започване на бизнес",
+                phDetails: "Дай повече контекст, за да направиш вселените си по-персонални...",
+                btnGenerate: "Генерирай вселени",
+                btnClear: "Изчисти",
+                btnNew: "Генерирай нови вселени",
+                loading: "Сканиране на паралелни вселени...",
+                resultsTitle: "Твоите 3 паралелни вселени",
+                story: "Историята",
+                career: "Кариерен път",
+                events: "Ключови събития",
+                outcome: "Резултат",
+                footer: "🌌 Помни: твоето бъдеще никога не е предопределено. Всеки избор създава нови възможности. 🌌",
+                errFill: "Моля, попълни всички полета"
+            },
+            hr: {
+                langLabel: "Jezik",
+                subtitle: "Istraži alternativne stvarnosti temeljene na tvojoj stvarnoj priči",
+                sectionTitle: "Reci mi o sebi",
+                labelName: "Tvoje ime",
+                labelInterests: "Tvoji interesi",
+                labelSituation: "Trenutna situacija",
+                labelDecision: "Velika životna odluka",
+                labelDetails: "Reci mi više o svojoj situaciji",
+                phName: "npr. Alex",
+                phInterests: "npr. tehnologija, glazba, sport",
+                phSituation: "npr. student, rad u tehnologiji, freelancer",
+                phDecision: "npr. promjena karijere, preseljenje u inozemstvo, pokretanje posla",
+                phDetails: "Pruži više konteksta kako bi tvoji svemiri bili osobniji...",
+                btnGenerate: "Generiraj svemire",
+                btnClear: "Očisti",
+                btnNew: "Generiraj nove svemire",
+                loading: "Skeniranje paralelnih svemira...",
+                resultsTitle: "Tvoja 3 paralelna svemira",
+                story: "Priča",
+                career: "Karijerni put",
+                events: "Ključni događaji",
+                outcome: "Ishod",
+                footer: "🌌 Zapamti: tvoja budućnost nikad nije zadana. Svaki izbor stvara nove mogućnosti. 🌌",
+                errFill: "Molimo ispuni sva polja"
+            },
+            sr: {
+                langLabel: "Језик",
+                subtitle: "Истражи алтернативне стварности засноване на твојој стварној причи",
+                sectionTitle: "Реци ми о себи",
+                labelName: "Твоје име",
+                labelInterests: "Твоја интересовања",
+                labelSituation: "Тренутна ситуација",
+                labelDecision: "Велика животна одлука",
+                labelDetails: "Реци ми више о својој ситуацији",
+                phName: "нпр. Алекс",
+                phInterests: "нпр. технологија, музика, спорт",
+                phSituation: "нпр. студент, рад у технологији, фриленсер",
+                phDecision: "нпр. промена каријере, селидба у иностранство, покретање посла",
+                phDetails: "Пружи више контекста да би твоји универзуми били личнији...",
+                btnGenerate: "Генериши универзуме",
+                btnClear: "Очисти",
+                btnNew: "Генериши нове универзуме",
+                loading: "Скенирање паралелних универзума...",
+                resultsTitle: "Твоја 3 паралелна универзума",
+                story: "Прича",
+                career: "Каријерни пут",
+                events: "Кључни догађаји",
+                outcome: "Исход",
+                footer: "🌌 Запамти: твоја будућност никада није унапред одређена. Сваки избор ствара нове могућности. 🌌",
+                errFill: "Молимо попуни сва поља"
+            },
+            bs: {
+                langLabel: "Jezik",
+                subtitle: "Istraži alternativne stvarnosti zasnovane na tvojoj stvarnoj priči",
+                sectionTitle: "Reci mi o sebi",
+                labelName: "Tvoje ime",
+                labelInterests: "Tvoji interesi",
+                labelSituation: "Trenutna situacija",
+                labelDecision: "Velika životna odluka",
+                labelDetails: "Reci mi više o svojoj situaciji",
+                phName: "npr. Alex",
+                phInterests: "npr. tehnologija, muzika, sport",
+                phSituation: "npr. student, rad u tehnologiji, freelancer",
+                phDecision: "npr. promjena karijere, preseljenje u inostranstvo, pokretanje biznisa",
+                phDetails: "Pruži više konteksta kako bi tvoji svemiri bili ličniji...",
+                btnGenerate: "Generiši svemire",
+                btnClear: "Očisti",
+                btnNew: "Generiši nove svemire",
+                loading: "Skeniranje paralelnih svemira...",
+                resultsTitle: "Tvoja 3 paralelna svemira",
+                story: "Priča",
+                career: "Karijerni put",
+                events: "Ključni događaji",
+                outcome: "Ishod",
+                footer: "🌌 Zapamti: tvoja budućnost nikad nije zadana. Svaki izbor stvara nove mogućnosti. 🌌",
+                errFill: "Molimo popuni sva polja"
+            },
+            sl: {
+                langLabel: "Jezik",
+                subtitle: "Razišči alternativne resničnosti, ki temeljijo na tvoji resnični zgodbi",
+                sectionTitle: "Povej mi o sebi",
+                labelName: "Tvoje ime",
+                labelInterests: "Tvoji interesi",
+                labelSituation: "Trenutno stanje",
+                labelDecision: "Velika življenjska odločitev",
+                labelDetails: "Povej mi več o svojem položaju",
+                phName: "npr. Alex",
+                phInterests: "npr. tehnologija, glasba, šport",
+                phSituation: "npr. študent, delo v tehnologiji, samostojni podjetnik",
+                phDecision: "npr. menjava kariere, selitev v tujino, ustanovitev podjetja",
+                phDetails: "Podaj več konteksta, da bodo tvoja vesolja bolj osebna...",
+                btnGenerate: "Ustvari vesolja",
+                btnClear: "Počisti",
+                btnNew: "Ustvari nova vesolja",
+                loading: "Pregledovanje vzporednih vesolj...",
+                resultsTitle: "Tvoja 3 vzporedna vesolja",
+                story: "Zgodba",
+                career: "Karierna pot",
+                events: "Ključni dogodki",
+                outcome: "Izid",
+                footer: "🌌 Zapomni si: tvoja prihodnost ni nikoli vnaprej določena. Vsaka odločitev ustvarja nove možnosti. 🌌",
+                errFill: "Prosimo, izpolni vsa polja"
+            },
+            mk: {
+                langLabel: "Јазик",
+                subtitle: "Истражи алтернативни реалности засновани на твојата вистинска приказна",
+                sectionTitle: "Кажи ми за себе",
+                labelName: "Твоето име",
+                labelInterests: "Твоите интереси",
+                labelSituation: "Тековна состојба",
+                labelDecision: "Голема животна одлука",
+                labelDetails: "Кажи ми повеќе за твојата состојба",
+                phName: "пр. Алекс",
+                phInterests: "пр. технологија, музика, спорт",
+                phSituation: "пр. студент, работа во технологија, фриленсер",
+                phDecision: "пр. промена на кариера, преселба во странство, започнување бизнис",
+                phDetails: "Дади повеќе контекст за да ги направиш твоите универзуми пополични...",
+                btnGenerate: "Генерирај универзуми",
+                btnClear: "Исчисти",
+                btnNew: "Генерирај нови универзуми",
+                loading: "Скенирање на паралелни универзуми...",
+                resultsTitle: "Твоите 3 паралелни универзуми",
+                story: "Приказната",
+                career: "Кариерен пат",
+                events: "Клучни настани",
+                outcome: "Исход",
+                footer: "🌌 Запомни: твојата иднина никогаш не е предодредена. Секој избор создава нови можности. 🌌",
+                errFill: "Те молиме пополни ги сите полиња"
+            },
+            sq: {
+                langLabel: "Gjuha",
+                subtitle: "Eksploro realitete alternative bazuar në historinë tënde reale",
+                sectionTitle: "Më trego për veten",
+                labelName: "Emri yt",
+                labelInterests: "Interesat e tua",
+                labelSituation: "Situata aktuale",
+                labelDecision: "Vendim i madh i jetës",
+                labelDetails: "Më trego më shumë për situatën tënde",
+                phName: "p.sh. Alex",
+                phInterests: "p.sh. teknologji, muzikë, sport",
+                phSituation: "p.sh. student, punë në teknologji, i pavarur",
+                phDecision: "p.sh. ndryshim karriere, zhvendosje jashtë vendit, fillim biznesi",
+                phDetails: "Jep më shumë kontekst për t'i personalizuar universet e tua...",
+                btnGenerate: "Gjenero universe",
+                btnClear: "Pastro",
+                btnNew: "Gjenero universe të reja",
+                loading: "Duke skanuar universet paralele...",
+                resultsTitle: "3 universet e tua paralele",
+                story: "Historia",
+                career: "Rruga e karrierës",
+                events: "Ngjarjet kryesore",
+                outcome: "Rezultati",
+                footer: "🌌 Mbaj mend: e ardhmja jote nuk është kurrë e paracaktuar. Çdo zgjedhje krijon mundësi të reja. 🌌",
+                errFill: "Ju lutemi plotësoni të gjitha fushat"
+            },
+            et: {
+                langLabel: "Keel",
+                subtitle: "Uuri alternatiivseid reaalsusi sinu tegeliku loo põhjal",
+                sectionTitle: "Räägi endast",
+                labelName: "Sinu nimi",
+                labelInterests: "Sinu huvid",
+                labelSituation: "Praegune olukord",
+                labelDecision: "Suur elumuutev otsus",
+                labelDetails: "Räägi mulle rohkem oma olukorrast",
+                phName: "nt Alex",
+                phInterests: "nt tehnoloogia, muusika, sport",
+                phSituation: "nt üliõpilane, töö tehnoloogias, vabakutseline",
+                phDecision: "nt karjäärimuutus, välismaale kolimine, ettevõtte alustamine",
+                phDetails: "Anna rohkem konteksti, et muuta oma universumid isiklikumaks...",
+                btnGenerate: "Loo universumid",
+                btnClear: "Tühjenda",
+                btnNew: "Loo uued universumid",
+                loading: "Paralleeluniversumite skannimine...",
+                resultsTitle: "Sinu 3 paralleeluniversumi",
+                story: "Lugu",
+                career: "Karjääritee",
+                events: "Peamised sündmused",
+                outcome: "Tulemus",
+                footer: "🌌 Pea meeles: sinu tulevik pole kunagi ette määratud. Iga valik loob uusi võimalusi. 🌌",
+                errFill: "Palun täida kõik väljad"
+            },
+            lt: {
+                langLabel: "Kalba",
+                subtitle: "Tyrinėk alternatyvias realybes pagal savo tikrą istoriją",
+                sectionTitle: "Papasakok apie save",
+                labelName: "Tavo vardas",
+                labelInterests: "Tavo pomėgiai",
+                labelSituation: "Dabartinė situacija",
+                labelDecision: "Didelis gyvenimo sprendimas",
+                labelDetails: "Papasakok daugiau apie savo situaciją",
+                phName: "pvz., Alex",
+                phInterests: "pvz., technologijos, muzika, sportas",
+                phSituation: "pvz., studentas, darbas technologijų srityje, laisvai samdomas",
+                phDecision: "pvz., karjeros keitimas, persikėlimas į užsienį, verslo pradėjimas",
+                phDetails: "Pateik daugiau konteksto, kad tavo visatos būtų asmeniškesnės...",
+                btnGenerate: "Generuoti visatas",
+                btnClear: "Išvalyti",
+                btnNew: "Generuoti naujas visatas",
+                loading: "Skenuojamos lygiagrečios visatos...",
+                resultsTitle: "Tavo 3 lygiagrečios visatos",
+                story: "Istorija",
+                career: "Karjeros kelias",
+                events: "Pagrindiniai įvykiai",
+                outcome: "Rezultatas",
+                footer: "🌌 Atmink: tavo ateitis niekada nėra nulemta. Kiekvienas pasirinkimas kuria naujas galimybes. 🌌",
+                errFill: "Prašome užpildyti visus laukus"
+            },
+            mt: {
+                langLabel: "Lingwa",
+                subtitle: "Esplora realtajiet alternattivi bbażati fuq l-istorja vera tiegħek",
+                sectionTitle: "Għidli dwarek",
+                labelName: "Ismek",
+                labelInterests: "L-interessi tiegħek",
+                labelSituation: "Sitwazzjoni attwali",
+                labelDecision: "Deċiżjoni kbira tal-ħajja",
+                labelDetails: "Għidli aktar dwar is-sitwazzjoni tiegħek",
+                phName: "eż. Alex",
+                phInterests: "eż. teknoloġija, mużika, sport",
+                phSituation: "eż. student, xogħol fit-teknoloġija, freelancer",
+                phDecision: "eż. tibdil fil-karriera, tmur tgħix barra, tibda negozju",
+                phDetails: "Agħti aktar kuntest biex tagħmel l-univers tiegħek aktar personali...",
+                btnGenerate: "Iġġenera universi",
+                btnClear: "Ħassar",
+                btnNew: "Iġġenera universi ġodda",
+                loading: "Qed niskennja universi paralleli...",
+                resultsTitle: "It-3 universi paralleli tiegħek",
+                story: "L-istorja",
+                career: "Triq tal-karriera",
+                events: "Ġrajjiet ewlenin",
+                outcome: "Riżultat",
+                footer: "🌌 Ftakar: il-futur tiegħek qatt mhu fiss. Kull għażla toħloq possibbiltajiet ġodda. 🌌",
+                errFill: "Jekk jogħġbok imla l-oqsma kollha"
+            },
+            ca: {
+                langLabel: "Idioma",
+                subtitle: "Explora realitats alternatives basades en la teva història real",
+                sectionTitle: "Parla'm de tu",
+                labelName: "El teu nom",
+                labelInterests: "Els teus interessos",
+                labelSituation: "Situació actual",
+                labelDecision: "Gran decisió de vida",
+                labelDetails: "Explica'm més sobre la teva situació",
+                phName: "p. ex., Alex",
+                phInterests: "p. ex., tecnologia, música, esports",
+                phSituation: "p. ex., estudiant, treball en tecnologia, autònom",
+                phDecision: "p. ex., canviar de carrera, mudar-se a l'estranger, muntar un negoci",
+                phDetails: "Proporciona més context per personalitzar els teus universos...",
+                btnGenerate: "Generar universos",
+                btnClear: "Esborrar",
+                btnNew: "Generar nous universos",
+                loading: "Escanejant universos paral·lels...",
+                resultsTitle: "Els teus 3 universos paral·lels",
+                story: "La història",
+                career: "Trajectòria professional",
+                events: "Esdeveniments clau",
+                outcome: "Resultat",
+                footer: "🌌 Recorda: el teu futur mai no està fixat. Cada elecció crea noves possibilitats. 🌌",
+                errFill: "Si us plau, omple tots els camps"
+            },
+            eu: {
+                langLabel: "Hizkuntza",
+                subtitle: "Esploratu errealitate alternatiboak zure benetako historian oinarrituta",
+                sectionTitle: "Kontatu zeure buruari buruz",
+                labelName: "Zure izena",
+                labelInterests: "Zure interesak",
+                labelSituation: "Egungo egoera",
+                labelDecision: "Bizitzako erabaki handia",
+                labelDetails: "Kontatu gehiago zure egoerari buruz",
+                phName: "adib. Alex",
+                phInterests: "adib. teknologia, musika, kirola",
+                phSituation: "adib. ikaslea, teknologian lanean, autonomoa",
+                phDecision: "adib. lanbidez aldatu, atzerrira joan, negozio bat hasi",
+                phDetails: "Eman testuinguru gehiago zure unibertsoak pertsonalizatzeko...",
+                btnGenerate: "Sortu unibertsoak",
+                btnClear: "Garbitu",
+                btnNew: "Sortu unibertso berriak",
+                loading: "Unibertso paraleloak eskaneatzen...",
+                resultsTitle: "Zure 3 unibertso paraleloak",
+                story: "Istorioa",
+                career: "Lanbide-ibilbidea",
+                events: "Gertaera nagusiak",
+                outcome: "Emaitza",
+                footer: "🌌 Gogoratu: zure etorkizuna ez dago inoiz finkatuta. Aukera bakoitzak aukera berriak sortzen ditu. 🌌",
+                errFill: "Mesedez, bete eremu guztiak"
+            },
+            gl: {
+                langLabel: "Idioma",
+                subtitle: "Explora realidades alternativas baseadas na túa historia real",
+                sectionTitle: "Fálame de ti",
+                labelName: "O teu nome",
+                labelInterests: "Os teus intereses",
+                labelSituation: "Situación actual",
+                labelDecision: "Gran decisión de vida",
+                labelDetails: "Cóntame máis sobre a túa situación",
+                phName: "p. ex., Alex",
+                phInterests: "p. ex., tecnoloxía, música, deportes",
+                phSituation: "p. ex., estudante, traballo en tecnoloxía, autónomo",
+                phDecision: "p. ex., cambiar de carreira, mudarse ao estranxeiro, montar un negocio",
+                phDetails: "Proporciona máis contexto para personalizar os teus universos...",
+                btnGenerate: "Xerar universos",
+                btnClear: "Borrar",
+                btnNew: "Xerar novos universos",
+                loading: "Escaneando universos paralelos...",
+                resultsTitle: "Os teus 3 universos paralelos",
+                story: "A historia",
+                career: "Traxectoria profesional",
+                events: "Eventos clave",
+                outcome: "Resultado",
+                footer: "🌌 Lembra: o teu futuro nunca está fixado. Cada elección crea novas posibilidades. 🌌",
+                errFill: "Por favor, enche todos os campos"
+            },
+            lb: {
+                langLabel: "Sprooch",
+                subtitle: "Entdeck alternativ Realitéiten op Basis vun denger richteger Geschicht",
+                sectionTitle: "Erziel mer vun dir",
+                labelName: "Däin Numm",
+                labelInterests: "Deng Interessen",
+                labelSituation: "Aktuell Situatioun",
+                labelDecision: "Grouss Liewensentscheedung",
+                labelDetails: "Erziel mer méi iwwer deng Situatioun",
+                phName: "z. B. Alex",
+                phInterests: "z. B. Technologie, Musek, Sport",
+                phSituation: "z. B. Student, Aarbecht an der Technik, Freelancer",
+                phDecision: "z. B. Carrière wiesselen, an d'Ausland plënneren, eng Firma grënnen",
+                phDetails: "Gëff méi Kontext fir deng Universen méi perséinlech ze maachen...",
+                btnGenerate: "Universen generéieren",
+                btnClear: "Läschen",
+                btnNew: "Nei Universen generéieren",
+                loading: "Parallel Universe gi gescannt...",
+                resultsTitle: "Deng 3 parallel Universen",
+                story: "D'Geschicht",
+                career: "Carrièreswee",
+                events: "Wichteg Evenementer",
+                outcome: "Resultat",
+                footer: "🌌 Denk drun: deng Zukunft steet ni fest. All Wiel schaaft nei Méiglechkeeten. 🌌",
+                errFill: "Fëll w.e.g. all Felder aus"
+            },
+            tr: {
+                langLabel: "Dil",
+                subtitle: "Gerçek geçmişine dayalı alternatif gerçeklikleri keşfet",
+                sectionTitle: "Bana kendinden bahset",
+                labelName: "Adın",
+                labelInterests: "İlgi alanların",
+                labelSituation: "Mevcut durum",
+                labelDecision: "Büyük yaşam kararı",
+                labelDetails: "Durumun hakkında daha fazla bilgi ver",
+                phName: "örn. Alex",
+                phInterests: "örn. teknoloji, müzik, spor",
+                phSituation: "örn. öğrenci, teknolojide çalışıyor, serbest çalışan",
+                phDecision: "örn. kariyer değiştirmek, yurt dışına taşınmak, iş kurmak",
+                phDetails: "Evrenlerini daha kişisel hale getirmek için daha fazla bağlam ver...",
+                btnGenerate: "Evrenler oluştur",
+                btnClear: "Temizle",
+                btnNew: "Yeni evrenler oluştur",
+                loading: "Paralel evrenler taranıyor...",
+                resultsTitle: "3 paralel evrenin",
+                story: "Hikaye",
+                career: "Kariyer yolu",
+                events: "Önemli olaylar",
+                outcome: "Sonuç",
+                footer: "🌌 Unutma: geleceğin asla sabit değildir. Her seçim yeni olasılıklar yaratır. 🌌",
+                errFill: "Lütfen tüm alanları doldur"
+            },
+            cy: {
+                langLabel: "Iaith",
+                subtitle: "Archwilia realiti amgen yn seiliedig ar dy hanes go iawn",
+                sectionTitle: "Dwed wrtha i amdanat ti",
+                labelName: "Dy enw",
+                labelInterests: "Dy ddiddordebau",
+                labelSituation: "Sefyllfa bresennol",
+                labelDecision: "Penderfyniad mawr mewn bywyd",
+                labelDetails: "Dwed fwy wrtha i am dy sefyllfa",
+                phName: "e.e. Alex",
+                phInterests: "e.e. technoleg, cerddoriaeth, chwaraeon",
+                phSituation: "e.e. myfyriwr, gweithio ym maes technoleg, gweithiwr llawrydd",
+                phDecision: "e.e. newid gyrfa, symud dramor, dechrau busnes",
+                phDetails: "Rho fwy o gyd-destun i wneud dy fydysawdau'n fwy personol...",
+                btnGenerate: "Cynhyrchu bydysawdau",
+                btnClear: "Clirio",
+                btnNew: "Cynhyrchu bydysawdau newydd",
+                loading: "Sganio bydysawdau cyfochrog...",
+                resultsTitle: "Dy 3 bydysawd cyfochrog",
+                story: "Y stori",
+                career: "Llwybr gyrfa",
+                events: "Digwyddiadau allweddol",
+                outcome: "Canlyniad",
+                footer: "🌌 Cofia: nid yw dy ddyfodol byth yn sefydlog. Mae pob dewis yn creu posibiliadau newydd. 🌌",
+                errFill: "Llanwa bob maes os gweli'n dda"
+            }
+        };
+
+        let currentLang = "en";
 
         // ====== DOM REFS ======
         const form = document.getElementById('inputForm');
@@ -509,7 +1529,31 @@
         const resultsSection = document.getElementById('resultsSection');
         const universesContainer = document.getElementById('universesContainer');
         const errorMessage = document.getElementById('errorMessage');
+        const langSelect = document.getElementById('langSelect');
 
+        // ====== LANGUAGE HANDLING ======
+        function applyLanguage(lang) {
+            currentLang = I18N[lang] ? lang : "en";
+            const dict = I18N[currentLang];
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key] !== undefined) el.textContent = dict[key];
+            });
+
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+            });
+
+            document.documentElement.lang = currentLang;
+        }
+
+        langSelect.addEventListener('change', (e) => {
+            applyLanguage(e.target.value);
+        });
+
+        // ====== FORM SUBMIT ======
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             clearError();
@@ -519,16 +1563,17 @@
                 interests: document.getElementById('interests').value.trim(),
                 situation: document.getElementById('situation').value.trim(),
                 decision: document.getElementById('decision').value.trim(),
-                details: document.getElementById('details').value.trim()
+                details: document.getElementById('details').value.trim(),
+                lang: currentLang
             };
 
-            // Validation
-            if (Object.values(payload).some(v => !v)) {
-                showError('Please fill in all fields');
+            // Validation (lang is always set, so check the 5 user fields)
+            const userFields = [payload.name, payload.interests, payload.situation, payload.decision, payload.details];
+            if (userFields.some(v => !v)) {
+                showError(I18N[currentLang].errFill);
                 return;
             }
 
-            // Show loading state
             loading.classList.add('active');
             resultsSection.classList.remove('active');
 
@@ -568,6 +1613,7 @@
 
         function displayUniverses(universes) {
             universesContainer.innerHTML = '';
+            const dict = I18N[currentLang];
 
             universes.forEach((universe, index) => {
                 const card = document.createElement('div');
@@ -587,24 +1633,24 @@
 
                     <div class="universe-content">
                         <div class="content-block">
-                            <h4>📖 The Story</h4>
+                            <h4>📖 ${dict.story}</h4>
                             <p>${universe.description || ''}</p>
                         </div>
 
                         <div class="content-block">
-                            <h4>🚀 Career Path</h4>
+                            <h4>🚀 ${dict.career}</h4>
                             <p>${universe.careerPath || ''}</p>
                         </div>
 
                         <div class="content-block">
-                            <h4>⏱️ Key Events</h4>
+                            <h4>⏱️ ${dict.events}</h4>
                             <ul>
                                 ${keyEvents.map(event => `<li>${event}</li>`).join('')}
                             </ul>
                         </div>
 
                         <div class="content-block">
-                            <h4>✨ Outcome</h4>
+                            <h4>✨ ${dict.outcome}</h4>
                             <p>${universe.outcome || ''}</p>
                         </div>
                     </div>
@@ -636,6 +1682,9 @@
         function clearError() {
             errorMessage.classList.remove('active');
         }
+
+        // ====== INIT ======
+        applyLanguage('en');
     </script>
 </body>
 </html>
