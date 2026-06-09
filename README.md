@@ -28,4 +28,3 @@ Explore different life possibilities
 Understand how choices can change the future
 Have fun imagining “what could happen”
 
-Installation: curl -fsSL https://raw.githubusercontent.com/klavsy/parallel/main/install.sh | bash
