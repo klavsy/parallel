@@ -6,270 +6,199 @@
 <title>Parallel Universe</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1f4f 25%, #2d0a4e 50%, #1a0033 75%, #0a0e27 100%);
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0a0e27,#1a1f4f,#2d0a4e);
+    color: white;
     min-height: 100vh;
-    color: #e0e0ff;
     padding: 20px;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1), transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(176, 14, 255, 0.1), transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(100, 50, 255, 0.08), transparent 50%);
-    z-index: 0;
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 900px;
     margin: auto;
-    position: relative;
-    z-index: 1;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 40px;
 }
 
 h1 {
-    font-size: 3rem;
-    background: linear-gradient(135deg, #00d9ff, #b00eff);
+    text-align: center;
+    background: linear-gradient(90deg,#00d9ff,#b00eff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-size: 40px;
 }
 
 .input-section {
-    background: rgba(26,31,79,0.6);
-    padding: 25px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    backdrop-filter: blur(10px);
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 12px;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
 }
 
 input, textarea {
+    width: 100%;
+    margin: 8px 0;
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #00d9ff55;
-    background: rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.3);
     color: white;
-    outline: none;
-}
-
-textarea {
-    width: 100%;
-    margin-top: 10px;
-    min-height: 90px;
 }
 
 button {
-    margin-top: 15px;
-    padding: 12px 22px;
-    border-radius: 10px;
+    background: #00d9ff;
     border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    background: #00d9ff;
+    width: 100%;
+    margin-top: 10px;
 }
 
-button:hover {
-    transform: scale(1.03);
+button:hover { opacity: 0.8; }
+
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    margin-top: 15px;
+    border-left: 4px solid #00d9ff;
+    border-radius: 10px;
 }
 
-.loading, .error {
+.loading {
     display: none;
     text-align: center;
-    margin: 15px 0;
+    margin: 15px;
 }
 
-.loading.active, .error.active {
-    display: block;
-}
-
-.results-section {
+.error {
     display: none;
+    background: rgba(255,0,0,0.2);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
 }
-
-.results-section.active {
-    display: block;
-}
-
-.universe-card {
-    background: rgba(255,255,255,0.06);
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    border-left: 4px solid #00d9ff;
-}
-
-.universe-card h3 {
-    color: #00d9ff;
-}
-
 </style>
 </head>
 
 <body>
 
 <div class="container">
-
-<header>
     <h1>✨ Parallel Universe</h1>
-    <p>AI-powered alternate life generator</p>
-</header>
 
-<div class="error" id="errorBox"></div>
+    <div class="input-section">
+        <input id="name" placeholder="Your name">
+        <input id="interests" placeholder="Interests">
+        <input id="situation" placeholder="Current situation">
+        <input id="decision" placeholder="Big decision">
+        <textarea id="details" placeholder="More details"></textarea>
 
-<div class="input-section">
-    <form id="form">
+        <button onclick="generate()">Generate Universes</button>
 
-        <div class="form-grid">
-            <input id="name" placeholder="Your name" required />
-            <input id="interests" placeholder="Interests" required />
-            <input id="situation" placeholder="Current situation" required />
-            <input id="decision" placeholder="Big decision" required />
-        </div>
+        <div class="loading" id="loading">🌌 Generating universes...</div>
+        <div class="error" id="error"></div>
+    </div>
 
-        <textarea id="details" placeholder="Tell more..." required></textarea>
-
-        <button type="submit">Generate Universes</button>
-    </form>
-</div>
-
-<div class="loading" id="loading">
-🌌 Generating your parallel universes...
-</div>
-
-<div class="results-section" id="results">
-    <h2>Your Universes</h2>
-    <div id="cards"></div>
-</div>
-
+    <div id="results"></div>
 </div>
 
 <script>
-
-const API_URL = "https://parallel-backend-wq04.onrender.com/generate";
-
-const form = document.getElementById("form");
-const loading = document.getElementById("loading");
-const results = document.getElementById("results");
-const cards = document.getElementById("cards");
-const errorBox = document.getElementById("errorBox");
+const BACKEND_URL = "https://parallel-backend-wq04.onrender.com/generate";
 
 function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.classList.add("active");
+    const e = document.getElementById("error");
+    e.style.display = "block";
+    e.innerText = msg;
 }
 
 function hideError() {
-    errorBox.classList.remove("active");
+    const e = document.getElementById("error");
+    e.style.display = "none";
 }
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+function setLoading(v) {
+    document.getElementById("loading").style.display = v ? "block" : "none";
+}
+
+async function generate() {
     hideError();
 
+    // FIXED: proper DOM access
     const payload = {
-        name: document.getElementById("name").value.trim(),
-        interests: document.getElementById("interests").value.trim(),
-        situation: document.getElementById("situation").value.trim(),
-        decision: document.getElementById("decision").value.trim(),
-        details: document.getElementById("details").value.trim()
+        name: document.getElementById("name").value,
+        interests: document.getElementById("interests").value,
+        situation: document.getElementById("situation").value,
+        decision: document.getElementById("decision").value,
+        details: document.getElementById("details").value
     };
 
-    if (!payload.name || !payload.interests || !payload.situation || !payload.decision || !payload.details) {
-        showError("Please fill in all fields");
+    if (Object.values(payload).some(v => !v)) {
+        showError("Fill all fields first.");
         return;
     }
 
-    loading.classList.add("active");
-    results.classList.remove("active");
-    cards.innerHTML = "";
+    setLoading(true);
+    document.getElementById("results").innerHTML = "";
 
     try {
-
-        const res = await fetch(API_URL, {
+        const res = await fetch(BACKEND_URL, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
 
         const data = await res.json();
 
-        console.log("Backend response:", data);
-
-        let universes = [];
-
-        if (data.universes && Array.isArray(data.universes)) {
-            universes = data.universes;
+        if (!data.result) {
+            throw new Error("No result from backend");
         }
 
-        else if (typeof data.result === "string") {
-            try {
-                const cleaned = data.result
-                    .replace(/```json/g, "")
-                    .replace(/```/g, "")
-                    .trim();
+        // Gemini returns STRING → must parse JSON inside it
+        let parsed;
 
-                const parsed = JSON.parse(cleaned);
-                universes = parsed.universes || [];
-            } catch (err) {
-                console.error("Parse error:", err);
-            }
+        try {
+            parsed = JSON.parse(data.result);
+        } catch (e) {
+            // fallback extraction
+            const start = data.result.indexOf("[");
+            const end = data.result.lastIndexOf("]") + 1;
+            parsed = JSON.parse(data.result.slice(start, end));
         }
 
-        if (!universes.length) {
-            throw new Error("No universes returned");
-        }
-
-        universes.forEach(u => {
-            const div = document.createElement("div");
-            div.className = "universe-card";
-
-            div.innerHTML = `
-                <h3>${u.title}</h3>
-                <p><b>${u.subtitle}</b></p>
-                <p>${u.description}</p>
-                <p><b>Career:</b> ${u.careerPath}</p>
-                <p><b>Outcome:</b> ${u.outcome}</p>
-                <ul>
-                    ${(u.keyEvents || []).map(e => `<li>${e}</li>`).join("")}
-                </ul>
-            `;
-
-            cards.appendChild(div);
-        });
-
-        results.classList.add("active");
+        render(parsed.universes || parsed);
 
     } catch (err) {
         console.error(err);
-        showError("❌ AI failed to respond. Check backend / Render logs.");
-    } finally {
-        loading.classList.remove("active");
+        showError("Backend error. Check Render logs.");
     }
-});
 
+    setLoading(false);
+}
+
+function render(universes) {
+    const root = document.getElementById("results");
+    root.innerHTML = "";
+
+    universes.forEach((u, i) => {
+        const div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+            <h2>Universe ${i + 1}: ${u.title}</h2>
+            <h4>${u.subtitle || ""}</h4>
+            <p>${u.description || ""}</p>
+            <hr/>
+            <p><b>Career:</b> ${u.careerPath}</p>
+            <p><b>Outcome:</b> ${u.outcome}</p>
+            <ul>
+                ${(u.keyEvents || []).map(e => `<li>${e}</li>`).join("")}
+            </ul>
+        `;
+
+        root.appendChild(div);
+    });
+}
 </script>
 
 </body>
