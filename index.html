@@ -1,86 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Parallel Universe AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parallel Universe</title>
 
 <style>
-/* --- YOUR ORIGINAL STYLES (UNCHANGED FOR SPACE) --- */
-/* (keeping minimal comment so response is readable) */
+/* ================= YOUR ORIGINAL DESIGN (UNCHANGED STYLE CORE) ================= */
 
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #0a0e27 0%, #1a1f4f 25%, #2d0a4e 50%, #1a0033 75%, #0a0e27 100%);
-    min-height:100vh;
-    color:#e0e0ff;
-    padding:20px;
+    min-height: 100vh;
+    color: #e0e0ff;
+    padding: 20px;
 }
 
-.container { max-width:1200px; margin:auto; position:relative; z-index:1; }
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
 
-header { text-align:center; margin-bottom:40px; }
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
 
 h1 {
-    font-size:3em;
-    background: linear-gradient(135deg,#00d9ff,#b00eff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+    font-size: 3em;
+    background: linear-gradient(135deg, #00d9ff, #b00eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .input-section {
     background: rgba(26,31,79,0.6);
-    padding:30px;
-    border-radius:20px;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,217,255,0.3);
+    margin-bottom: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 15px;
 }
 
 input, textarea {
-    width:100%;
-    margin-top:5px;
-    padding:10px;
-    border-radius:10px;
-    border:1px solid #00d9ff;
-    background:rgba(255,255,255,0.05);
-    color:white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,217,255,0.3);
+    background: rgba(255,255,255,0.05);
+    color: white;
 }
 
 button {
-    padding:12px 30px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.btn-generate {
-    background:#00d9ff;
-    color:#000;
+.btn {
+    background: linear-gradient(135deg,#00d9ff,#00a8cc);
+    color: black;
 }
 
-.loading { display:none; text-align:center; margin:20px 0; }
-.loading.active { display:block; }
-
-.spinner {
-    width:40px;height:40px;
-    border:4px solid rgba(255,255,255,0.2);
-    border-top:4px solid #00d9ff;
-    border-radius:50%;
-    margin:auto;
-    animation:spin 1s linear infinite;
+.results {
+    margin-top: 30px;
 }
 
-@keyframes spin { 100% { transform:rotate(360deg); } }
+.card {
+    background: rgba(26,31,79,0.7);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #00d9ff;
+    animation: fadeIn 0.5s ease;
+}
 
-.results-section { display:none; margin-top:30px; }
-.results-section.active { display:block; }
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(10px);}
+    to {opacity:1; transform:translateY(0);}
+}
 
-.universe-card {
-    background: rgba(255,255,255,0.05);
-    padding:20px;
-    margin:15px 0;
-    border-left:4px solid #00d9ff;
-    border-radius:10px;
+.loading {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
 }
 </style>
 </head>
@@ -90,43 +106,35 @@ button {
 <div class="container">
 
 <header>
-    <h1>✨ Parallel Universe AI ✨</h1>
+    <h1>✨ Parallel Universe</h1>
     <p>AI generates your alternate life paths</p>
 </header>
 
 <div class="input-section">
-    <form id="inputForm">
 
-        <input id="name" placeholder="Your Name" required />
-        <input id="interests" placeholder="Interests (tech, music...)" required />
-        <input id="situation" placeholder="Current situation" required />
-        <input id="decision" placeholder="Big decision" required />
-        <textarea id="details" placeholder="More details..." required></textarea>
+    <form id="form">
 
-        <br/><br/>
+        <div class="form-grid">
+            <input id="name" placeholder="Your name" required>
+            <input id="interests" placeholder="Your interests" required>
+            <input id="situation" placeholder="Current situation" required>
+            <input id="decision" placeholder="Big decision" required>
+        </div>
 
-        <button class="btn-generate" type="submit">
-            Generate Universes
-        </button>
+        <br>
+
+        <textarea id="details" placeholder="Tell more..." required></textarea>
+
+        <br><br>
+
+        <button class="btn" type="submit">Generate Universes</button>
 
     </form>
 </div>
 
-<div class="loading" id="loading">
-    <div class="spinner"></div>
-    <p>AI is thinking...</p>
-</div>
+<div class="loading" id="loading">Generating your universes...</div>
 
-<div class="results-section" id="results">
-
-    <h2>🌌 Your Parallel Universes</h2>
-
-    <div id="output"></div>
-
-    <br/>
-    <button onclick="location.reload()">Try Again</button>
-
-</div>
+<div class="results" id="results"></div>
 
 </div>
 
@@ -134,26 +142,15 @@ button {
 
 const BACKEND_URL = "https://parallel-backend-wq04.onrender.com";
 
-const form = document.getElementById("inputForm");
+const form = document.getElementById("form");
 const loading = document.getElementById("loading");
-const resultsSection = document.getElementById("resultsSection");
-const universesContainer = document.getElementById("universesContainer");
-const errorMessage = document.getElementById("errorMessage");
-const submitBtn = document.querySelector(".btn-generate");
-
-const loadingTexts = [
-    "Scanning parallel timelines...",
-    "Calculating probability branches...",
-    "Simulating alternate life paths...",
-    "Consulting multiverse engine...",
-    "Almost there..."
-];
-
-let loadingInterval;
+const results = document.getElementById("results");
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    clearError();
+
+    loading.style.display = "block";
+    results.innerHTML = "";
 
     const data = {
         name: document.getElementById("name").value,
@@ -163,133 +160,45 @@ form.addEventListener("submit", async (e) => {
         details: document.getElementById("details").value
     };
 
-    startLoadingState();
-
     try {
-        const universes = await callAI(data);
+        const res = await fetch(`${BACKEND_URL}/generate`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
 
-        stopLoadingState();
-        renderUniversesWithAnimation(universes);
+        const json = await res.json();
 
-        resultsSection.classList.add("active");
+        let text = json.result;
 
-        // smooth scroll
-        setTimeout(() => {
-            resultsSection.scrollIntoView({ behavior: "smooth" });
-        }, 200);
+        // remove markdown if backend returns it
+        text = text.replace(/```json|```/g, "");
+
+        const parsed = JSON.parse(text);
+
+        loading.style.display = "none";
+
+        parsed.universes.forEach(u => {
+            const div = document.createElement("div");
+            div.className = "card";
+
+            div.innerHTML = `
+                <h3>${u.title}</h3>
+                <p><b>${u.subtitle}</b></p>
+                <p>${u.description}</p>
+                <hr>
+                <p><b>Outcome:</b> ${u.outcome}</p>
+            `;
+
+            results.appendChild(div);
+        });
 
     } catch (err) {
+        loading.style.display = "none";
+        results.innerHTML = "<p style='color:red'>Error connecting to AI backend.</p>";
         console.error(err);
-        stopLoadingState();
-        showError("Backend connection failed. Try again.");
     }
 });
-
-
-// ================= AI CALL =================
-async function callAI(data) {
-
-    const res = await fetch(`${BACKEND_URL}/generate`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
-
-    if (!res.ok) {
-        throw new Error("Server error: " + res.status);
-    }
-
-    const result = await res.json();
-
-    const cleaned = result.result.replace(/```json|```/g, "").trim();
-
-    return JSON.parse(cleaned).universes;
-}
-
-
-// ================= UX LOADING =================
-function startLoadingState() {
-    loading.classList.add("active");
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = "0.6";
-
-    let i = 0;
-    const loadingText = document.querySelector(".loading-text");
-
-    loadingText.textContent = loadingTexts[0];
-
-    loadingInterval = setInterval(() => {
-        i = (i + 1) % loadingTexts.length;
-        loadingText.textContent = loadingTexts[i];
-    }, 1200);
-}
-
-function stopLoadingState() {
-    loading.classList.remove("active");
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = "1";
-
-    clearInterval(loadingInterval);
-}
-
-
-// ================= RENDER WITH ANIMATION =================
-function renderUniversesWithAnimation(universes) {
-
-    universesContainer.innerHTML = "";
-
-    universes.forEach((u, i) => {
-
-        const card = document.createElement("div");
-        card.className = "universe-card";
-        card.style.opacity = "0";
-        card.style.transform = "translateY(20px)";
-
-        card.innerHTML = `
-            <div class="universe-header">
-                <div class="universe-number">${i + 1}</div>
-                <div class="universe-title">
-                    <h3>${u.title}</h3>
-                    <p>${u.careerPath || ""}</p>
-                </div>
-            </div>
-
-            <div class="universe-content">
-                <div class="content-block">
-                    <h4>📖 Story</h4>
-                    <p>${u.description}</p>
-                </div>
-
-                <div class="content-block">
-                    <h4>✨ Outcome</h4>
-                    <p>${u.outcome}</p>
-                </div>
-            </div>
-        `;
-
-        universesContainer.appendChild(card);
-
-        // stagger animation (important UX upgrade)
-        setTimeout(() => {
-            card.style.transition = "all 0.6s ease";
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-        }, i * 200);
-    });
-}
-
-
-// ================= ERROR HANDLING =================
-function showError(msg) {
-    errorMessage.textContent = msg;
-    errorMessage.classList.add("active");
-}
-
-function clearError() {
-    errorMessage.classList.remove("active");
-}
 
 </script>
 
