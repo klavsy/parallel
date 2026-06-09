@@ -4,13 +4,441 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parallel Universe</title>
-
-    <!-- KEEP ALL YOUR EXISTING CSS EXACTLY AS IT WAS -->
     <style>
-        /* YOUR EXISTING CSS HERE (UNCHANGED) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f4f 25%, #2d0a4e 50%, #1a0033 75%, #0a0e27 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #e0e0ff;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(176, 14, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(100, 50, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: shimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d9ff, #b00eff, #00d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #b0a8ff;
+            margin-bottom: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(176, 14, 255, 0.2);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(0, 217, 255, 0.5), 0 0 60px rgba(176, 14, 255, 0.4);
+            }
+        }
+
+        .input-section {
+            background: rgba(26, 31, 79, 0.6);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .input-section h2 {
+            color: #00d9ff;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #00d9ff;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input, textarea {
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1.5px solid rgba(0, 217, 255, 0.4);
+            border-radius: 10px;
+            color: #e0e0ff;
+            font-family: inherit;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #00d9ff;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 14px 40px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #00d9ff, #00a8cc);
+            color: #0a0e27;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 217, 255, 0.6);
+        }
+
+        .btn-generate:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-reset {
+            background: rgba(176, 14, 255, 0.2);
+            color: #b00eff;
+            border: 2px solid #b00eff;
+        }
+
+        .btn-reset:hover {
+            background: rgba(176, 14, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(176, 14, 255, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-section {
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .results-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #b00eff, #00d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .universes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .universe-card {
+            background: rgba(26, 31, 79, 0.7);
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
+            transition: all 0.4s ease;
+            animation: cardPop 0.6s ease-out both;
+        }
+
+        .universe-card:nth-child(1) {
+            animation-delay: 0.1s;
+            border-left: 5px solid #00d9ff;
+        }
+
+        .universe-card:nth-child(2) {
+            animation-delay: 0.2s;
+            border-left: 5px solid #b00eff;
+        }
+
+        .universe-card:nth-child(3) {
+            animation-delay: 0.3s;
+            border-left: 5px solid #ff00d9;
+        }
+
+        .universe-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 217, 255, 0.6);
+            box-shadow: 0 15px 50px rgba(0, 217, 255, 0.2);
+        }
+
+        @keyframes cardPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .universe-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .universe-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00d9ff, #b00eff);
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #0a0e27;
+        }
+
+        .universe-title {
+            flex: 1;
+        }
+
+        .universe-title h3 {
+            font-size: 1.5em;
+            color: #00d9ff;
+            margin-bottom: 5px;
+        }
+
+        .universe-title p {
+            color: #b0a8ff;
+            font-size: 0.9em;
+        }
+
+        .universe-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .content-block {
+            border-left: 3px solid rgba(0, 217, 255, 0.4);
+            padding-left: 15px;
+        }
+
+        .content-block h4 {
+            color: #00d9ff;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .content-block p {
+            color: #d0d0ff;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .content-block ul {
+            list-style: none;
+            color: #d0d0ff;
+            line-height: 1.8;
+        }
+
+        .content-block li::before {
+            content: "→ ";
+            color: #00d9ff;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(0, 217, 255, 0.2);
+            border-top: 4px solid #00d9ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #00d9ff;
+            font-size: 1.1em;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .error-message {
+            background: rgba(255, 100, 100, 0.1);
+            border: 2px solid #ff6464;
+            color: #ff9999;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+            animation: shake 0.5s ease-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #6a6a8f;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .input-section {
+                padding: 25px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-title {
+                font-size: 1.8em;
+            }
+
+            .universes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
-
 <body>
     <div class="container">
         <header>
@@ -22,35 +450,29 @@
 
         <div class="input-section">
             <h2>Tell Me About Yourself</h2>
-
             <form id="inputForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>Your Name</label>
-                        <input type="text" id="name" required>
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="e.g., Alex" required>
                     </div>
-
                     <div class="form-group">
-                        <label>Interests</label>
-                        <input type="text" id="interests" required>
+                        <label for="interests">Your Interests</label>
+                        <input type="text" id="interests" placeholder="e.g., technology, music, sports" required>
                     </div>
-
                     <div class="form-group">
-                        <label>Situation</label>
-                        <input type="text" id="situation" required>
+                        <label for="situation">Current Situation</label>
+                        <input type="text" id="situation" placeholder="e.g., student, working in tech, freelancer" required>
                     </div>
-
                     <div class="form-group">
-                        <label>Decision</label>
-                        <input type="text" id="decision" required>
+                        <label for="decision">Big Life Decision</label>
+                        <input type="text" id="decision" placeholder="e.g., change careers, move abroad, start a business" required>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label>Details</label>
-                    <textarea id="details" required></textarea>
+                    <label for="details">Tell me more about your situation</label>
+                    <textarea id="details" placeholder="Provide more context to make your universes more personalized..." required></textarea>
                 </div>
-
                 <div class="button-container">
                     <button type="submit" class="btn-generate">Generate Universes</button>
                     <button type="reset" class="btn-reset">Clear</button>
@@ -66,10 +488,18 @@
         <div class="results-section" id="resultsSection">
             <h2 class="results-title">Your 3 Parallel Universes</h2>
             <div class="universes-grid" id="universesContainer"></div>
+            <div class="button-container">
+                <button class="btn-generate" onclick="scrollToForm()">Generate New Universes</button>
+            </div>
         </div>
+
+        <footer>
+            <p>🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌</p>
+        </footer>
     </div>
 
     <script>
+        // Parallel Universe Logic
         const form = document.getElementById('inputForm');
         const loading = document.getElementById('loading');
         const resultsSection = document.getElementById('resultsSection');
@@ -78,7 +508,6 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-
             clearError();
 
             const name = document.getElementById('name').value.trim();
@@ -87,80 +516,244 @@
             const decision = document.getElementById('decision').value.trim();
             const details = document.getElementById('details').value.trim();
 
+            // Validation
             if (!name || !interests || !situation || !decision || !details) {
-                showError("Please fill all fields");
+                showError('Please fill in all fields');
                 return;
             }
 
-            loading.classList.add("active");
-            resultsSection.classList.remove("active");
+            // Show loading state
+            loading.classList.add('active');
+            resultsSection.classList.remove('active');
 
-            try {
-                const res = await fetch("/api/generate", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name,
-                        interests,
-                        situation,
-                        decision,
-                        details
-                    })
-                });
-
-                const universes = await res.json();
-
-                loading.classList.remove("active");
-                displayUniverses(universes);
-                resultsSection.classList.add("active");
-
-                scrollToResults();
-
-            } catch (err) {
-                loading.classList.remove("active");
-                showError("AI server not reachable. Check backend.");
-            }
+            // Simulate API call with timeout
+            setTimeout(() => {
+                generateUniverses(name, interests, situation, decision, details);
+            }, 2000);
         });
 
-        function displayUniverses(universes) {
-            universesContainer.innerHTML = "";
+        function generateUniverses(name, interests, situation, decision, details) {
+            loading.classList.remove('active');
 
-            universes.forEach(u => {
-                const card = document.createElement("div");
-                card.className = "universe-card";
+            const universes = [
+                generateUniverseOne(name, interests, situation, decision, details),
+                generateUniverseTwo(name, interests, situation, decision, details),
+                generateUniverseThree(name, interests, situation, decision, details)
+            ];
+
+            displayUniverses(universes);
+            resultsSection.classList.add('active');
+            scrollToResults();
+        }
+
+        function generateUniverseOne(name, interests, situation, decision, details) {
+            const decisions = decision.toLowerCase();
+            const isCareerChange = decisions.includes('career') || decisions.includes('job');
+            const isRelocation = decisions.includes('move') || decisions.includes('abroad');
+            const isBusiness = decisions.includes('business') || decisions.includes('startup');
+
+            let careerPath, keyEvents, outcome;
+
+            if (isCareerChange) {
+                careerPath = `Master of ${interests.split(',')[0].trim()} Industry`;
+                keyEvents = [
+                    `2 years: Complete certification in ${interests.split(',')[0].trim()}`,
+                    '5 years: Land leadership role at top company',
+                    '10 years: Become recognized expert and thought leader',
+                    'Key Achievement: Published influential guide in the field'
+                ];
+                outcome = `${name} becomes a respected authority, earning 2-3x their original salary with global recognition. High satisfaction but requires continuous learning.`;
+            } else if (isRelocation) {
+                careerPath = 'International Professional';
+                keyEvents = [
+                    'Year 1: Successfully relocate and adapt to new culture',
+                    'Year 3: Build strong professional network abroad',
+                    'Year 7: Lead international projects',
+                    'Key Achievement: Bridge cultural and professional gaps'
+                ];
+                outcome = `${name} thrives in a global environment, gaining valuable international experience. Opens doors to worldwide opportunities and personal growth.`;
+            } else if (isBusiness) {
+                careerPath = 'Successful Entrepreneur';
+                keyEvents = [
+                    'Month 1-6: Launch business with careful planning',
+                    'Year 2: Break even and gain first major clients',
+                    'Year 5: Expand team to 15+ employees',
+                    'Key Achievement: Featured in industry publications'
+                ];
+                outcome = `${name}'s business becomes profitable and sustainable. Financial independence achieved with the freedom to shape their own destiny.`;
+            } else {
+                careerPath = 'Dedicated Professional';
+                keyEvents = [
+                    'Year 2: Earn promotion and expanded responsibilities',
+                    'Year 5: Reach mid-level management',
+                    'Year 10: Achieve senior position',
+                    'Key Achievement: Mentor rising professionals'
+                ];
+                outcome = `${name} progresses steadily through their field, building expertise and influence. Stable income and work-life balance achieved.`;
+            }
+
+            return {
+                number: 1,
+                title: 'Universe Alpha',
+                subtitle: 'The Bold Path',
+                description: `In this timeline, ${name} embraces the decision wholeheartedly and takes calculated risks.`,
+                careerPath,
+                keyEvents,
+                outcome
+            };
+        }
+
+        function generateUniverseTwo(name, interests, situation, decision, details) {
+            const decisions = decision.toLowerCase();
+            const isCareerChange = decisions.includes('career') || decisions.includes('job');
+            const isRelocation = decisions.includes('move') || decisions.includes('abroad');
+            const isBusiness = decisions.includes('business') || decisions.includes('startup');
+
+            let careerPath, keyEvents, outcome;
+
+            if (isCareerChange) {
+                careerPath = 'Hybrid Career Path';
+                keyEvents = [
+                    'Year 1: Start transition while keeping current job',
+                    'Year 3: Achieve work-life balance with multiple income streams',
+                    'Year 6: Establish personal brand in new field',
+                    'Key Achievement: Financial stability and passion alignment'
+                ];
+                outcome = `${name} masterfully balances their original career with their passion for ${interests.split(',')[0].trim()}. Creates unique opportunities by combining both worlds.`;
+            } else if (isRelocation) {
+                careerPath = 'Remote Global Worker';
+                keyEvents = [
+                    'Year 1: Transition to remote work while traveling',
+                    'Year 2: Settle in dream location',
+                    'Year 5: Build location-independent business',
+                    'Key Achievement: True work-life harmony'
+                ];
+                outcome = `${name} achieves geographic freedom while maintaining income stability. Lives in dream location with flexibility and adventure.`;
+            } else if (isBusiness) {
+                careerPath = 'Side Hustle Entrepreneur';
+                keyEvents = [
+                    'Year 1: Build business as side project',
+                    'Year 3: Reach $50k annual revenue from side hustle',
+                    'Year 5: Maintain stability while growing passively',
+                    'Key Achievement: Extra income without full risk'
+                ];
+                outcome = `${name} creates a sustainable side business that generates passive income. Maintains job security while pursuing entrepreneurial dreams.`;
+            } else {
+                careerPath = 'Intentional Climber';
+                keyEvents = [
+                    'Year 2: Strategic moves within organization',
+                    'Year 4: Leadership in specific niche',
+                    'Year 8: Executive influence',
+                    'Key Achievement: Respected mentor and strategist'
+                ];
+                outcome = `${name} rises thoughtfully through ranks, making strategic decisions. Builds respected reputation and healthy career trajectory.`;
+            }
+
+            return {
+                number: 2,
+                title: 'Universe Beta',
+                subtitle: 'The Balanced Path',
+                description: `In this timeline, ${name} takes a measured approach, balancing ambition with stability.`,
+                careerPath,
+                keyEvents,
+                outcome
+            };
+        }
+
+        function generateUniverseThree(name, interests, situation, decision, details) {
+            const decisions = decision.toLowerCase();
+            const isCareerChange = decisions.includes('career') || decisions.includes('job');
+            const isRelocation = decisions.includes('move') || decisions.includes('abroad');
+            const isBusiness = decisions.includes('business') || decisions.includes('startup');
+
+            let careerPath, keyEvents, outcome;
+
+            if (isCareerChange) {
+                careerPath = 'Deep Expertise Specialist';
+                keyEvents = [
+                    'Year 3: Become irreplaceable in current role',
+                    'Year 7: Recognized expert within organization',
+                    'Year 12: Highest salary tier without career jump',
+                    'Key Achievement: Mastery and deep fulfillment'
+                ];
+                outcome = `${name} masters their current field, becoming the go-to expert. Stays in comfort zone but achieves deep satisfaction and respect. Steady, secure future.`;
+            } else if (isRelocation) {
+                careerPath = 'Local Community Leader';
+                keyEvents = [
+                    'Year 1: Deepen roots in current community',
+                    'Year 4: Leadership in local organizations',
+                    'Year 8: Strong community impact and influence',
+                    'Key Achievement: Deep local network and belonging'
+                ];
+                outcome = `${name} builds strong roots locally, becoming integral to their community. Creates meaningful relationships and lasting local impact.`;
+            } else if (isBusiness) {
+                careerPath = 'Corporate Stability Path';
+                keyEvents = [
+                    'Year 1-10: Climb corporate ladder steadily',
+                    'Year 15: Executive or C-suite position',
+                    'Ongoing: Stable six-figure income',
+                    'Key Achievement: Financial security and prestige'
+                ];
+                outcome = `${name} pursues traditional corporate success. Achieves financial security, prestige, and comfortable lifestyle, but forgoes entrepreneurial independence.`;
+            } else {
+                careerPath = 'Specialized Master';
+                keyEvents = [
+                    'Year 3: Become go-to expert in specific niche',
+                    'Year 6: Premium pricing for specialized services',
+                    'Year 10: Legendary status in field',
+                    'Key Achievement: Unmatched expertise'
+                ];
+                outcome = `${name} becomes the ultimate specialist, commanding premium rates and respect. Chooses depth over breadth, achieving mastery in their niche.`;
+            }
+
+            return {
+                number: 3,
+                title: 'Universe Gamma',
+                subtitle: 'The Steady Path',
+                description: `In this timeline, ${name} stays the course, optimizing their current path for long-term success.`,
+                careerPath,
+                keyEvents,
+                outcome
+            };
+        }
+
+        function displayUniverses(universes) {
+            universesContainer.innerHTML = '';
+
+            universes.forEach((universe) => {
+                const card = document.createElement('div');
+                card.className = 'universe-card';
 
                 card.innerHTML = `
                     <div class="universe-header">
-                        <div class="universe-number">${u.number}</div>
+                        <div class="universe-number">${universe.number}</div>
                         <div class="universe-title">
-                            <h3>${u.title}</h3>
-                            <p>${u.subtitle}</p>
+                            <h3>${universe.title}</h3>
+                            <p>${universe.subtitle}</p>
                         </div>
                     </div>
 
                     <div class="universe-content">
                         <div class="content-block">
-                            <h4>Story</h4>
-                            <p>${u.description}</p>
+                            <h4>📖 The Story</h4>
+                            <p>${universe.description}</p>
                         </div>
 
                         <div class="content-block">
-                            <h4>Career Path</h4>
-                            <p>${u.careerPath}</p>
+                            <h4>🚀 Career Path</h4>
+                            <p>${universe.careerPath}</p>
                         </div>
 
                         <div class="content-block">
-                            <h4>Key Events</h4>
+                            <h4>⏱️ Key Events (10 Years)</h4>
                             <ul>
-                                ${u.keyEvents.map(e => `<li>${e}</li>`).join("")}
+                                ${universe.keyEvents.map(event => `<li>${event}</li>`).join('')}
                             </ul>
                         </div>
 
                         <div class="content-block">
-                            <h4>Outcome</h4>
-                            <p>${u.outcome}</p>
+                            <h4>✨ Outcome</h4>
+                            <p>${universe.outcome}</p>
                         </div>
                     </div>
                 `;
@@ -170,16 +763,26 @@
         }
 
         function scrollToResults() {
-            resultsSection.scrollIntoView({ behavior: "smooth" });
+            setTimeout(() => {
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
         }
 
-        function showError(msg) {
-            errorMessage.textContent = msg;
-            errorMessage.classList.add("active");
+        function scrollToForm() {
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            form.reset();
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('active');
+            setTimeout(() => {
+                errorMessage.classList.remove('active');
+            }, 5000);
         }
 
         function clearError() {
-            errorMessage.classList.remove("active");
+            errorMessage.classList.remove('active');
         }
     </script>
 </body>
