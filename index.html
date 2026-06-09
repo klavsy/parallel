@@ -43,6 +43,11 @@ input, textarea {
     border: 1px solid #00d9ff55;
     background: rgba(0,0,0,0.3);
     color: white;
+    box-sizing: border-box;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 button {
@@ -54,30 +59,73 @@ button {
     font-weight: bold;
     width: 100%;
     margin-top: 10px;
+    color: #0a0e27;
+    transition: opacity 0.3s;
 }
 
-button:hover { opacity: 0.8; }
+button:hover { 
+    opacity: 0.8; 
+}
+
+button:active {
+    opacity: 0.6;
+}
 
 .card {
     background: rgba(255,255,255,0.05);
-    padding: 15px;
+    padding: 20px;
     margin-top: 15px;
     border-left: 4px solid #00d9ff;
     border-radius: 10px;
+}
+
+.card h2 {
+    margin-top: 0;
+    background: linear-gradient(90deg,#00d9ff,#b00eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card h4 {
+    margin: 5px 0;
+    color: #b00eff;
+}
+
+.card ul {
+    padding-left: 20px;
+}
+
+.card li {
+    margin: 8px 0;
 }
 
 .loading {
     display: none;
     text-align: center;
     margin: 15px;
+    font-size: 18px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
 .error {
     display: none;
     background: rgba(255,0,0,0.2);
-    padding: 10px;
+    padding: 12px;
     margin-top: 10px;
     border-radius: 10px;
+    border-left: 4px solid #ff6b6b;
+    color: #ff9999;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid rgba(0, 217, 255, 0.3);
+    margin: 15px 0;
 }
 </style>
 </head>
@@ -88,11 +136,11 @@ button:hover { opacity: 0.8; }
     <h1>✨ Parallel Universe</h1>
 
     <div class="input-section">
-        <input id="name" placeholder="Your name">
-        <input id="interests" placeholder="Interests">
-        <input id="situation" placeholder="Current situation">
-        <input id="decision" placeholder="Big decision">
-        <textarea id="details" placeholder="More details"></textarea>
+        <input id="name" placeholder="Your name" type="text">
+        <input id="interests" placeholder="Interests" type="text">
+        <input id="situation" placeholder="Current situation" type="text">
+        <input id="decision" placeholder="Big decision" type="text">
+        <textarea id="details" placeholder="More details" rows="4"></textarea>
 
         <button onclick="generate()">Generate Universes</button>
 
@@ -124,17 +172,18 @@ function setLoading(v) {
 async function generate() {
     hideError();
 
-    // FIXED: proper DOM access
+    // Get form values
     const payload = {
-        name: document.getElementById("name").value,
-        interests: document.getElementById("interests").value,
-        situation: document.getElementById("situation").value,
-        decision: document.getElementById("decision").value,
-        details: document.getElementById("details").value
+        name: document.getElementById("name").value.trim(),
+        interests: document.getElementById("interests").value.trim(),
+        situation: document.getElementById("situation").value.trim(),
+        decision: document.getElementById("decision").value.trim(),
+        details: document.getElementById("details").value.trim()
     };
 
+    // Validate all fields are filled
     if (Object.values(payload).some(v => !v)) {
-        showError("Fill all fields first.");
+        showError("❌ Please fill all fields first.");
         return;
     }
 
@@ -148,29 +197,22 @@ async function generate() {
             body: JSON.stringify(payload)
         });
 
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
         const data = await res.json();
 
-        if (!data.result) {
-            throw new Error("No result from backend");
+        // Backend sends { universes: [...] }
+        if (!data.universes || !Array.isArray(data.universes)) {
+            throw new Error("Invalid response format from backend");
         }
 
-        // Gemini returns STRING → must parse JSON inside it
-        let parsed;
-
-        try {
-            parsed = JSON.parse(data.result);
-        } catch (e) {
-            // fallback extraction
-            const start = data.result.indexOf("[");
-            const end = data.result.lastIndexOf("]") + 1;
-            parsed = JSON.parse(data.result.slice(start, end));
-        }
-
-        render(parsed.universes || parsed);
+        render(data.universes);
 
     } catch (err) {
-        console.error(err);
-        showError("Backend error. Check Render logs.");
+        console.error("Error:", err);
+        showError(`⚠️ ${err.message || "Backend error. Check your server is running."}`);
     }
 
     setLoading(false);
@@ -180,25 +222,42 @@ function render(universes) {
     const root = document.getElementById("results");
     root.innerHTML = "";
 
+    if (!universes || universes.length === 0) {
+        showError("No universes generated. Try again.");
+        return;
+    }
+
     universes.forEach((u, i) => {
         const div = document.createElement("div");
         div.className = "card";
 
+        const keyEventsHtml = (u.keyEvents || []).length > 0
+            ? `<ul>${u.keyEvents.map(e => `<li>${e}</li>`).join("")}</ul>`
+            : "<p><em>No key events</em></p>";
+
         div.innerHTML = `
-            <h2>Universe ${i + 1}: ${u.title}</h2>
-            <h4>${u.subtitle || ""}</h4>
+            <h2>Universe ${i + 1}: ${u.title || "Unknown"}</h2>
+            ${u.subtitle ? `<h4>${u.subtitle}</h4>` : ""}
             <p>${u.description || ""}</p>
             <hr/>
-            <p><b>Career:</b> ${u.careerPath}</p>
-            <p><b>Outcome:</b> ${u.outcome}</p>
-            <ul>
-                ${(u.keyEvents || []).map(e => `<li>${e}</li>`).join("")}
-            </ul>
+            <p><b>Career Path:</b> ${u.careerPath || "N/A"}</p>
+            <p><b>Outcome:</b> ${u.outcome || "N/A"}</p>
+            <b>Key Events:</b>
+            ${keyEventsHtml}
         `;
 
         root.appendChild(div);
     });
 }
+
+// Allow Enter key to submit
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("details").addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key === "Enter") {
+            generate();
+        }
+    });
+});
 </script>
 
 </body>
