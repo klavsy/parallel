@@ -50,3 +50,9 @@ Your choices create parallel futures. This app lets you explore them.
 - Save and compare timelines  
 - Share universes with others  
 - Visual timeline improvements  
+
+---
+
+## Footer
+
+Built as part of the Microsoft Hackathon 2026 project.
