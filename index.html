@@ -90,7 +90,7 @@ button {
 }
 
 button:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
 }
 
 .loading, .error {
@@ -122,6 +122,7 @@ button:hover {
 .universe-card h3 {
     color: #00d9ff;
 }
+
 </style>
 </head>
 
@@ -131,33 +132,33 @@ button:hover {
 
 <header>
     <h1>✨ Parallel Universe</h1>
-    <p>AI-powered life path generator</p>
+    <p>AI-powered alternate life generator</p>
 </header>
 
-<div class="error" id="error"></div>
+<div class="error" id="errorBox"></div>
 
 <div class="input-section">
     <form id="form">
 
         <div class="form-grid">
-            <input id="name" placeholder="Your name" />
-            <input id="interests" placeholder="Interests" />
-            <input id="situation" placeholder="Current situation" />
-            <input id="decision" placeholder="Big decision" />
+            <input id="name" placeholder="Your name" required />
+            <input id="interests" placeholder="Interests" required />
+            <input id="situation" placeholder="Current situation" required />
+            <input id="decision" placeholder="Big decision" required />
         </div>
 
-        <textarea id="details" placeholder="Tell more about your situation..."></textarea>
+        <textarea id="details" placeholder="Tell more..." required></textarea>
 
         <button type="submit">Generate Universes</button>
     </form>
 </div>
 
 <div class="loading" id="loading">
-🌌 AI is scanning alternate timelines...
+🌌 Generating your parallel universes...
 </div>
 
 <div class="results-section" id="results">
-    <h2>Your Parallel Futures</h2>
+    <h2>Your Universes</h2>
     <div id="cards"></div>
 </div>
 
@@ -165,120 +166,109 @@ button:hover {
 
 <script>
 
-const API = "https://parallel-backend-wq04.onrender.com/generate";
+const API_URL = "https://parallel-backend-wq04.onrender.com/generate";
 
 const form = document.getElementById("form");
 const loading = document.getElementById("loading");
 const results = document.getElementById("results");
 const cards = document.getElementById("cards");
-const error = document.getElementById("error");
+const errorBox = document.getElementById("errorBox");
 
-/* ================= SUBMIT ================= */
+function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.add("active");
+}
+
+function hideError() {
+    errorBox.classList.remove("active");
+}
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    error.classList.remove("active");
+    hideError();
 
     const payload = {
-        name: name.value.trim(),
-        interests: interests.value.trim(),
-        situation: situation.value.trim(),
-        decision: decision.value.trim(),
-        details: details.value.trim()
+        name: document.getElementById("name").value.trim(),
+        interests: document.getElementById("interests").value.trim(),
+        situation: document.getElementById("situation").value.trim(),
+        decision: document.getElementById("decision").value.trim(),
+        details: document.getElementById("details").value.trim()
     };
 
     if (!payload.name || !payload.interests || !payload.situation || !payload.decision || !payload.details) {
-        showError("Please fill all fields");
+        showError("Please fill in all fields");
         return;
     }
 
     loading.classList.add("active");
     results.classList.remove("active");
+    cards.innerHTML = "";
 
     try {
 
-        const res = await fetch(API, {
+        const res = await fetch(API_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(payload)
         });
 
         const data = await res.json();
 
-        console.log("Backend:", data);
+        console.log("Backend response:", data);
 
-        const universes = parse(data);
+        let universes = [];
 
-        if (!universes.length) throw new Error("No universes");
+        if (data.universes && Array.isArray(data.universes)) {
+            universes = data.universes;
+        }
 
-        render(universes);
+        else if (typeof data.result === "string") {
+            try {
+                const cleaned = data.result
+                    .replace(/```json/g, "")
+                    .replace(/```/g, "")
+                    .trim();
+
+                const parsed = JSON.parse(cleaned);
+                universes = parsed.universes || [];
+            } catch (err) {
+                console.error("Parse error:", err);
+            }
+        }
+
+        if (!universes.length) {
+            throw new Error("No universes returned");
+        }
+
+        universes.forEach(u => {
+            const div = document.createElement("div");
+            div.className = "universe-card";
+
+            div.innerHTML = `
+                <h3>${u.title}</h3>
+                <p><b>${u.subtitle}</b></p>
+                <p>${u.description}</p>
+                <p><b>Career:</b> ${u.careerPath}</p>
+                <p><b>Outcome:</b> ${u.outcome}</p>
+                <ul>
+                    ${(u.keyEvents || []).map(e => `<li>${e}</li>`).join("")}
+                </ul>
+            `;
+
+            cards.appendChild(div);
+        });
 
         results.classList.add("active");
 
     } catch (err) {
         console.error(err);
-        showError("AI failed to generate response. Check backend.");
+        showError("❌ AI failed to respond. Check backend / Render logs.");
     } finally {
         loading.classList.remove("active");
     }
 });
-
-/* ================= PARSER ================= */
-
-function parse(data) {
-
-    if (data.universes && Array.isArray(data.universes)) {
-        return data.universes;
-    }
-
-    if (typeof data.result === "string") {
-        try {
-            let cleaned = data.result
-                .replace(/```json/g, "")
-                .replace(/```/g, "")
-                .trim();
-
-            const parsed = JSON.parse(cleaned);
-            return parsed.universes || [];
-        } catch (e) {
-            console.log("Parse error");
-        }
-    }
-
-    return [];
-}
-
-/* ================= RENDER ================= */
-
-function render(universes) {
-    cards.innerHTML = "";
-
-    universes.forEach(u => {
-        const div = document.createElement("div");
-
-        div.className = "universe-card";
-
-        div.innerHTML = `
-            <h3>${u.title}</h3>
-            <p><b>${u.subtitle}</b></p>
-            <p>${u.description}</p>
-            <p><b>Career:</b> ${u.careerPath}</p>
-            <p><b>Outcome:</b> ${u.outcome}</p>
-            <ul>
-                ${(u.keyEvents || []).map(e => `<li>${e}</li>`).join("")}
-            </ul>
-        `;
-
-        cards.appendChild(div);
-    });
-}
-
-/* ================= ERROR ================= */
-
-function showError(msg) {
-    error.textContent = msg;
-    error.classList.add("active");
-}
 
 </script>
 
