@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0a0e27">
     <title>Parallel Universe</title>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x4vwylrc97");
+</script>
     <style>
         * {
             margin: 0;
@@ -33,6 +40,20 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Slow flowing animated background (toggleable) */
+        body.dynamic-bg {
+            background: linear-gradient(135deg, #0a0e27, #1a1f4f, #2d0a4e, #1a0033, #0d2847, #2d0a4e, #0a0e27);
+            background-size: 300% 300%;
+            background-attachment: fixed;
+            animation: bgFlow 30s ease infinite;
+        }
+
+        @keyframes bgFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Animated background */
@@ -113,7 +134,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 10px 18px;
             margin-bottom: 30px;
         }
 
@@ -143,6 +165,60 @@
         .lang-select option {
             background: #1a1f4f;
             color: #e0e0ff;
+        }
+
+        /* Animated-background toggle switch */
+        .bg-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: #b0a8ff;
+            font-size: 0.9em;
+            user-select: none;
+        }
+
+        .bg-toggle input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-track {
+            position: relative;
+            width: 46px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(0, 217, 255, 0.4);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background: #b0a8ff;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .bg-toggle input:checked + .toggle-track {
+            background: linear-gradient(135deg, #00d9ff, #b00eff);
+            border-color: #00d9ff;
+        }
+
+        .bg-toggle input:checked + .toggle-track .toggle-thumb {
+            left: 24px;
+            background: #ffffff;
+        }
+
+        .bg-toggle input:focus-visible + .toggle-track {
+            box-shadow: 0 0 12px rgba(0, 217, 255, 0.5);
         }
 
         .input-section {
@@ -409,6 +485,111 @@
             margin-right: 8px;
         }
 
+        /* Recommendation links (jobs / travel / food) */
+        .rec-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .rec-link {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid rgba(0, 217, 255, 0.45);
+            border-radius: 20px;
+            background: rgba(0, 217, 255, 0.08);
+            color: #00d9ff;
+            text-decoration: none;
+            font-size: 0.88em;
+            transition: all 0.3s ease;
+        }
+
+        .rec-link:hover {
+            background: rgba(0, 217, 255, 0.2);
+            border-color: #00d9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.25);
+        }
+
+        .rec-line {
+            color: #d0d0ff;
+            line-height: 1.7;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .rec-reason {
+            color: #b0a8ff;
+            font-size: 0.9em;
+        }
+
+        /* Listen (Azure Speech) button on each card */
+        .btn-listen {
+            width: 42px;
+            height: 42px;
+            min-height: 0;
+            padding: 0;
+            border-radius: 50%;
+            background: rgba(0, 217, 255, 0.15);
+            border: 1.5px solid rgba(0, 217, 255, 0.5);
+            color: #00d9ff;
+            font-size: 1.1em;
+            flex-shrink: 0;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .btn-listen:hover {
+            background: rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-listen.playing {
+            background: linear-gradient(135deg, #00d9ff, #b00eff);
+            color: #0a0e27;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Outlook calendar link on each key event */
+        .event-cal-link {
+            text-decoration: none;
+            margin-left: 6px;
+            opacity: 0.65;
+            transition: opacity 0.3s ease;
+        }
+
+        .event-cal-link:hover {
+            opacity: 1;
+        }
+
+        /* LinkedIn share button */
+        .btn-share {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px clamp(20px, 4vw, 30px);
+            min-height: 48px;
+            background: #0a66c2;
+            color: #ffffff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: clamp(1em, 2.5vw, 1.1em);
+            transition: all 0.3s ease;
+        }
+
+        .btn-share:hover {
+            background: #1276da;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(10, 102, 194, 0.5);
+        }
+
+        .btn-share .in-logo {
+            font-weight: 800;
+            font-family: Arial, sans-serif;
+        }
+
         .loading {
             text-align: center;
             padding: 40px;
@@ -610,6 +791,19 @@
             }
         }
     </style>
+    <script>
+        // ===== Microsoft Clarity analytics =====
+        // 1) Create a free project at https://clarity.microsoft.com
+        // 2) Paste your Project ID below (replaces the placeholder)
+        const CLARITY_PROJECT_ID = "PASTE_YOUR_CLARITY_ID";
+        if (CLARITY_PROJECT_ID && !CLARITY_PROJECT_ID.startsWith("PASTE")) {
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", CLARITY_PROJECT_ID);
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -658,6 +852,11 @@
                 <option value="tr">Türkçe</option>
                 <option value="cy">Cymraeg</option>
             </select>
+            <label class="bg-toggle">
+                <input type="checkbox" id="bgToggle" checked>
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                <span data-i18n="bgLabel">Ambient background</span>
+            </label>
         </div>
 
         <div class="error-message" id="errorMessage"></div>
@@ -704,6 +903,7 @@
             <div class="universes-grid" id="universesContainer"></div>
             <div class="button-container">
                 <button class="btn-generate" onclick="scrollToForm()" data-i18n="btnNew">Generate New Universes</button>
+                <a id="shareLinkedIn" class="btn-share" href="#" target="_blank" rel="noopener"><span class="in-logo">in</span><span data-i18n="share">Share on LinkedIn</span></a>
             </div>
         </div>
 
@@ -718,7 +918,8 @@
                 <span class="tech-badge">Node.js</span>
                 <span class="tech-badge">Express</span>
                 <span class="tech-badge">Hugging Face</span>
-                <span class="tech-badge">Llama 3.1</span>
+                <span class="tech-badge">Gemma 3</span>
+                <span class="tech-badge">Bing Maps</span>
                 <span class="tech-badge">Vercel</span>
                 <span class="tech-badge">Render</span>
             </div>
@@ -727,7 +928,9 @@
 
     <script>
         // ====== CONFIG ======
-        const BACKEND_URL = "https://parallel-backend-wq04.onrender.com/generate";
+        const API_BASE = "https://parallel-backend-wq04.onrender.com";
+        const BACKEND_URL = API_BASE + "/generate";
+        const SPEAK_URL = API_BASE + "/speak";
 
         // ====== TRANSLATIONS ======
         const I18N = {
@@ -1669,6 +1872,49 @@
             }
         };
 
+        // Extra UI strings (background toggle + recommendation headers)
+        const I18N_EXTRA = {
+            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook" },
+            sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook" },
+            eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en" },
+            bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook" },
+            bg: { bgLabel: "Анимиран фон", recJobs: "Работни позиции", recTravel: "Идеи за пътуване", recFood: "Храна", listen: "Слушай", share: "Сподели в LinkedIn", addOutlook: "Добави в Outlook" },
+            ca: { bgLabel: "Fons animat", recJobs: "Llocs de treball", recTravel: "Idees de viatge", recFood: "Gastronomia", listen: "Escolta", share: "Comparteix a LinkedIn", addOutlook: "Afegeix a l'Outlook" },
+            hr: { bgLabel: "Animirana pozadina", recJobs: "Radna mjesta", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook" },
+            cs: { bgLabel: "Animované pozadí", recJobs: "Pracovní pozice", recTravel: "Tipy na cesty", recFood: "Jídlo", listen: "Poslechnout", share: "Sdílet na LinkedIn", addOutlook: "Přidat do Outlooku" },
+            da: { bgLabel: "Animeret baggrund", recJobs: "Jobroller", recTravel: "Rejseideer", recFood: "Mad", listen: "Lyt", share: "Del på LinkedIn", addOutlook: "Føj til Outlook" },
+            nl: { bgLabel: "Bewegende achtergrond", recJobs: "Functies", recTravel: "Reisideeën", recFood: "Eten", listen: "Luister", share: "Delen op LinkedIn", addOutlook: "Toevoegen aan Outlook" },
+            et: { bgLabel: "Animeeritud taust", recJobs: "Ametikohad", recTravel: "Reisiideed", recFood: "Toit", listen: "Kuula", share: "Jaga LinkedInis", addOutlook: "Lisa Outlooki" },
+            fi: { bgLabel: "Animoitu tausta", recJobs: "Työtehtävät", recTravel: "Matkaideat", recFood: "Ruoka", listen: "Kuuntele", share: "Jaa LinkedInissä", addOutlook: "Lisää Outlookiin" },
+            fr: { bgLabel: "Fond animé", recJobs: "Métiers à explorer", recTravel: "Idées de voyage", recFood: "Gastronomie", listen: "Écouter", share: "Partager sur LinkedIn", addOutlook: "Ajouter à Outlook" },
+            gl: { bgLabel: "Fondo animado", recJobs: "Postos de traballo", recTravel: "Ideas de viaxe", recFood: "Gastronomía", listen: "Escoita", share: "Compartir en LinkedIn", addOutlook: "Engadir a Outlook" },
+            de: { bgLabel: "Animierter Hintergrund", recJobs: "Jobrollen", recTravel: "Reiseideen", recFood: "Essen & Trinken", listen: "Anhören", share: "Auf LinkedIn teilen", addOutlook: "Zu Outlook hinzufügen" },
+            el: { bgLabel: "Κινούμενο φόντο", recJobs: "Θέσεις εργασίας", recTravel: "Ταξιδιωτικές ιδέες", recFood: "Φαγητό", listen: "Άκουσε", share: "Κοινοποίηση στο LinkedIn", addOutlook: "Προσθήκη στο Outlook" },
+            hu: { bgLabel: "Animált háttér", recJobs: "Munkakörök", recTravel: "Utazási ötletek", recFood: "Ételek", listen: "Meghallgatás", share: "Megosztás a LinkedInen", addOutlook: "Hozzáadás az Outlookhoz" },
+            is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook" },
+            ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook" },
+            it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook" },
+            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook" },
+            lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook" },
+            lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen" },
+            mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook" },
+            mt: { bgLabel: "Sfond animat", recJobs: "Rwoli tax-xogħol", recTravel: "Ideat għall-ivvjaġġar", recFood: "Ikel", listen: "Isma'", share: "Aqsam fuq LinkedIn", addOutlook: "Żid ma' Outlook" },
+            no: { bgLabel: "Animert bakgrunn", recJobs: "Jobbroller", recTravel: "Reiseideer", recFood: "Mat", listen: "Lytt", share: "Del på LinkedIn", addOutlook: "Legg til i Outlook" },
+            pl: { bgLabel: "Animowane tło", recJobs: "Stanowiska pracy", recTravel: "Pomysły na podróże", recFood: "Jedzenie", listen: "Słuchaj", share: "Udostępnij na LinkedIn", addOutlook: "Dodaj do Outlooka" },
+            pt: { bgLabel: "Fundo animado", recJobs: "Funções profissionais", recTravel: "Ideias de viagem", recFood: "Gastronomia", listen: "Ouvir", share: "Partilhar no LinkedIn", addOutlook: "Adicionar ao Outlook" },
+            ro: { bgLabel: "Fundal animat", recJobs: "Roluri profesionale", recTravel: "Idei de călătorie", recFood: "Mâncare", listen: "Ascultă", share: "Distribuie pe LinkedIn", addOutlook: "Adaugă în Outlook" },
+            sr: { bgLabel: "Анимирана позадина", recJobs: "Радне позиције", recTravel: "Идеје за путовања", recFood: "Храна", listen: "Слушај", share: "Подели на LinkedIn-у", addOutlook: "Додај у Outlook" },
+            sk: { bgLabel: "Animované pozadie", recJobs: "Pracovné pozície", recTravel: "Tipy na cestovanie", recFood: "Jedlo", listen: "Vypočuť", share: "Zdieľať na LinkedIn", addOutlook: "Pridať do Outlooku" },
+            sl: { bgLabel: "Animirano ozadje", recJobs: "Delovna mesta", recTravel: "Ideje za potovanja", recFood: "Hrana", listen: "Poslušaj", share: "Deli na LinkedInu", addOutlook: "Dodaj v Outlook" },
+            es: { bgLabel: "Fondo animado", recJobs: "Puestos de trabajo", recTravel: "Ideas de viaje", recFood: "Gastronomía", listen: "Escuchar", share: "Compartir en LinkedIn", addOutlook: "Añadir a Outlook" },
+            sv: { bgLabel: "Animerad bakgrund", recJobs: "Jobbroller", recTravel: "Reseidéer", recFood: "Mat", listen: "Lyssna", share: "Dela på LinkedIn", addOutlook: "Lägg till i Outlook" },
+            tr: { bgLabel: "Hareketli arka plan", recJobs: "İş rolleri", recTravel: "Seyahat fikirleri", recFood: "Yemek", listen: "Dinle", share: "LinkedIn'de paylaş", addOutlook: "Outlook'a ekle" },
+            cy: { bgLabel: "Cefndir animeiddiedig", recJobs: "Rolau swydd", recTravel: "Syniadau teithio", recFood: "Bwyd", listen: "Gwrando", share: "Rhannu ar LinkedIn", addOutlook: "Ychwanegu at Outlook" }
+        };
+        for (const code in I18N_EXTRA) {
+            if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
+        }
+
         let currentLang = "en";
 
         // ====== DOM REFS ======
@@ -1701,6 +1947,22 @@
             applyLanguage(e.target.value);
         });
 
+        // ====== AMBIENT BACKGROUND TOGGLE ======
+        const bgToggle = document.getElementById('bgToggle');
+
+        function applyBgPreference(enabled) {
+            document.body.classList.toggle('dynamic-bg', enabled);
+            bgToggle.checked = enabled;
+            try { localStorage.setItem('pu_dynamic_bg', enabled ? '1' : '0'); } catch (_) {}
+        }
+
+        bgToggle.addEventListener('change', () => applyBgPreference(bgToggle.checked));
+
+        // Restore saved preference (default: on)
+        let savedBg = '1';
+        try { savedBg = localStorage.getItem('pu_dynamic_bg') ?? '1'; } catch (_) {}
+        applyBgPreference(savedBg === '1');
+
         // ====== FORM SUBMIT ======
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1722,6 +1984,7 @@
                 return;
             }
 
+            stopNarration();
             loading.classList.add('active');
             resultsSection.classList.remove('active');
 
@@ -1770,6 +2033,50 @@
                 const number = index + 1;
                 const keyEvents = Array.isArray(universe.keyEvents) ? universe.keyEvents : [];
 
+                // Build tailored recommendations (jobs → LinkedIn, travel/food → Google Maps)
+                const rec = universe.recommendations || {};
+                const jobRoles = Array.isArray(rec.jobRoles) ? rec.jobRoles : [];
+                const travel = Array.isArray(rec.travel) ? rec.travel : [];
+                const food = Array.isArray(rec.food) ? rec.food : [];
+
+                let recHtml = '';
+
+                if (jobRoles.length) {
+                    recHtml += `
+                        <div class="content-block">
+                            <h4>💼 ${dict.recJobs}</h4>
+                            <div class="rec-links">
+                                ${jobRoles.map(role => `<a class="rec-link" href="https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(role)}" target="_blank" rel="noopener" title="LinkedIn">${role} ↗</a>`).join('')}
+                            </div>
+                        </div>`;
+                }
+
+                if (travel.length) {
+                    recHtml += `
+                        <div class="content-block">
+                            <h4>✈️ ${dict.recTravel}</h4>
+                            ${travel.map(t => {
+                                const place = t && t.place ? t.place : '';
+                                const reason = t && t.reason ? t.reason : '';
+                                if (!place) return '';
+                                return `<p class="rec-line"><a class="rec-link" href="https://www.bing.com/maps?q=${encodeURIComponent(place)}" target="_blank" rel="noopener" title="Bing Maps">📍 ${place}</a>${reason ? ` <span class="rec-reason">— ${reason}</span>` : ''}</p>`;
+                            }).join('')}
+                        </div>`;
+                }
+
+                if (food.length) {
+                    recHtml += `
+                        <div class="content-block">
+                            <h4>🍽️ ${dict.recFood}</h4>
+                            ${food.map(f => {
+                                const item = f && f.item ? f.item : '';
+                                const reason = f && f.reason ? f.reason : '';
+                                if (!item) return '';
+                                return `<p class="rec-line"><a class="rec-link" href="https://www.bing.com/maps?q=${encodeURIComponent(item + ' restaurant')}" target="_blank" rel="noopener" title="Bing Maps">🍴 ${item}</a>${reason ? ` <span class="rec-reason">— ${reason}</span>` : ''}</p>`;
+                            }).join('')}
+                        </div>`;
+                }
+
                 card.innerHTML = `
                     <div class="universe-header">
                         <div class="universe-number">${number}</div>
@@ -1777,6 +2084,7 @@
                             <h3>${universe.title || 'Universe ' + number}</h3>
                             <p>${universe.subtitle || ''}</p>
                         </div>
+                        <button class="btn-listen" title="${dict.listen}" aria-label="${dict.listen}">🔊</button>
                     </div>
 
                     <div class="universe-content">
@@ -1793,7 +2101,7 @@
                         <div class="content-block">
                             <h4>⏱️ ${dict.events}</h4>
                             <ul>
-                                ${keyEvents.map(event => `<li>${event}</li>`).join('')}
+                                ${keyEvents.map(event => `<li>${event} <a class="event-cal-link" href="${buildOutlookLink(event, universe.title || '').replace(/&/g, '&amp;')}" target="_blank" rel="noopener" title="${dict.addOutlook}">📅</a></li>`).join('')}
                             </ul>
                         </div>
 
@@ -1801,11 +2109,91 @@
                             <h4>✨ ${dict.outcome}</h4>
                             <p>${universe.outcome || ''}</p>
                         </div>
+
+                        ${recHtml}
                     </div>
                 `;
 
                 universesContainer.appendChild(card);
+
+                const listenBtn = card.querySelector('.btn-listen');
+                listenBtn.addEventListener('click', () => speakUniverse(universe, listenBtn));
             });
+        }
+
+        // ====== OUTLOOK CALENDAR (deep link, no API key) ======
+        function buildOutlookLink(eventText, universeTitle) {
+            // Schedules a 30-min planning slot one week from now at 09:00 local time
+            const start = new Date();
+            start.setDate(start.getDate() + 7);
+            start.setHours(9, 0, 0, 0);
+            const end = new Date(start.getTime() + 30 * 60000);
+            const fmt = d => d.getFullYear() + '-' +
+                String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                String(d.getDate()).padStart(2, '0') + 'T' +
+                String(d.getHours()).padStart(2, '0') + ':' +
+                String(d.getMinutes()).padStart(2, '0') + ':00';
+            const subject = encodeURIComponent('🌌 ' + String(eventText).slice(0, 120));
+            const body = encodeURIComponent('Milestone from "' + universeTitle + '" — Parallel Universe app');
+            return 'https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent' +
+                '&subject=' + subject + '&body=' + body +
+                '&startdt=' + fmt(start) + '&enddt=' + fmt(end);
+        }
+
+        // ====== AZURE SPEECH NARRATION ======
+        let currentAudio = null;
+        let playingBtn = null;
+
+        function stopNarration() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            if (playingBtn) {
+                playingBtn.classList.remove('playing');
+                playingBtn = null;
+            }
+        }
+
+        async function speakUniverse(universe, btn) {
+            // Tapping the playing card's button again stops it
+            if (playingBtn === btn) {
+                stopNarration();
+                return;
+            }
+            stopNarration();
+
+            btn.classList.add('playing');
+            playingBtn = btn;
+
+            const text = [universe.title, universe.subtitle, universe.description, universe.outcome]
+                .filter(Boolean)
+                .join('. ');
+
+            try {
+                const res = await fetch(SPEAK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text, lang: currentLang })
+                });
+
+                if (!res.ok) throw new Error("TTS " + res.status);
+
+                const blob = await res.blob();
+
+                // User may have stopped or switched while loading
+                if (playingBtn !== btn) return;
+
+                const audio = new Audio(URL.createObjectURL(blob));
+                currentAudio = audio;
+                audio.onended = stopNarration;
+                audio.play();
+
+            } catch (err) {
+                console.error(err);
+                stopNarration();
+                showError("🔊 Audio narration unavailable");
+            }
         }
 
         function scrollToResults() {
@@ -1833,6 +2221,12 @@
 
         // ====== INIT ======
         applyLanguage('en');
+
+        const shareLink = document.getElementById('shareLinkedIn');
+        if (shareLink) {
+            shareLink.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' +
+                encodeURIComponent(window.location.href);
+        }
     </script>
 </body>
 </html>
