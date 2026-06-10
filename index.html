@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0a0e27">
     <title>Parallel Universe</title>
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "x4vwylrc97");
-</script>
     <style>
         * {
             margin: 0;
@@ -2155,6 +2148,27 @@
             }
         }
 
+        function buildNarrationText(universe) {
+            const dict = I18N[currentLang];
+            const rec = universe.recommendations || {};
+            const events = Array.isArray(universe.keyEvents) ? universe.keyEvents : [];
+            const jobs = Array.isArray(rec.jobRoles) ? rec.jobRoles : [];
+            const travel = Array.isArray(rec.travel) ? rec.travel : [];
+            const food = Array.isArray(rec.food) ? rec.food : [];
+
+            const parts = [];
+            if (universe.title) parts.push(universe.title);
+            if (universe.subtitle) parts.push(universe.subtitle);
+            if (universe.description) parts.push(dict.story + ". " + universe.description);
+            if (universe.careerPath) parts.push(dict.career + ". " + universe.careerPath);
+            if (events.length) parts.push(dict.events + ". " + events.join(". "));
+            if (universe.outcome) parts.push(dict.outcome + ". " + universe.outcome);
+            if (jobs.length) parts.push(dict.recJobs + ". " + jobs.join(", "));
+            if (travel.length) parts.push(dict.recTravel + ". " + travel.map(t => (t.place || "") + (t.reason ? ". " + t.reason : "")).join(". "));
+            if (food.length) parts.push(dict.recFood + ". " + food.map(f => (f.item || "") + (f.reason ? ". " + f.reason : "")).join(". "));
+            return parts.join(". ");
+        }
+
         async function speakUniverse(universe, btn) {
             // Tapping the playing card's button again stops it
             if (playingBtn === btn) {
@@ -2166,9 +2180,7 @@
             btn.classList.add('playing');
             playingBtn = btn;
 
-            const text = [universe.title, universe.subtitle, universe.description, universe.outcome]
-                .filter(Boolean)
-                .join('. ');
+            const text = buildNarrationText(universe);
 
             try {
                 const res = await fetch(SPEAK_URL, {
@@ -2177,7 +2189,20 @@
                     body: JSON.stringify({ text, lang: currentLang })
                 });
 
-                if (!res.ok) throw new Error("TTS " + res.status);
+                if (!res.ok) {
+                    let detail = "";
+                    try {
+                        const j = await res.json();
+                        detail = j.error || j.details || "";
+                    } catch (_) {}
+                    if (res.status === 404) {
+                        throw new Error("Backend has no /speak endpoint — deploy the latest server.js (404)");
+                    }
+                    if (res.status === 503) {
+                        throw new Error("Azure Speech env vars missing on Render (503)");
+                    }
+                    throw new Error(detail || ("TTS error " + res.status));
+                }
 
                 const blob = await res.blob();
 
@@ -2192,7 +2217,7 @@
             } catch (err) {
                 console.error(err);
                 stopNarration();
-                showError("🔊 Audio narration unavailable");
+                showError("🔊 " + (err.message || "Audio narration unavailable"));
             }
         }
 
