@@ -68,6 +68,7 @@ This transforms decision-making into an engaging, reflective, and imaginative ex
 - Microsoft Clarity
 - GitHub
 - GitHub Copilot
+- Azure Speech Service (text-to-voice narration)
 
 ### 🔗 Explore the Project
 
