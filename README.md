@@ -34,6 +34,7 @@ This transforms decision-making into an engaging, reflective, and imaginative ex
 - Presents immersive narrative-based future journeys
 - Highlights career progression, life events, travel experiences, and major milestones
 - Encourages self-reflection through personalized storytelling
+- Text-to-voice narration
 
 ### 🗺️ Location Intelligence
 - Integrates **Bing Maps** to provide geographic context and visualization
@@ -45,6 +46,7 @@ This transforms decision-making into an engaging, reflective, and imaginative ex
 - Allows users to save future goals, milestones, and important events directly to their calendar
 
 ### 🔗 Social Sharing
+- Save / share image feature
 - Integrated **LinkedIn Share** functionality
 - Enables users to share generated timelines and insights with their professional network
 
