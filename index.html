@@ -516,8 +516,8 @@
             font-size: 0.9em;
         }
 
-        /* Listen (Azure Speech) button on each card */
-        .btn-listen {
+        /* Listen (Azure Speech) + save-card buttons on each card */
+        .btn-listen, .btn-savecard {
             width: 42px;
             height: 42px;
             min-height: 0;
@@ -532,7 +532,7 @@
             letter-spacing: 0;
         }
 
-        .btn-listen:hover {
+        .btn-listen:hover, .btn-savecard:hover {
             background: rgba(0, 217, 255, 0.3);
         }
 
@@ -1867,42 +1867,42 @@
 
         // Extra UI strings (background toggle + recommendation headers)
         const I18N_EXTRA = {
-            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook" },
-            sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook" },
-            eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en" },
-            bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook" },
-            bg: { bgLabel: "Анимиран фон", recJobs: "Работни позиции", recTravel: "Идеи за пътуване", recFood: "Храна", listen: "Слушай", share: "Сподели в LinkedIn", addOutlook: "Добави в Outlook" },
-            ca: { bgLabel: "Fons animat", recJobs: "Llocs de treball", recTravel: "Idees de viatge", recFood: "Gastronomia", listen: "Escolta", share: "Comparteix a LinkedIn", addOutlook: "Afegeix a l'Outlook" },
-            hr: { bgLabel: "Animirana pozadina", recJobs: "Radna mjesta", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook" },
-            cs: { bgLabel: "Animované pozadí", recJobs: "Pracovní pozice", recTravel: "Tipy na cesty", recFood: "Jídlo", listen: "Poslechnout", share: "Sdílet na LinkedIn", addOutlook: "Přidat do Outlooku" },
-            da: { bgLabel: "Animeret baggrund", recJobs: "Jobroller", recTravel: "Rejseideer", recFood: "Mad", listen: "Lyt", share: "Del på LinkedIn", addOutlook: "Føj til Outlook" },
-            nl: { bgLabel: "Bewegende achtergrond", recJobs: "Functies", recTravel: "Reisideeën", recFood: "Eten", listen: "Luister", share: "Delen op LinkedIn", addOutlook: "Toevoegen aan Outlook" },
-            et: { bgLabel: "Animeeritud taust", recJobs: "Ametikohad", recTravel: "Reisiideed", recFood: "Toit", listen: "Kuula", share: "Jaga LinkedInis", addOutlook: "Lisa Outlooki" },
-            fi: { bgLabel: "Animoitu tausta", recJobs: "Työtehtävät", recTravel: "Matkaideat", recFood: "Ruoka", listen: "Kuuntele", share: "Jaa LinkedInissä", addOutlook: "Lisää Outlookiin" },
-            fr: { bgLabel: "Fond animé", recJobs: "Métiers à explorer", recTravel: "Idées de voyage", recFood: "Gastronomie", listen: "Écouter", share: "Partager sur LinkedIn", addOutlook: "Ajouter à Outlook" },
-            gl: { bgLabel: "Fondo animado", recJobs: "Postos de traballo", recTravel: "Ideas de viaxe", recFood: "Gastronomía", listen: "Escoita", share: "Compartir en LinkedIn", addOutlook: "Engadir a Outlook" },
-            de: { bgLabel: "Animierter Hintergrund", recJobs: "Jobrollen", recTravel: "Reiseideen", recFood: "Essen & Trinken", listen: "Anhören", share: "Auf LinkedIn teilen", addOutlook: "Zu Outlook hinzufügen" },
-            el: { bgLabel: "Κινούμενο φόντο", recJobs: "Θέσεις εργασίας", recTravel: "Ταξιδιωτικές ιδέες", recFood: "Φαγητό", listen: "Άκουσε", share: "Κοινοποίηση στο LinkedIn", addOutlook: "Προσθήκη στο Outlook" },
-            hu: { bgLabel: "Animált háttér", recJobs: "Munkakörök", recTravel: "Utazási ötletek", recFood: "Ételek", listen: "Meghallgatás", share: "Megosztás a LinkedInen", addOutlook: "Hozzáadás az Outlookhoz" },
-            is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook" },
-            ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook" },
-            it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook" },
-            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook" },
-            lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook" },
-            lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen" },
-            mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook" },
-            mt: { bgLabel: "Sfond animat", recJobs: "Rwoli tax-xogħol", recTravel: "Ideat għall-ivvjaġġar", recFood: "Ikel", listen: "Isma'", share: "Aqsam fuq LinkedIn", addOutlook: "Żid ma' Outlook" },
-            no: { bgLabel: "Animert bakgrunn", recJobs: "Jobbroller", recTravel: "Reiseideer", recFood: "Mat", listen: "Lytt", share: "Del på LinkedIn", addOutlook: "Legg til i Outlook" },
-            pl: { bgLabel: "Animowane tło", recJobs: "Stanowiska pracy", recTravel: "Pomysły na podróże", recFood: "Jedzenie", listen: "Słuchaj", share: "Udostępnij na LinkedIn", addOutlook: "Dodaj do Outlooka" },
-            pt: { bgLabel: "Fundo animado", recJobs: "Funções profissionais", recTravel: "Ideias de viagem", recFood: "Gastronomia", listen: "Ouvir", share: "Partilhar no LinkedIn", addOutlook: "Adicionar ao Outlook" },
-            ro: { bgLabel: "Fundal animat", recJobs: "Roluri profesionale", recTravel: "Idei de călătorie", recFood: "Mâncare", listen: "Ascultă", share: "Distribuie pe LinkedIn", addOutlook: "Adaugă în Outlook" },
-            sr: { bgLabel: "Анимирана позадина", recJobs: "Радне позиције", recTravel: "Идеје за путовања", recFood: "Храна", listen: "Слушај", share: "Подели на LinkedIn-у", addOutlook: "Додај у Outlook" },
-            sk: { bgLabel: "Animované pozadie", recJobs: "Pracovné pozície", recTravel: "Tipy na cestovanie", recFood: "Jedlo", listen: "Vypočuť", share: "Zdieľať na LinkedIn", addOutlook: "Pridať do Outlooku" },
-            sl: { bgLabel: "Animirano ozadje", recJobs: "Delovna mesta", recTravel: "Ideje za potovanja", recFood: "Hrana", listen: "Poslušaj", share: "Deli na LinkedInu", addOutlook: "Dodaj v Outlook" },
-            es: { bgLabel: "Fondo animado", recJobs: "Puestos de trabajo", recTravel: "Ideas de viaje", recFood: "Gastronomía", listen: "Escuchar", share: "Compartir en LinkedIn", addOutlook: "Añadir a Outlook" },
-            sv: { bgLabel: "Animerad bakgrund", recJobs: "Jobbroller", recTravel: "Reseidéer", recFood: "Mat", listen: "Lyssna", share: "Dela på LinkedIn", addOutlook: "Lägg till i Outlook" },
-            tr: { bgLabel: "Hareketli arka plan", recJobs: "İş rolleri", recTravel: "Seyahat fikirleri", recFood: "Yemek", listen: "Dinle", share: "LinkedIn'de paylaş", addOutlook: "Outlook'a ekle" },
-            cy: { bgLabel: "Cefndir animeiddiedig", recJobs: "Rolau swydd", recTravel: "Syniadau teithio", recFood: "Bwyd", listen: "Gwrando", share: "Rhannu ar LinkedIn", addOutlook: "Ychwanegu at Outlook" }
+            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook", saveCard: "Save image" },
+            sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook", saveCard: "Ruaj imazhin" },
+            eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en", saveCard: "Gorde irudia" },
+            bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Sačuvaj sliku" },
+            bg: { bgLabel: "Анимиран фон", recJobs: "Работни позиции", recTravel: "Идеи за пътуване", recFood: "Храна", listen: "Слушай", share: "Сподели в LinkedIn", addOutlook: "Добави в Outlook", saveCard: "Запази изображението" },
+            ca: { bgLabel: "Fons animat", recJobs: "Llocs de treball", recTravel: "Idees de viatge", recFood: "Gastronomia", listen: "Escolta", share: "Comparteix a LinkedIn", addOutlook: "Afegeix a l'Outlook", saveCard: "Desa la imatge" },
+            hr: { bgLabel: "Animirana pozadina", recJobs: "Radna mjesta", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Spremi sliku" },
+            cs: { bgLabel: "Animované pozadí", recJobs: "Pracovní pozice", recTravel: "Tipy na cesty", recFood: "Jídlo", listen: "Poslechnout", share: "Sdílet na LinkedIn", addOutlook: "Přidat do Outlooku", saveCard: "Uložit obrázek" },
+            da: { bgLabel: "Animeret baggrund", recJobs: "Jobroller", recTravel: "Rejseideer", recFood: "Mad", listen: "Lyt", share: "Del på LinkedIn", addOutlook: "Føj til Outlook", saveCard: "Gem billede" },
+            nl: { bgLabel: "Bewegende achtergrond", recJobs: "Functies", recTravel: "Reisideeën", recFood: "Eten", listen: "Luister", share: "Delen op LinkedIn", addOutlook: "Toevoegen aan Outlook", saveCard: "Afbeelding opslaan" },
+            et: { bgLabel: "Animeeritud taust", recJobs: "Ametikohad", recTravel: "Reisiideed", recFood: "Toit", listen: "Kuula", share: "Jaga LinkedInis", addOutlook: "Lisa Outlooki", saveCard: "Salvesta pilt" },
+            fi: { bgLabel: "Animoitu tausta", recJobs: "Työtehtävät", recTravel: "Matkaideat", recFood: "Ruoka", listen: "Kuuntele", share: "Jaa LinkedInissä", addOutlook: "Lisää Outlookiin", saveCard: "Tallenna kuva" },
+            fr: { bgLabel: "Fond animé", recJobs: "Métiers à explorer", recTravel: "Idées de voyage", recFood: "Gastronomie", listen: "Écouter", share: "Partager sur LinkedIn", addOutlook: "Ajouter à Outlook", saveCard: "Enregistrer l'image" },
+            gl: { bgLabel: "Fondo animado", recJobs: "Postos de traballo", recTravel: "Ideas de viaxe", recFood: "Gastronomía", listen: "Escoita", share: "Compartir en LinkedIn", addOutlook: "Engadir a Outlook", saveCard: "Gardar a imaxe" },
+            de: { bgLabel: "Animierter Hintergrund", recJobs: "Jobrollen", recTravel: "Reiseideen", recFood: "Essen & Trinken", listen: "Anhören", share: "Auf LinkedIn teilen", addOutlook: "Zu Outlook hinzufügen", saveCard: "Bild speichern" },
+            el: { bgLabel: "Κινούμενο φόντο", recJobs: "Θέσεις εργασίας", recTravel: "Ταξιδιωτικές ιδέες", recFood: "Φαγητό", listen: "Άκουσε", share: "Κοινοποίηση στο LinkedIn", addOutlook: "Προσθήκη στο Outlook", saveCard: "Αποθήκευση εικόνας" },
+            hu: { bgLabel: "Animált háttér", recJobs: "Munkakörök", recTravel: "Utazási ötletek", recFood: "Ételek", listen: "Meghallgatás", share: "Megosztás a LinkedInen", addOutlook: "Hozzáadás az Outlookhoz", saveCard: "Kép mentése" },
+            is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook", saveCard: "Vista mynd" },
+            ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook", saveCard: "Sábháil an íomhá" },
+            it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook", saveCard: "Salva immagine" },
+            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook", saveCard: "Saglabāt attēlu" },
+            lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook", saveCard: "Išsaugoti paveikslėlį" },
+            lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen", saveCard: "Bild späicheren" },
+            mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook", saveCard: "Зачувај слика" },
+            mt: { bgLabel: "Sfond animat", recJobs: "Rwoli tax-xogħol", recTravel: "Ideat għall-ivvjaġġar", recFood: "Ikel", listen: "Isma'", share: "Aqsam fuq LinkedIn", addOutlook: "Żid ma' Outlook", saveCard: "Issejvja l-immaġni" },
+            no: { bgLabel: "Animert bakgrunn", recJobs: "Jobbroller", recTravel: "Reiseideer", recFood: "Mat", listen: "Lytt", share: "Del på LinkedIn", addOutlook: "Legg til i Outlook", saveCard: "Lagre bilde" },
+            pl: { bgLabel: "Animowane tło", recJobs: "Stanowiska pracy", recTravel: "Pomysły na podróże", recFood: "Jedzenie", listen: "Słuchaj", share: "Udostępnij na LinkedIn", addOutlook: "Dodaj do Outlooka", saveCard: "Zapisz obraz" },
+            pt: { bgLabel: "Fundo animado", recJobs: "Funções profissionais", recTravel: "Ideias de viagem", recFood: "Gastronomia", listen: "Ouvir", share: "Partilhar no LinkedIn", addOutlook: "Adicionar ao Outlook", saveCard: "Guardar imagem" },
+            ro: { bgLabel: "Fundal animat", recJobs: "Roluri profesionale", recTravel: "Idei de călătorie", recFood: "Mâncare", listen: "Ascultă", share: "Distribuie pe LinkedIn", addOutlook: "Adaugă în Outlook", saveCard: "Salvează imaginea" },
+            sr: { bgLabel: "Анимирана позадина", recJobs: "Радне позиције", recTravel: "Идеје за путовања", recFood: "Храна", listen: "Слушај", share: "Подели на LinkedIn-у", addOutlook: "Додај у Outlook", saveCard: "Сачувај слику" },
+            sk: { bgLabel: "Animované pozadie", recJobs: "Pracovné pozície", recTravel: "Tipy na cestovanie", recFood: "Jedlo", listen: "Vypočuť", share: "Zdieľať na LinkedIn", addOutlook: "Pridať do Outlooku", saveCard: "Uložiť obrázok" },
+            sl: { bgLabel: "Animirano ozadje", recJobs: "Delovna mesta", recTravel: "Ideje za potovanja", recFood: "Hrana", listen: "Poslušaj", share: "Deli na LinkedInu", addOutlook: "Dodaj v Outlook", saveCard: "Shrani sliko" },
+            es: { bgLabel: "Fondo animado", recJobs: "Puestos de trabajo", recTravel: "Ideas de viaje", recFood: "Gastronomía", listen: "Escuchar", share: "Compartir en LinkedIn", addOutlook: "Añadir a Outlook", saveCard: "Guardar imagen" },
+            sv: { bgLabel: "Animerad bakgrund", recJobs: "Jobbroller", recTravel: "Reseidéer", recFood: "Mat", listen: "Lyssna", share: "Dela på LinkedIn", addOutlook: "Lägg till i Outlook", saveCard: "Spara bild" },
+            tr: { bgLabel: "Hareketli arka plan", recJobs: "İş rolleri", recTravel: "Seyahat fikirleri", recFood: "Yemek", listen: "Dinle", share: "LinkedIn'de paylaş", addOutlook: "Outlook'a ekle", saveCard: "Görseli kaydet" },
+            cy: { bgLabel: "Cefndir animeiddiedig", recJobs: "Rolau swydd", recTravel: "Syniadau teithio", recFood: "Bwyd", listen: "Gwrando", share: "Rhannu ar LinkedIn", addOutlook: "Ychwanegu at Outlook", saveCard: "Cadw'r ddelwedd" }
         };
         for (const code in I18N_EXTRA) {
             if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
@@ -2078,6 +2078,7 @@
                             <p>${universe.subtitle || ''}</p>
                         </div>
                         <button class="btn-listen" title="${dict.listen}" aria-label="${dict.listen}">🔊</button>
+                        <button class="btn-savecard" title="${dict.saveCard}" aria-label="${dict.saveCard}">📤</button>
                     </div>
 
                     <div class="universe-content">
@@ -2111,7 +2112,206 @@
 
                 const listenBtn = card.querySelector('.btn-listen');
                 listenBtn.addEventListener('click', () => speakUniverse(universe, listenBtn));
+
+                const saveBtn = card.querySelector('.btn-savecard');
+                saveBtn.addEventListener('click', () => shareCardImage(universe, number, saveBtn));
             });
+        }
+
+        // ====== SHAREABLE IMAGE CARD (canvas, 1080×1350 — Instagram portrait) ======
+        function wrapLines(ctx, text, maxWidth, maxLines) {
+            const words = String(text).trim().split(/\s+/).filter(Boolean);
+            const lines = [];
+            let line = "";
+            let i = 0;
+            for (; i < words.length; i++) {
+                const test = line ? line + " " + words[i] : words[i];
+                if (ctx.measureText(test).width <= maxWidth) {
+                    line = test;
+                } else {
+                    if (line) lines.push(line);
+                    line = words[i];
+                    if (lines.length === maxLines) break;
+                }
+            }
+            if (lines.length < maxLines && line) lines.push(line);
+            if (lines.length === maxLines && i < words.length) {
+                let last = lines[maxLines - 1];
+                while (last.length > 1 && ctx.measureText(last + "…").width > maxWidth) {
+                    last = last.slice(0, -1);
+                }
+                lines[maxLines - 1] = last + "…";
+            }
+            return lines;
+        }
+
+        function generateCardImage(universe, number, dict) {
+            const W = 1080, H = 1350, P = 80;
+            const canvas = document.createElement("canvas");
+            canvas.width = W;
+            canvas.height = H;
+            const ctx = canvas.getContext("2d");
+
+            // Cosmic gradient background
+            const bg = ctx.createLinearGradient(0, 0, W, H);
+            bg.addColorStop(0, "#0a0e27");
+            bg.addColorStop(0.3, "#1a1f4f");
+            bg.addColorStop(0.55, "#2d0a4e");
+            bg.addColorStop(0.8, "#1a0033");
+            bg.addColorStop(1, "#0a0e27");
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, W, H);
+
+            // Soft glows
+            let glow = ctx.createRadialGradient(W * 0.2, H * 0.25, 0, W * 0.2, H * 0.25, 420);
+            glow.addColorStop(0, "rgba(0,217,255,0.14)");
+            glow.addColorStop(1, "rgba(0,217,255,0)");
+            ctx.fillStyle = glow;
+            ctx.fillRect(0, 0, W, H);
+            glow = ctx.createRadialGradient(W * 0.85, H * 0.8, 0, W * 0.85, H * 0.8, 460);
+            glow.addColorStop(0, "rgba(176,14,255,0.14)");
+            glow.addColorStop(1, "rgba(176,14,255,0)");
+            ctx.fillStyle = glow;
+            ctx.fillRect(0, 0, W, H);
+
+            const accent = ctx.createLinearGradient(P, 0, W - P, 0);
+            accent.addColorStop(0, "#00d9ff");
+            accent.addColorStop(1, "#b00eff");
+
+            // Header
+            ctx.textAlign = "center";
+            ctx.fillStyle = accent;
+            ctx.font = "600 34px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText("✨ PARALLEL UNIVERSE ✨", W / 2, 118);
+
+            // Number badge
+            ctx.beginPath();
+            ctx.arc(W / 2, 214, 46, 0, Math.PI * 2);
+            ctx.fillStyle = accent;
+            ctx.fill();
+            ctx.fillStyle = "#0a0e27";
+            ctx.font = "bold 46px 'Segoe UI', Arial, sans-serif";
+            ctx.textBaseline = "middle";
+            ctx.fillText(String(number), W / 2, 219);
+            ctx.textBaseline = "alphabetic";
+
+            let y = 330;
+
+            // Title (gradient, up to 2 lines)
+            ctx.font = "bold 54px 'Segoe UI', Arial, sans-serif";
+            ctx.fillStyle = accent;
+            for (const ln of wrapLines(ctx, universe.title || ("Universe " + number), W - 2 * P, 2)) {
+                ctx.fillText(ln, W / 2, y);
+                y += 62;
+            }
+
+            // Subtitle (1 line)
+            if (universe.subtitle) {
+                ctx.font = "30px 'Segoe UI', Arial, sans-serif";
+                ctx.fillStyle = "#b0a8ff";
+                for (const ln of wrapLines(ctx, universe.subtitle, W - 2 * P, 1)) {
+                    ctx.fillText(ln, W / 2, y);
+                    y += 40;
+                }
+            }
+
+            y += 12;
+            ctx.fillStyle = accent;
+            ctx.fillRect(W / 2 - 170, y, 340, 4);
+            y += 50;
+
+            // Left-aligned sections
+            ctx.textAlign = "left";
+            function section(emoji, label, text, maxLines) {
+                if (!text || y > H - 200) return;
+                ctx.font = "bold 27px 'Segoe UI', Arial, sans-serif";
+                ctx.fillStyle = "#00d9ff";
+                ctx.fillText(emoji + " " + String(label).toUpperCase(), P, y);
+                y += 40;
+                ctx.font = "29px 'Segoe UI', Arial, sans-serif";
+                ctx.fillStyle = "#d8d8ff";
+                for (const ln of wrapLines(ctx, text, W - 2 * P, maxLines)) {
+                    ctx.fillText(ln, P, y);
+                    y += 38;
+                }
+                y += 20;
+            }
+
+            section("📖", dict.story, universe.description, 3);
+            section("🚀", dict.career, universe.careerPath, 2);
+
+            const events = Array.isArray(universe.keyEvents) ? universe.keyEvents.slice(0, 3) : [];
+            if (events.length && y <= H - 200) {
+                ctx.font = "bold 27px 'Segoe UI', Arial, sans-serif";
+                ctx.fillStyle = "#00d9ff";
+                ctx.fillText("⏱️ " + String(dict.events).toUpperCase(), P, y);
+                y += 40;
+                ctx.font = "29px 'Segoe UI', Arial, sans-serif";
+                ctx.fillStyle = "#d8d8ff";
+                for (const ev of events) {
+                    ctx.fillText(wrapLines(ctx, "→ " + ev, W - 2 * P, 1)[0], P, y);
+                    y += 38;
+                }
+                y += 20;
+            }
+
+            section("✨", dict.outcome, universe.outcome, 3);
+
+            // Footer branding
+            ctx.textAlign = "center";
+            ctx.fillStyle = "rgba(0,217,255,0.35)";
+            ctx.fillRect(P, H - 124, W - 2 * P, 2);
+            ctx.fillStyle = "#8f8fb8";
+            ctx.font = "24px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText("Microsoft Hackathon 2026 · Klavs Petersons", W / 2, H - 78);
+            ctx.fillStyle = "#6a6a8f";
+            ctx.font = "22px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(window.location.host || "Parallel Universe", W / 2, H - 42);
+
+            return canvas;
+        }
+
+        async function shareCardImage(universe, number, btn) {
+            try {
+                btn.disabled = true;
+                const dict = I18N[currentLang];
+                const canvas = generateCardImage(universe, number, dict);
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+                if (!blob) throw new Error("Image generation failed");
+
+                const fileName = "parallel-universe-" + number + ".png";
+                const file = new File([blob], fileName, { type: "image/png" });
+
+                // Mobile: native share sheet (Instagram, Facebook, LinkedIn, etc.)
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({
+                            files: [file],
+                            title: universe.title || "Parallel Universe"
+                        });
+                        return;
+                    } catch (e) {
+                        if (e && e.name === "AbortError") return; // user closed the sheet
+                        // otherwise fall through to download
+                    }
+                }
+
+                // Desktop fallback: download the PNG
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+            } catch (err) {
+                console.error(err);
+                showError("🖼️ " + (err.message || "Image export failed"));
+            } finally {
+                btn.disabled = false;
+            }
         }
 
         // ====== OUTLOOK CALENDAR (deep link, no API key) ======
