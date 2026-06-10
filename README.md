@@ -72,7 +72,9 @@ This transforms decision-making into an engaging, reflective, and imaginative ex
 ### 🔗 Explore the Project
 
 🌐 Website: https://www.parallia.xyz/
-🌐 GitHub (front-end): https://github.com/klavsy/parallel/
+
+🌐 GitHub (frontend): https://github.com/klavsy/parallel/
+
 🌐 GitHub (backend): https://github.com/klavsy/parallel-backend/
 
-Built as part of the Microsoft Ai Agents League Hackathon 2026 project.
+Built as part of the Microsoft AI Agents League Hackathon 2026.
