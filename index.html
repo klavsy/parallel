@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0a0e27">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
     <title>Parallel Universe</title>
     <style>
         * {
@@ -87,8 +88,10 @@
 
         h1 {
             font-size: clamp(2em, 6vw, 4em);
+            font-weight: 800;
+            letter-spacing: -0.5px;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #00d9ff, #b00eff, #00d9ff);
+            background: linear-gradient(135deg, #00d9ff, #b00eff, #ff00d9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -115,10 +118,16 @@
 
         @keyframes glow {
             0%, 100% {
-                text-shadow: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(176, 14, 255, 0.2);
+                text-shadow:
+                    0 0 20px rgba(0, 217, 255, 0.35),
+                    0 0 40px rgba(176, 14, 255, 0.25),
+                    0 0 70px rgba(255, 0, 217, 0.15);
             }
             50% {
-                text-shadow: 0 0 30px rgba(0, 217, 255, 0.5), 0 0 60px rgba(176, 14, 255, 0.4);
+                text-shadow:
+                    0 0 30px rgba(0, 217, 255, 0.55),
+                    0 0 60px rgba(176, 14, 255, 0.4),
+                    0 0 95px rgba(255, 0, 217, 0.3);
             }
         }
 
@@ -139,7 +148,9 @@
 
         .lang-select {
             padding: 10px 15px;
-            background: rgba(26, 31, 79, 0.7);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            background: rgba(26, 31, 79, 0.6);
             border: 1.5px solid rgba(0, 217, 255, 0.4);
             border-radius: 10px;
             color: #e0e0ff;
@@ -215,13 +226,17 @@
         }
 
         .input-section {
-            background: rgba(26, 31, 79, 0.6);
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 20px;
+            position: relative;
+            background: rgba(26, 31, 79, 0.55);
+            border: 1.5px solid rgba(0, 217, 255, 0.3);
+            border-radius: 24px;
             padding: clamp(20px, 4vw, 40px);
             margin-bottom: 50px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            box-shadow:
+                0 8px 32px rgba(0, 217, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             animation: slideUp 0.8s ease-out;
         }
 
@@ -229,6 +244,8 @@
             color: #00d9ff;
             margin-bottom: 30px;
             font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: 0.3px;
             text-align: center;
         }
 
@@ -259,7 +276,13 @@
             color: #e0e0ff;
             font-family: inherit;
             font-size: 1em;
-            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(224, 224, 255, 0.45);
         }
 
         input:focus, textarea:focus {
@@ -287,6 +310,8 @@
         }
 
         button {
+            position: relative;
+            overflow: hidden;
             padding: 14px clamp(24px, 5vw, 40px);
             font-size: clamp(1em, 2.5vw, 1.1em);
             min-height: 48px;
@@ -294,7 +319,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -307,7 +332,9 @@
 
         .btn-generate:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0, 217, 255, 0.6);
+            box-shadow:
+                0 8px 30px rgba(0, 217, 255, 0.55),
+                0 4px 14px rgba(176, 14, 255, 0.35);
         }
 
         .btn-generate:active {
@@ -349,7 +376,9 @@
             text-align: center;
             margin-bottom: 40px;
             font-size: clamp(1.6em, 5vw, 2.5em);
-            background: linear-gradient(135deg, #b00eff, #00d9ff);
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #b00eff, #00d9ff, #00ff88);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -363,13 +392,17 @@
         }
 
         .universe-card {
-            background: rgba(26, 31, 79, 0.7);
-            border: 2px solid rgba(0, 217, 255, 0.2);
-            border-radius: 15px;
+            position: relative;
+            background: rgba(26, 31, 79, 0.55);
+            border: 1.5px solid rgba(0, 217, 255, 0.22);
+            border-radius: 18px;
             padding: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
-            transition: all 0.4s ease;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            box-shadow:
+                0 8px 32px rgba(0, 217, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
             animation: cardPop 0.6s ease-out both;
         }
 
@@ -431,6 +464,7 @@
 
         .universe-title h3 {
             font-size: 1.5em;
+            font-weight: 700;
             color: #00d9ff;
             margin-bottom: 5px;
         }
@@ -461,7 +495,7 @@
 
         .content-block p {
             color: #d0d0ff;
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 0.95em;
         }
 
@@ -491,10 +525,12 @@
             border: 1px solid rgba(0, 217, 255, 0.45);
             border-radius: 20px;
             background: rgba(0, 217, 255, 0.08);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             color: #00d9ff;
             text-decoration: none;
             font-size: 0.88em;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .rec-link:hover {
@@ -516,8 +552,131 @@
             font-size: 0.9em;
         }
 
-        /* Listen (Azure Speech) + save-card buttons on each card */
-        .btn-listen, .btn-savecard {
+        /* Embedded mini-maps (Azure Maps) */
+        .mini-map {
+            margin: 8px 0 6px;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1.5px solid rgba(0, 217, 255, 0.4);
+            max-width: 340px;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mini-map:hover {
+            border-color: #00d9ff;
+            box-shadow: 0 4px 18px rgba(0, 217, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .mini-map img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .mini-map-caption {
+            padding: 6px 12px;
+            font-size: 0.85em;
+            color: #b0a8ff;
+            background: rgba(10, 14, 39, 0.85);
+        }
+
+        /* Map modal */
+        .map-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(5, 7, 20, 0.8);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .map-modal.active {
+            display: flex;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .map-modal-box {
+            background: linear-gradient(160deg, #141938, #221040);
+            border: 2px solid rgba(0, 217, 255, 0.45);
+            border-radius: 18px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 22px;
+            position: relative;
+        }
+
+        .map-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 38px;
+            height: 38px;
+            min-height: 0;
+            padding: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0ff;
+            border: 1px solid rgba(0, 217, 255, 0.4);
+            font-size: 1em;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .map-modal h3 {
+            color: #00d9ff;
+            margin: 0 44px 6px 0;
+            font-size: 1.3em;
+        }
+
+        .map-modal-sub {
+            color: #b0a8ff;
+            font-size: 0.95em;
+            margin-bottom: 14px;
+        }
+
+        .map-modal-img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1.5px solid rgba(0, 217, 255, 0.4);
+            display: block;
+        }
+
+        .map-modal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .map-modal-links a {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .modal-link-primary {
+            background: linear-gradient(135deg, #00d9ff, #00a8cc);
+            color: #0a0e27;
+        }
+
+        .modal-link-secondary {
+            background: rgba(176, 14, 255, 0.2);
+            color: #d9a6ff;
+            border: 1.5px solid #b00eff;
+        }
+
+        /* Listen / save / share buttons on each card */
+        .btn-listen, .btn-savecard, .btn-sharecard {
             width: 42px;
             height: 42px;
             min-height: 0;
@@ -532,7 +691,7 @@
             letter-spacing: 0;
         }
 
-        .btn-listen:hover, .btn-savecard:hover {
+        .btn-listen:hover, .btn-savecard:hover, .btn-sharecard:hover {
             background: rgba(0, 217, 255, 0.3);
         }
 
@@ -685,15 +844,102 @@
             border: 1px solid rgba(0, 217, 255, 0.4);
             border-radius: 20px;
             background: rgba(0, 217, 255, 0.08);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             color: #00d9ff;
             font-size: 0.8em;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .tech-badge:hover {
             background: rgba(0, 217, 255, 0.18);
             border-color: #00d9ff;
             transform: translateY(-2px);
+        }
+
+        /* ===== Premium polish layer ===== */
+
+        /* Hairline top highlight on glass surfaces */
+        .input-section::after, .universe-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.55), rgba(176, 14, 255, 0.55), transparent);
+            pointer-events: none;
+        }
+
+        /* Shimmer sweep on primary action buttons */
+        .btn-generate::before, .btn-reset::before, .btn-share::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -130%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .btn-generate:hover::before, .btn-reset:hover::before, .btn-share:hover::before {
+            left: 170%;
+        }
+
+        .btn-share {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Disabled state: calm, clearly inactive */
+        button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.12) !important;
+        }
+
+        button:disabled::before {
+            display: none;
+        }
+
+        /* Color-matched hover halos per universe */
+        .universe-card:nth-child(1):hover {
+            border-color: rgba(0, 217, 255, 0.7);
+            box-shadow: 0 15px 50px rgba(0, 217, 255, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .universe-card:nth-child(2):hover {
+            border-color: rgba(176, 14, 255, 0.7);
+            box-shadow: 0 15px 50px rgba(176, 14, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .universe-card:nth-child(3):hover {
+            border-color: rgba(255, 0, 217, 0.7);
+            box-shadow: 0 15px 50px rgba(255, 0, 217, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* Work-in-progress disclaimer pill */
+        .footer-wip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding: 8px 18px;
+            border: 1px dashed rgba(255, 209, 102, 0.55);
+            border-radius: 999px;
+            background: rgba(255, 209, 102, 0.07);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffd166;
+            font-size: 0.85em;
+        }
+
+        .footer-wip .wip-icon {
+            font-size: 1.05em;
         }
 
         @media (max-width: 768px) {
@@ -720,6 +966,11 @@
 
         /* Small phones: stack buttons full width for easy tapping */
         @media (max-width: 400px) {
+            .btn-listen, .btn-savecard, .btn-sharecard {
+                width: 36px;
+                height: 36px;
+                font-size: 1em;
+            }
             .input-section {
                 padding: 18px;
             }
@@ -749,29 +1000,21 @@
             }
         }
 
-        /* Large desktop monitors */
+        /* Large desktop and 4K monitors: keep type at natural size, widen
+           the canvas only slightly, and let whitespace do the luxury work */
         @media (min-width: 1800px) {
-            html {
-                font-size: 118%;
-            }
-
             .container {
-                max-width: 1500px;
+                max-width: 1280px;
             }
         }
 
-        /* 4K monitors and TVs: scale everything up so it stays readable from a distance */
         @media (min-width: 2400px) {
-            html {
-                font-size: 140%;
-            }
-
             .container {
-                max-width: 2000px;
+                max-width: 1380px;
             }
 
             .universes-grid {
-                gap: 45px;
+                gap: 36px;
             }
         }
 
@@ -880,7 +1123,7 @@
                     <textarea id="details" data-i18n-ph="phDetails" placeholder="Provide more context to make your universes more personalized..." required></textarea>
                 </div>
                 <div class="button-container">
-                    <button type="submit" class="btn-generate" data-i18n="btnGenerate">Generate Universes</button>
+                    <button type="submit" class="btn-generate" id="generateBtn" data-i18n="btnGenerate" disabled>Generate Universes</button>
                     <button type="reset" class="btn-reset" data-i18n="btnClear">Clear</button>
                 </div>
             </form>
@@ -900,12 +1143,22 @@
             </div>
         </div>
 
+        <div class="map-modal" id="mapModal">
+            <div class="map-modal-box">
+                <button class="map-modal-close" id="mapModalClose" aria-label="Close">✕</button>
+                <h3 id="mapModalTitle"></h3>
+                <div class="map-modal-sub" id="mapModalSub"></div>
+                <img class="map-modal-img" id="mapModalImg" alt="Map">
+                <div class="map-modal-links" id="mapModalLinks"></div>
+            </div>
+        </div>
+
         <footer>
-            <p data-i18n="footer">🌌 Remember: Your future is never fixed. Every choice creates new possibilities. </p>
-            <p class="footer-credit">Microsoft AI Agents League Hackathon 2026 · A project by <strong>Klavs Petersons</strong></p>
+            <p class="footer-wip"><span class="wip-icon">🚧</span><span data-i18n="wip">Work in progress — some features may not work yet</span></p>
+            <p data-i18n="footer">🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌</p>
+            <p class="footer-credit">Microsoft Agents League 2026 · A project by <strong>Klavs Petersons</strong></p>
             <div class="footer-tech">
                 <span class="tech-label">Powered by</span>
-                <span class="tech-badge">Azure</span>
                 <span class="tech-badge">HTML5</span>
                 <span class="tech-badge">CSS3</span>
                 <span class="tech-badge">JavaScript</span>
@@ -913,10 +1166,14 @@
                 <span class="tech-badge">Express</span>
                 <span class="tech-badge">Hugging Face</span>
                 <span class="tech-badge">Gemma 3</span>
+                <span class="tech-badge">Azure AI Speech</span>
+                <span class="tech-badge">Microsoft Clarity</span>
                 <span class="tech-badge">Bing Maps</span>
+                <span class="tech-badge">LinkedIn</span>
+                <span class="tech-badge">Outlook</span>
+                <span class="tech-badge">GitHub Copilot</span>
                 <span class="tech-badge">Vercel</span>
                 <span class="tech-badge">Render</span>
-                <span class="tech-badge">GitHub</span>
             </div>
         </footer>
     </div>
@@ -926,6 +1183,16 @@
         const API_BASE = "https://parallel-backend-wq04.onrender.com";
         const BACKEND_URL = API_BASE + "/generate";
         const SPEAK_URL = API_BASE + "/speak";
+
+        // Escape any dynamic value before inserting into innerHTML (XSS defense)
+        function esc(v) {
+            return String(v ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
 
         // ====== TRANSLATIONS ======
         const I18N = {
@@ -1869,42 +2136,42 @@
 
         // Extra UI strings (background toggle + recommendation headers)
         const I18N_EXTRA = {
-            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook", saveCard: "Save image" },
-            sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook", saveCard: "Ruaj imazhin" },
-            eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en", saveCard: "Gorde irudia" },
-            bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Sačuvaj sliku" },
-            bg: { bgLabel: "Анимиран фон", recJobs: "Работни позиции", recTravel: "Идеи за пътуване", recFood: "Храна", listen: "Слушай", share: "Сподели в LinkedIn", addOutlook: "Добави в Outlook", saveCard: "Запази изображението" },
-            ca: { bgLabel: "Fons animat", recJobs: "Llocs de treball", recTravel: "Idees de viatge", recFood: "Gastronomia", listen: "Escolta", share: "Comparteix a LinkedIn", addOutlook: "Afegeix a l'Outlook", saveCard: "Desa la imatge" },
-            hr: { bgLabel: "Animirana pozadina", recJobs: "Radna mjesta", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Spremi sliku" },
-            cs: { bgLabel: "Animované pozadí", recJobs: "Pracovní pozice", recTravel: "Tipy na cesty", recFood: "Jídlo", listen: "Poslechnout", share: "Sdílet na LinkedIn", addOutlook: "Přidat do Outlooku", saveCard: "Uložit obrázek" },
-            da: { bgLabel: "Animeret baggrund", recJobs: "Jobroller", recTravel: "Rejseideer", recFood: "Mad", listen: "Lyt", share: "Del på LinkedIn", addOutlook: "Føj til Outlook", saveCard: "Gem billede" },
-            nl: { bgLabel: "Bewegende achtergrond", recJobs: "Functies", recTravel: "Reisideeën", recFood: "Eten", listen: "Luister", share: "Delen op LinkedIn", addOutlook: "Toevoegen aan Outlook", saveCard: "Afbeelding opslaan" },
-            et: { bgLabel: "Animeeritud taust", recJobs: "Ametikohad", recTravel: "Reisiideed", recFood: "Toit", listen: "Kuula", share: "Jaga LinkedInis", addOutlook: "Lisa Outlooki", saveCard: "Salvesta pilt" },
-            fi: { bgLabel: "Animoitu tausta", recJobs: "Työtehtävät", recTravel: "Matkaideat", recFood: "Ruoka", listen: "Kuuntele", share: "Jaa LinkedInissä", addOutlook: "Lisää Outlookiin", saveCard: "Tallenna kuva" },
-            fr: { bgLabel: "Fond animé", recJobs: "Métiers à explorer", recTravel: "Idées de voyage", recFood: "Gastronomie", listen: "Écouter", share: "Partager sur LinkedIn", addOutlook: "Ajouter à Outlook", saveCard: "Enregistrer l'image" },
-            gl: { bgLabel: "Fondo animado", recJobs: "Postos de traballo", recTravel: "Ideas de viaxe", recFood: "Gastronomía", listen: "Escoita", share: "Compartir en LinkedIn", addOutlook: "Engadir a Outlook", saveCard: "Gardar a imaxe" },
-            de: { bgLabel: "Animierter Hintergrund", recJobs: "Jobrollen", recTravel: "Reiseideen", recFood: "Essen & Trinken", listen: "Anhören", share: "Auf LinkedIn teilen", addOutlook: "Zu Outlook hinzufügen", saveCard: "Bild speichern" },
-            el: { bgLabel: "Κινούμενο φόντο", recJobs: "Θέσεις εργασίας", recTravel: "Ταξιδιωτικές ιδέες", recFood: "Φαγητό", listen: "Άκουσε", share: "Κοινοποίηση στο LinkedIn", addOutlook: "Προσθήκη στο Outlook", saveCard: "Αποθήκευση εικόνας" },
-            hu: { bgLabel: "Animált háttér", recJobs: "Munkakörök", recTravel: "Utazási ötletek", recFood: "Ételek", listen: "Meghallgatás", share: "Megosztás a LinkedInen", addOutlook: "Hozzáadás az Outlookhoz", saveCard: "Kép mentése" },
-            is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook", saveCard: "Vista mynd" },
-            ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook", saveCard: "Sábháil an íomhá" },
-            it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook", saveCard: "Salva immagine" },
-            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook", saveCard: "Saglabāt attēlu" },
-            lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook", saveCard: "Išsaugoti paveikslėlį" },
-            lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen", saveCard: "Bild späicheren" },
-            mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook", saveCard: "Зачувај слика" },
-            mt: { bgLabel: "Sfond animat", recJobs: "Rwoli tax-xogħol", recTravel: "Ideat għall-ivvjaġġar", recFood: "Ikel", listen: "Isma'", share: "Aqsam fuq LinkedIn", addOutlook: "Żid ma' Outlook", saveCard: "Issejvja l-immaġni" },
-            no: { bgLabel: "Animert bakgrunn", recJobs: "Jobbroller", recTravel: "Reiseideer", recFood: "Mat", listen: "Lytt", share: "Del på LinkedIn", addOutlook: "Legg til i Outlook", saveCard: "Lagre bilde" },
-            pl: { bgLabel: "Animowane tło", recJobs: "Stanowiska pracy", recTravel: "Pomysły na podróże", recFood: "Jedzenie", listen: "Słuchaj", share: "Udostępnij na LinkedIn", addOutlook: "Dodaj do Outlooka", saveCard: "Zapisz obraz" },
-            pt: { bgLabel: "Fundo animado", recJobs: "Funções profissionais", recTravel: "Ideias de viagem", recFood: "Gastronomia", listen: "Ouvir", share: "Partilhar no LinkedIn", addOutlook: "Adicionar ao Outlook", saveCard: "Guardar imagem" },
-            ro: { bgLabel: "Fundal animat", recJobs: "Roluri profesionale", recTravel: "Idei de călătorie", recFood: "Mâncare", listen: "Ascultă", share: "Distribuie pe LinkedIn", addOutlook: "Adaugă în Outlook", saveCard: "Salvează imaginea" },
-            sr: { bgLabel: "Анимирана позадина", recJobs: "Радне позиције", recTravel: "Идеје за путовања", recFood: "Храна", listen: "Слушај", share: "Подели на LinkedIn-у", addOutlook: "Додај у Outlook", saveCard: "Сачувај слику" },
-            sk: { bgLabel: "Animované pozadie", recJobs: "Pracovné pozície", recTravel: "Tipy na cestovanie", recFood: "Jedlo", listen: "Vypočuť", share: "Zdieľať na LinkedIn", addOutlook: "Pridať do Outlooku", saveCard: "Uložiť obrázok" },
-            sl: { bgLabel: "Animirano ozadje", recJobs: "Delovna mesta", recTravel: "Ideje za potovanja", recFood: "Hrana", listen: "Poslušaj", share: "Deli na LinkedInu", addOutlook: "Dodaj v Outlook", saveCard: "Shrani sliko" },
-            es: { bgLabel: "Fondo animado", recJobs: "Puestos de trabajo", recTravel: "Ideas de viaje", recFood: "Gastronomía", listen: "Escuchar", share: "Compartir en LinkedIn", addOutlook: "Añadir a Outlook", saveCard: "Guardar imagen" },
-            sv: { bgLabel: "Animerad bakgrund", recJobs: "Jobbroller", recTravel: "Reseidéer", recFood: "Mat", listen: "Lyssna", share: "Dela på LinkedIn", addOutlook: "Lägg till i Outlook", saveCard: "Spara bild" },
-            tr: { bgLabel: "Hareketli arka plan", recJobs: "İş rolleri", recTravel: "Seyahat fikirleri", recFood: "Yemek", listen: "Dinle", share: "LinkedIn'de paylaş", addOutlook: "Outlook'a ekle", saveCard: "Görseli kaydet" },
-            cy: { bgLabel: "Cefndir animeiddiedig", recJobs: "Rolau swydd", recTravel: "Syniadau teithio", recFood: "Bwyd", listen: "Gwrando", share: "Rhannu ar LinkedIn", addOutlook: "Ychwanegu at Outlook", saveCard: "Cadw'r ddelwedd" }
+            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook", saveCard: "Save image", shareCard: "Share image", openMaps: "Open in Bing Maps", menuPrices: "Menu & prices", wip: "Work in progress — some features may not work yet" },
+            sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook", saveCard: "Ruaj imazhin", shareCard: "Ndaj imazhin", openMaps: "Hap në Bing Maps", menuPrices: "Menyja dhe çmimet", wip: "Punë në vazhdim — disa veçori mund të mos funksionojnë ende" },
+            eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en", saveCard: "Gorde irudia", shareCard: "Partekatu irudia", openMaps: "Ireki Bing Maps-en", menuPrices: "Menua eta prezioak", wip: "Lanean — baliteke funtzio batzuek oraindik ez funtzionatzea" },
+            bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Sačuvaj sliku", shareCard: "Podijeli sliku", openMaps: "Otvori u Bing Maps", menuPrices: "Meni i cijene", wip: "Rad u toku — neke funkcije možda još ne rade" },
+            bg: { bgLabel: "Анимиран фон", recJobs: "Работни позиции", recTravel: "Идеи за пътуване", recFood: "Храна", listen: "Слушай", share: "Сподели в LinkedIn", addOutlook: "Добави в Outlook", saveCard: "Запази изображението", shareCard: "Сподели изображението", openMaps: "Отвори в Bing Maps", menuPrices: "Меню и цени", wip: "В процес на разработка — някои функции може още да не работят" },
+            ca: { bgLabel: "Fons animat", recJobs: "Llocs de treball", recTravel: "Idees de viatge", recFood: "Gastronomia", listen: "Escolta", share: "Comparteix a LinkedIn", addOutlook: "Afegeix a l'Outlook", saveCard: "Desa la imatge", shareCard: "Comparteix la imatge", openMaps: "Obre a Bing Maps", menuPrices: "Menú i preus", wip: "En desenvolupament — algunes funcions poden no funcionar encara" },
+            hr: { bgLabel: "Animirana pozadina", recJobs: "Radna mjesta", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Spremi sliku", shareCard: "Podijeli sliku", openMaps: "Otvori u Bing Maps", menuPrices: "Meni i cijene", wip: "Rad u tijeku — neke značajke možda još ne rade" },
+            cs: { bgLabel: "Animované pozadí", recJobs: "Pracovní pozice", recTravel: "Tipy na cesty", recFood: "Jídlo", listen: "Poslechnout", share: "Sdílet na LinkedIn", addOutlook: "Přidat do Outlooku", saveCard: "Uložit obrázek", shareCard: "Sdílet obrázek", openMaps: "Otevřít v Bing Maps", menuPrices: "Menu a ceny", wip: "Ve vývoji — některé funkce nemusí zatím fungovat" },
+            da: { bgLabel: "Animeret baggrund", recJobs: "Jobroller", recTravel: "Rejseideer", recFood: "Mad", listen: "Lyt", share: "Del på LinkedIn", addOutlook: "Føj til Outlook", saveCard: "Gem billede", shareCard: "Del billede", openMaps: "Åbn i Bing Maps", menuPrices: "Menu og priser", wip: "Under udvikling — nogle funktioner virker måske ikke endnu" },
+            nl: { bgLabel: "Bewegende achtergrond", recJobs: "Functies", recTravel: "Reisideeën", recFood: "Eten", listen: "Luister", share: "Delen op LinkedIn", addOutlook: "Toevoegen aan Outlook", saveCard: "Afbeelding opslaan", shareCard: "Afbeelding delen", openMaps: "Openen in Bing Maps", menuPrices: "Menu en prijzen", wip: "Werk in uitvoering — sommige functies werken mogelijk nog niet" },
+            et: { bgLabel: "Animeeritud taust", recJobs: "Ametikohad", recTravel: "Reisiideed", recFood: "Toit", listen: "Kuula", share: "Jaga LinkedInis", addOutlook: "Lisa Outlooki", saveCard: "Salvesta pilt", shareCard: "Jaga pilti", openMaps: "Ava Bing Mapsis", menuPrices: "Menüü ja hinnad", wip: "Töös — mõned funktsioonid ei pruugi veel töötada" },
+            fi: { bgLabel: "Animoitu tausta", recJobs: "Työtehtävät", recTravel: "Matkaideat", recFood: "Ruoka", listen: "Kuuntele", share: "Jaa LinkedInissä", addOutlook: "Lisää Outlookiin", saveCard: "Tallenna kuva", shareCard: "Jaa kuva", openMaps: "Avaa Bing Mapsissa", menuPrices: "Menu ja hinnat", wip: "Työn alla — kaikki toiminnot eivät ehkä vielä toimi" },
+            fr: { bgLabel: "Fond animé", recJobs: "Métiers à explorer", recTravel: "Idées de voyage", recFood: "Gastronomie", listen: "Écouter", share: "Partager sur LinkedIn", addOutlook: "Ajouter à Outlook", saveCard: "Enregistrer l'image", shareCard: "Partager l'image", openMaps: "Ouvrir dans Bing Maps", menuPrices: "Menu et prix", wip: "En cours de développement — certaines fonctions peuvent ne pas marcher" },
+            gl: { bgLabel: "Fondo animado", recJobs: "Postos de traballo", recTravel: "Ideas de viaxe", recFood: "Gastronomía", listen: "Escoita", share: "Compartir en LinkedIn", addOutlook: "Engadir a Outlook", saveCard: "Gardar a imaxe", shareCard: "Compartir a imaxe", openMaps: "Abrir en Bing Maps", menuPrices: "Menú e prezos", wip: "En desenvolvemento — algunhas funcións poden non funcionar aínda" },
+            de: { bgLabel: "Animierter Hintergrund", recJobs: "Jobrollen", recTravel: "Reiseideen", recFood: "Essen & Trinken", listen: "Anhören", share: "Auf LinkedIn teilen", addOutlook: "Zu Outlook hinzufügen", saveCard: "Bild speichern", shareCard: "Bild teilen", openMaps: "In Bing Maps öffnen", menuPrices: "Speisekarte & Preise", wip: "In Arbeit — einige Funktionen funktionieren eventuell noch nicht" },
+            el: { bgLabel: "Κινούμενο φόντο", recJobs: "Θέσεις εργασίας", recTravel: "Ταξιδιωτικές ιδέες", recFood: "Φαγητό", listen: "Άκουσε", share: "Κοινοποίηση στο LinkedIn", addOutlook: "Προσθήκη στο Outlook", saveCard: "Αποθήκευση εικόνας", shareCard: "Κοινοποίηση εικόνας", openMaps: "Άνοιγμα στο Bing Maps", menuPrices: "Μενού και τιμές", wip: "Σε εξέλιξη — ορισμένες λειτουργίες ίσως να μη δουλεύουν ακόμα" },
+            hu: { bgLabel: "Animált háttér", recJobs: "Munkakörök", recTravel: "Utazási ötletek", recFood: "Ételek", listen: "Meghallgatás", share: "Megosztás a LinkedInen", addOutlook: "Hozzáadás az Outlookhoz", saveCard: "Kép mentése", shareCard: "Kép megosztása", openMaps: "Megnyitás a Bing Mapsben", menuPrices: "Étlap és árak", wip: "Fejlesztés alatt — egyes funkciók még nem biztos, hogy működnek" },
+            is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook", saveCard: "Vista mynd", shareCard: "Deila mynd", openMaps: "Opna í Bing Maps", menuPrices: "Matseðill og verð", wip: "Í vinnslu — sumir eiginleikar virka kannski ekki enn" },
+            ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook", saveCard: "Sábháil an íomhá", shareCard: "Roinn an íomhá", openMaps: "Oscail i Bing Maps", menuPrices: "Biachlár agus praghsanna", wip: "Obair idir lámha — seans nach n-oibríonn gnéithe áirithe fós" },
+            it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook", saveCard: "Salva immagine", shareCard: "Condividi immagine", openMaps: "Apri in Bing Maps", menuPrices: "Menù e prezzi", wip: "Lavori in corso — alcune funzioni potrebbero non funzionare ancora" },
+            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook", saveCard: "Saglabāt attēlu", shareCard: "Dalīties ar attēlu", openMaps: "Atvērt Bing Maps", menuPrices: "Ēdienkarte un cenas", wip: "Darbs procesā — dažas funkcijas vēl var nedarboties" },
+            lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook", saveCard: "Išsaugoti paveikslėlį", shareCard: "Bendrinti paveikslėlį", openMaps: "Atidaryti Bing Maps", menuPrices: "Meniu ir kainos", wip: "Kuriama — kai kurios funkcijos gali dar neveikti" },
+            lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen", saveCard: "Bild späicheren", shareCard: "Bild deelen", openMaps: "An Bing Maps opmaachen", menuPrices: "Menü an Präisser", wip: "An Aarbecht — verschidde Funktioune kéinten nach net goen" },
+            mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook", saveCard: "Зачувај слика", shareCard: "Сподели слика", openMaps: "Отвори во Bing Maps", menuPrices: "Мени и цени", wip: "Во развој — некои функции можеби сè уште не работат" },
+            mt: { bgLabel: "Sfond animat", recJobs: "Rwoli tax-xogħol", recTravel: "Ideat għall-ivvjaġġar", recFood: "Ikel", listen: "Isma'", share: "Aqsam fuq LinkedIn", addOutlook: "Żid ma' Outlook", saveCard: "Issejvja l-immaġni", shareCard: "Aqsam l-immaġni", openMaps: "Iftaħ f'Bing Maps", menuPrices: "Menù u prezzijiet", wip: "Xogħol għaddej — xi funzjonijiet jistgħu għadhom ma jaħdmux" },
+            no: { bgLabel: "Animert bakgrunn", recJobs: "Jobbroller", recTravel: "Reiseideer", recFood: "Mat", listen: "Lytt", share: "Del på LinkedIn", addOutlook: "Legg til i Outlook", saveCard: "Lagre bilde", shareCard: "Del bilde", openMaps: "Åpne i Bing Maps", menuPrices: "Meny og priser", wip: "Under utvikling — noen funksjoner virker kanskje ikke ennå" },
+            pl: { bgLabel: "Animowane tło", recJobs: "Stanowiska pracy", recTravel: "Pomysły na podróże", recFood: "Jedzenie", listen: "Słuchaj", share: "Udostępnij na LinkedIn", addOutlook: "Dodaj do Outlooka", saveCard: "Zapisz obraz", shareCard: "Udostępnij obraz", openMaps: "Otwórz w Bing Maps", menuPrices: "Menu i ceny", wip: "Praca w toku — niektóre funkcje mogą jeszcze nie działać" },
+            pt: { bgLabel: "Fundo animado", recJobs: "Funções profissionais", recTravel: "Ideias de viagem", recFood: "Gastronomia", listen: "Ouvir", share: "Partilhar no LinkedIn", addOutlook: "Adicionar ao Outlook", saveCard: "Guardar imagem", shareCard: "Partilhar imagem", openMaps: "Abrir no Bing Maps", menuPrices: "Menu e preços", wip: "Em desenvolvimento — algumas funções podem ainda não funcionar" },
+            ro: { bgLabel: "Fundal animat", recJobs: "Roluri profesionale", recTravel: "Idei de călătorie", recFood: "Mâncare", listen: "Ascultă", share: "Distribuie pe LinkedIn", addOutlook: "Adaugă în Outlook", saveCard: "Salvează imaginea", shareCard: "Distribuie imaginea", openMaps: "Deschide în Bing Maps", menuPrices: "Meniu și prețuri", wip: "În lucru — unele funcții s-ar putea să nu meargă încă" },
+            sr: { bgLabel: "Анимирана позадина", recJobs: "Радне позиције", recTravel: "Идеје за путовања", recFood: "Храна", listen: "Слушај", share: "Подели на LinkedIn-у", addOutlook: "Додај у Outlook", saveCard: "Сачувај слику", shareCard: "Подели слику", openMaps: "Отвори у Bing Maps", menuPrices: "Мени и цене", wip: "У изради — неке функције можда још не раде" },
+            sk: { bgLabel: "Animované pozadie", recJobs: "Pracovné pozície", recTravel: "Tipy na cestovanie", recFood: "Jedlo", listen: "Vypočuť", share: "Zdieľať na LinkedIn", addOutlook: "Pridať do Outlooku", saveCard: "Uložiť obrázok", shareCard: "Zdieľať obrázok", openMaps: "Otvoriť v Bing Maps", menuPrices: "Menu a ceny", wip: "Vo vývoji — niektoré funkcie zatiaľ nemusia fungovať" },
+            sl: { bgLabel: "Animirano ozadje", recJobs: "Delovna mesta", recTravel: "Ideje za potovanja", recFood: "Hrana", listen: "Poslušaj", share: "Deli na LinkedInu", addOutlook: "Dodaj v Outlook", saveCard: "Shrani sliko", shareCard: "Deli sliko", openMaps: "Odpri v Bing Maps", menuPrices: "Meni in cene", wip: "V izdelavi — nekatere funkcije morda še ne delujejo" },
+            es: { bgLabel: "Fondo animado", recJobs: "Puestos de trabajo", recTravel: "Ideas de viaje", recFood: "Gastronomía", listen: "Escuchar", share: "Compartir en LinkedIn", addOutlook: "Añadir a Outlook", saveCard: "Guardar imagen", shareCard: "Compartir imagen", openMaps: "Abrir en Bing Maps", menuPrices: "Menú y precios", wip: "En desarrollo — algunas funciones pueden no funcionar aún" },
+            sv: { bgLabel: "Animerad bakgrund", recJobs: "Jobbroller", recTravel: "Reseidéer", recFood: "Mat", listen: "Lyssna", share: "Dela på LinkedIn", addOutlook: "Lägg till i Outlook", saveCard: "Spara bild", shareCard: "Dela bild", openMaps: "Öppna i Bing Maps", menuPrices: "Meny och priser", wip: "Under utveckling — vissa funktioner kanske inte fungerar än" },
+            tr: { bgLabel: "Hareketli arka plan", recJobs: "İş rolleri", recTravel: "Seyahat fikirleri", recFood: "Yemek", listen: "Dinle", share: "LinkedIn'de paylaş", addOutlook: "Outlook'a ekle", saveCard: "Görseli kaydet", shareCard: "Görseli paylaş", openMaps: "Bing Maps'te aç", menuPrices: "Menü ve fiyatlar", wip: "Yapım aşamasında — bazı özellikler henüz çalışmayabilir" },
+            cy: { bgLabel: "Cefndir animeiddiedig", recJobs: "Rolau swydd", recTravel: "Syniadau teithio", recFood: "Bwyd", listen: "Gwrando", share: "Rhannu ar LinkedIn", addOutlook: "Ychwanegu at Outlook", saveCard: "Cadw'r ddelwedd", shareCard: "Rhannu'r ddelwedd", openMaps: "Agor yn Bing Maps", menuPrices: "Bwydlen a phrisiau", wip: "Gwaith ar y gweill — efallai na fydd rhai nodweddion yn gweithio eto" }
         };
         for (const code in I18N_EXTRA) {
             if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
@@ -2041,7 +2308,7 @@
                         <div class="content-block">
                             <h4>💼 ${dict.recJobs}</h4>
                             <div class="rec-links">
-                                ${jobRoles.map(role => `<a class="rec-link" href="https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(role)}" target="_blank" rel="noopener" title="LinkedIn">${role} ↗</a>`).join('')}
+                                ${jobRoles.map(role => `<a class="rec-link" href="https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(role)}" target="_blank" rel="noopener" title="LinkedIn">${esc(role)} ↗</a>`).join('')}
                             </div>
                         </div>`;
                 }
@@ -2054,7 +2321,7 @@
                                 const place = t && t.place ? t.place : '';
                                 const reason = t && t.reason ? t.reason : '';
                                 if (!place) return '';
-                                return `<p class="rec-line"><a class="rec-link" href="https://www.bing.com/maps?q=${encodeURIComponent(place)}" target="_blank" rel="noopener" title="Bing Maps">📍 ${place}</a>${reason ? ` <span class="rec-reason">— ${reason}</span>` : ''}</p>`;
+                                return `<p class="rec-line"><a class="rec-link" href="https://www.bing.com/maps?q=${encodeURIComponent(place)}" target="_blank" rel="noopener" title="Bing Maps">📍 ${esc(place)}</a>${reason ? ` <span class="rec-reason">— ${esc(reason)}</span>` : ''}</p>`;
                             }).join('')}
                         </div>`;
                 }
@@ -2067,7 +2334,7 @@
                                 const item = f && f.item ? f.item : '';
                                 const reason = f && f.reason ? f.reason : '';
                                 if (!item) return '';
-                                return `<p class="rec-line"><a class="rec-link" href="https://www.bing.com/maps?q=${encodeURIComponent(item + ' restaurant')}" target="_blank" rel="noopener" title="Bing Maps">🍴 ${item}</a>${reason ? ` <span class="rec-reason">— ${reason}</span>` : ''}</p>`;
+                                return `<p class="rec-line"><a class="rec-link" href="https://www.bing.com/maps?q=${encodeURIComponent(item + ' restaurant')}" target="_blank" rel="noopener" title="Bing Maps">🍴 ${esc(item)}</a>${reason ? ` <span class="rec-reason">— ${esc(reason)}</span>` : ''}</p>`;
                             }).join('')}
                         </div>`;
                 }
@@ -2076,34 +2343,35 @@
                     <div class="universe-header">
                         <div class="universe-number">${number}</div>
                         <div class="universe-title">
-                            <h3>${universe.title || 'Universe ' + number}</h3>
-                            <p>${universe.subtitle || ''}</p>
+                            <h3>${esc(universe.title) || 'Universe ' + number}</h3>
+                            <p>${esc(universe.subtitle)}</p>
                         </div>
                         <button class="btn-listen" title="${dict.listen}" aria-label="${dict.listen}">🔊</button>
-                        <button class="btn-savecard" title="${dict.saveCard}" aria-label="${dict.saveCard}">📤</button>
+                        <button class="btn-savecard" title="${dict.saveCard}" aria-label="${dict.saveCard}">💾</button>
+                        <button class="btn-sharecard" title="${dict.shareCard}" aria-label="${dict.shareCard}">📤</button>
                     </div>
 
                     <div class="universe-content">
                         <div class="content-block">
                             <h4>📖 ${dict.story}</h4>
-                            <p>${universe.description || ''}</p>
+                            <p>${esc(universe.description)}</p>
                         </div>
 
                         <div class="content-block">
                             <h4>🚀 ${dict.career}</h4>
-                            <p>${universe.careerPath || ''}</p>
+                            <p>${esc(universe.careerPath)}</p>
                         </div>
 
                         <div class="content-block">
                             <h4>⏱️ ${dict.events}</h4>
                             <ul>
-                                ${keyEvents.map(event => `<li>${event} <a class="event-cal-link" href="${buildOutlookLink(event, universe.title || '').replace(/&/g, '&amp;')}" target="_blank" rel="noopener" title="${dict.addOutlook}">📅</a></li>`).join('')}
+                                ${keyEvents.map(event => `<li>${esc(event)} <a class="event-cal-link" href="${buildOutlookLink(event, universe.title || '').replace(/&/g, '&amp;')}" target="_blank" rel="noopener" title="${dict.addOutlook}">📅</a></li>`).join('')}
                             </ul>
                         </div>
 
                         <div class="content-block">
                             <h4>✨ ${dict.outcome}</h4>
-                            <p>${universe.outcome || ''}</p>
+                            <p>${esc(universe.outcome)}</p>
                         </div>
 
                         ${recHtml}
@@ -2116,7 +2384,17 @@
                 listenBtn.addEventListener('click', () => speakUniverse(universe, listenBtn));
 
                 const saveBtn = card.querySelector('.btn-savecard');
-                saveBtn.addEventListener('click', () => shareCardImage(universe, number, saveBtn));
+                saveBtn.addEventListener('click', () => downloadCardImage(universe, number, saveBtn));
+
+                const shareCardBtn = card.querySelector('.btn-sharecard');
+                if (CAN_SHARE_FILES) {
+                    shareCardBtn.addEventListener('click', () => shareCardImage(universe, number, shareCardBtn));
+                } else {
+                    shareCardBtn.style.display = 'none';
+                }
+
+                // Pinpoint real places + embed mini-maps (async, non-blocking)
+                enhanceRecommendations(card, universe);
             });
         }
 
@@ -2265,7 +2543,7 @@
             ctx.fillRect(P, H - 124, W - 2 * P, 2);
             ctx.fillStyle = "#8f8fb8";
             ctx.font = "24px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText("Microsoft Hackathon 2026 · Klavs Petersons", W / 2, H - 78);
+            ctx.fillText("Microsoft Agents League 2026 · Klavs Petersons", W / 2, H - 78);
             ctx.fillStyle = "#6a6a8f";
             ctx.font = "22px 'Segoe UI', Arial, sans-serif";
             ctx.fillText(window.location.host || "Parallel Universe", W / 2, H - 42);
@@ -2273,18 +2551,54 @@
             return canvas;
         }
 
+        // Capability check: can this browser share files natively?
+        let CAN_SHARE_FILES = false;
+        try {
+            CAN_SHARE_FILES = !!(navigator.canShare && navigator.canShare({
+                files: [new File([new Blob()], "t.png", { type: "image/png" })]
+            }));
+        } catch (_) {}
+
+        async function makeCardFile(universe, number) {
+            const dict = I18N[currentLang];
+            const canvas = generateCardImage(universe, number, dict);
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+            if (!blob) throw new Error("Image generation failed");
+            return { blob, fileName: "parallel-universe-" + number + ".png" };
+        }
+
+        function triggerDownload(blob, fileName) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
+        }
+
+        // 💾 Always a plain download — no share sheet
+        async function downloadCardImage(universe, number, btn) {
+            try {
+                btn.disabled = true;
+                const { blob, fileName } = await makeCardFile(universe, number);
+                triggerDownload(blob, fileName);
+            } catch (err) {
+                console.error(err);
+                showError("🖼️ " + (err.message || "Image export failed"));
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // 📤 Native share sheet (Instagram, WhatsApp, etc.); downloads if sharing fails
         async function shareCardImage(universe, number, btn) {
             try {
                 btn.disabled = true;
-                const dict = I18N[currentLang];
-                const canvas = generateCardImage(universe, number, dict);
-                const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
-                if (!blob) throw new Error("Image generation failed");
-
-                const fileName = "parallel-universe-" + number + ".png";
+                const { blob, fileName } = await makeCardFile(universe, number);
                 const file = new File([blob], fileName, { type: "image/png" });
 
-                // Mobile: native share sheet (Instagram, Facebook, LinkedIn, etc.)
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     try {
                         await navigator.share({
@@ -2298,15 +2612,7 @@
                     }
                 }
 
-                // Desktop fallback: download the PNG
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = fileName;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                setTimeout(() => URL.revokeObjectURL(url), 5000);
+                triggerDownload(blob, fileName);
 
             } catch (err) {
                 console.error(err);
@@ -2315,6 +2621,143 @@
                 btn.disabled = false;
             }
         }
+
+        // ====== AZURE MAPS: PINPOINTING, MINI MAPS, MODAL ======
+        const MAPS_PLACES_URL = API_BASE + "/places";
+        const MAPS_IMG_URL = API_BASE + "/map";
+        let mapsAvailable = true; // flips off after a 503 (key not configured)
+
+        let userCoordsPromise = null;
+        function getUserCoords() {
+            if (!userCoordsPromise) {
+                userCoordsPromise = new Promise(resolve => {
+                    if (!navigator.geolocation) return resolve(null);
+                    navigator.geolocation.getCurrentPosition(
+                        pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+                        () => resolve(null),
+                        { timeout: 6000, maximumAge: 600000 }
+                    );
+                });
+            }
+            return userCoordsPromise;
+        }
+
+        async function lookupPlace(query, coords) {
+            if (!mapsAvailable) return null;
+            try {
+                let url = MAPS_PLACES_URL + "?query=" + encodeURIComponent(query);
+                if (coords) url += "&lat=" + coords.lat + "&lon=" + coords.lon;
+                const res = await fetch(url);
+                if (res.status === 503) { mapsAvailable = false; return null; }
+                if (!res.ok) return null;
+                const data = await res.json();
+                return (data.places && data.places[0]) || null;
+            } catch (_) {
+                return null;
+            }
+        }
+
+        function zoomFor(entityType) {
+            const t = (entityType || "").toLowerCase();
+            if (t.includes("country")) return 4;
+            if (t.includes("subdivision")) return 6;
+            return 9;
+        }
+
+        function addMiniMap(container, place, zoom, modalCtx) {
+            const div = document.createElement("div");
+            div.className = "mini-map";
+            div.innerHTML = `
+                <img loading="lazy" src="${MAPS_IMG_URL}?lat=${place.lat}&lon=${place.lon}&zoom=${zoom}&w=400&h=180" alt="${esc(place.name)}">
+                <div class="mini-map-caption">📍 ${esc(place.name)}</div>
+            `;
+            div.addEventListener("click", () => openMapModal(place, zoom, modalCtx));
+            container.appendChild(div);
+        }
+
+        // Adds real pinpointed locations to a card after it renders:
+        // travel → exact city/country, food → an actual restaurant near the user.
+        async function enhanceRecommendations(card, universe) {
+            const rec = universe.recommendations || {};
+            const travel = Array.isArray(rec.travel) ? rec.travel : [];
+            const food = Array.isArray(rec.food) ? rec.food : [];
+            if (!travel.length && !food.length) return;
+
+            const recLines = card.querySelectorAll(".rec-line");
+
+            for (let i = 0; i < travel.length; i++) {
+                const t = travel[i];
+                if (!t || !t.place) continue;
+                const place = await lookupPlace(t.place, null);
+                if (!place) continue;
+                const line = recLines[i];
+                if (line) addMiniMap(line, place, zoomFor(place.entityType), { type: "travel", query: t.place });
+            }
+
+            if (food.length) {
+                const coords = await getUserCoords();
+                for (let j = 0; j < food.length; j++) {
+                    const f = food[j];
+                    if (!f || !f.item) continue;
+                    const place = await lookupPlace(f.item + " restaurant", coords);
+                    if (!place) continue;
+                    const line = recLines[travel.length + j];
+                    if (line) addMiniMap(line, place, 14, { type: "food", query: f.item });
+                }
+            }
+        }
+
+        const mapModal = document.getElementById("mapModal");
+        const mapModalClose = document.getElementById("mapModalClose");
+
+        function openMapModal(place, zoom, ctx) {
+            const dict = I18N[currentLang];
+            document.getElementById("mapModalTitle").textContent = place.name;
+            document.getElementById("mapModalSub").textContent =
+                [place.address, place.phone].filter(Boolean).join("  ·  ");
+            document.getElementById("mapModalImg").src =
+                `${MAPS_IMG_URL}?lat=${place.lat}&lon=${place.lon}&zoom=${Math.min(zoom + 1, 17)}&w=680&h=380`;
+
+            const links = document.getElementById("mapModalLinks");
+            links.innerHTML = "";
+
+            const openBing = document.createElement("a");
+            openBing.className = "modal-link-primary";
+            openBing.target = "_blank";
+            openBing.rel = "noopener";
+            openBing.href = "https://www.bing.com/maps?q=" + encodeURIComponent(place.name + " " + (place.address || ""));
+            openBing.textContent = "🗺️ " + dict.openMaps;
+            links.appendChild(openBing);
+
+            if (ctx.type === "food") {
+                const second = document.createElement("a");
+                second.className = "modal-link-secondary";
+                second.target = "_blank";
+                second.rel = "noopener";
+                second.href = "https://www.bing.com/search?q=" + encodeURIComponent(place.name + " menu prices " + (place.address || ""));
+                second.textContent = "🍽️ " + dict.menuPrices;
+                links.appendChild(second);
+            }
+
+            if (place.url && !/^\s*javascript:/i.test(String(place.url))) {
+                const site = document.createElement("a");
+                site.className = "modal-link-secondary";
+                site.target = "_blank";
+                site.rel = "noopener";
+                site.href = place.url.startsWith("http") ? place.url : "https://" + place.url;
+                site.textContent = "🌐 Website";
+                links.appendChild(site);
+            }
+
+            mapModal.classList.add("active");
+        }
+
+        function closeMapModal() {
+            mapModal.classList.remove("active");
+        }
+        mapModalClose.addEventListener("click", closeMapModal);
+        mapModal.addEventListener("click", e => { if (e.target === mapModal) closeMapModal(); });
+        document.addEventListener("keydown", e => { if (e.key === "Escape") closeMapModal(); });
 
         // ====== OUTLOOK CALENDAR (deep link, no API key) ======
         function buildOutlookLink(eventText, universeTitle) {
@@ -2445,6 +2888,18 @@
         function clearError() {
             errorMessage.classList.remove('active');
         }
+
+        // ====== GENERATE BUTTON STATE ======
+        const generateBtn = document.getElementById('generateBtn');
+        const requiredFields = ['name', 'interests', 'situation', 'decision', 'details']
+            .map(id => document.getElementById(id));
+
+        function updateGenerateState() {
+            generateBtn.disabled = requiredFields.some(f => !f.value.trim());
+        }
+        requiredFields.forEach(f => f.addEventListener('input', updateGenerateState));
+        form.addEventListener('reset', () => setTimeout(updateGenerateState, 0));
+        updateGenerateState();
 
         // ====== INIT ======
         applyLanguage('en');
