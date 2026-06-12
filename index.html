@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0a0e27">
+    <link rel="preconnect" href="https://parallel-backend-wq04.onrender.com" crossorigin>
+    <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
     <title>Parallel Universe</title>
     <style>
@@ -403,6 +405,8 @@
                 0 8px 32px rgba(0, 217, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), --mx 0.55s ease-out, --my 0.55s ease-out;
+            content-visibility: auto;
+            contain-intrinsic-size: auto 760px;
             animation: cardPop 0.6s ease-out both;
         }
 
@@ -907,13 +911,46 @@
             font-size: 1.05em;
         }
 
+        .reality-check {
+            --tierColor: #00d9ff;
+        }
+
+        .reality-check.tier-low { --tierColor: #ff5470; }
+        .reality-check.tier-mid { --tierColor: #ffd166; }
+        .reality-check.tier-high { --tierColor: #00ff88; }
+
+        .reality-score-value {
+            color: var(--tierColor) !important;
+            text-shadow: 0 0 12px var(--tierColor);
+        }
+
+        .reality-track {
+            position: relative;
+        }
+
         .reality-bar {
             position: relative;
-            height: 8px;
+            height: 10px;
             border-radius: 999px;
             background: linear-gradient(90deg, #ff5470, #ffd166 55%, #00ff88);
-            border: 1px solid rgba(0, 217, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
             overflow: hidden;
+        }
+
+        .reality-bar::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+            transform: translateX(-100%);
+            animation: barSheen 3s ease-in-out 1.8s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes barSheen {
+            0% { transform: translateX(-100%); }
+            55%, 100% { transform: translateX(100%); }
         }
 
         .reality-cover {
@@ -922,8 +959,23 @@
             right: 0;
             bottom: 0;
             width: 100%;
-            background: rgba(13, 17, 40, 0.92);
+            background: rgba(13, 17, 40, 0.93);
             transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+        }
+
+        .reality-marker {
+            position: absolute;
+            top: 50%;
+            left: -8px;
+            width: 16px;
+            height: 16px;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2.5px solid var(--tierColor);
+            box-shadow: 0 0 12px var(--tierColor), 0 0 26px var(--tierColor);
+            transition: left 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+            pointer-events: none;
         }
 
         .reality-note {
@@ -931,6 +983,103 @@
             font-size: 0.85em;
             color: #9a92d8;
             font-style: italic;
+        }
+
+        /* Loading: emoji journey + indeterminate glow bar */
+        .loading-emoji {
+            display: inline-block;
+            font-size: 1.25em;
+            margin-right: 4px;
+        }
+
+        .loading-progress {
+            position: relative;
+            width: min(320px, 70%);
+            height: 4px;
+            margin: 18px auto 0;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+        }
+
+        .loading-progress-glow {
+            position: absolute;
+            top: 0;
+            left: -40%;
+            width: 40%;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, transparent, #00d9ff, #b00eff, transparent);
+            animation: progressSweep 1.4s ease-in-out infinite;
+        }
+
+        @keyframes progressSweep {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+
+        /* Pipeline transparency strip — real backend telemetry */
+        .pipeline-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 18px;
+            margin: 0 auto 26px;
+            padding: 10px 20px;
+            max-width: fit-content;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 999px;
+            background: rgba(10, 14, 39, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #9ecbff;
+            font-size: 0.82em;
+            letter-spacing: 0.3px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .pipeline-strip span {
+            white-space: nowrap;
+        }
+
+        /* Mini-map images fade in over a soft placeholder */
+        .mini-map {
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .mini-map img {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Gibberish guard UI */
+        .gibberish-hint {
+            display: none;
+            margin: -6px 0 16px;
+            padding: 10px 16px;
+            border: 1px solid rgba(255, 84, 112, 0.5);
+            border-radius: 12px;
+            background: rgba(255, 84, 112, 0.08);
+            color: #ff8fa3;
+            font-size: 0.88em;
+            text-align: center;
+        }
+
+        .gibberish-hint.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        input.field-suspect, textarea.field-suspect {
+            border-color: rgba(255, 84, 112, 0.75) !important;
+            box-shadow: 0 0 0 3px rgba(255, 84, 112, 0.12);
+        }
+
+        .mini-map-addr {
+            padding: 0 12px 7px;
+            font-size: 0.78em;
+            color: #8f87c8;
+            background: rgba(10, 14, 39, 0.85);
         }
 
         /* Job pills are buttons now — undo the global button chrome */
@@ -1212,6 +1361,7 @@
                     <textarea id="details" data-i18n-ph="phDetails" placeholder="Provide more context to make your universes more personalized..." required></textarea>
                 </div>
                 <div class="button-container">
+                    <p class="gibberish-hint" id="gibberishHint" data-i18n="gibberishHint">Please use real words — random characters can't create a universe</p>
                     <button type="submit" class="btn-generate" id="generateBtn" data-i18n="btnGenerate" disabled>Generate Universes</button>
                     <button type="reset" class="btn-reset" data-i18n="btnClear">Clear</button>
                 </div>
@@ -1220,10 +1370,12 @@
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p class="loading-text" data-i18n="loading">Scanning parallel universes...</p>
+            <p class="loading-text"><span class="loading-emoji" id="loadingEmoji">🌌</span> <span data-i18n="loading">Scanning parallel universes...</span></p>
+            <div class="loading-progress"><div class="loading-progress-glow"></div></div>
         </div>
 
         <div class="results-section" id="resultsSection">
+            <div class="pipeline-strip" id="pipelineStrip" hidden></div>
             <h2 class="results-title" data-i18n="resultsTitle">Your 3 Parallel Universes</h2>
             <div class="universes-grid" id="universesContainer"></div>
             <div class="button-container">
@@ -2228,42 +2380,42 @@
 
         // Extra UI strings (background toggle + recommendation headers)
         const I18N_EXTRA = {
-            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook", saveCard: "Save image", shareCard: "Share image", openMaps: "Open in Bing Maps", menuPrices: "Menu & prices", wip: "Work in progress — some features may not work yet", realityCheck: "Reality check (AI estimate)" },
-            sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook", saveCard: "Ruaj imazhin", shareCard: "Ndaj imazhin", openMaps: "Hap në Bing Maps", menuPrices: "Menyja dhe çmimet", wip: "Punë në vazhdim — disa veçori mund të mos funksionojnë ende", realityCheck: "Kontroll realiteti (vlerësim i IA-së)" },
-            eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en", saveCard: "Gorde irudia", shareCard: "Partekatu irudia", openMaps: "Ireki Bing Maps-en", menuPrices: "Menua eta prezioak", wip: "Lanean — baliteke funtzio batzuek oraindik ez funtzionatzea", realityCheck: "Errealitate-kontrola (AAren zenbatespena)" },
-            bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Sačuvaj sliku", shareCard: "Podijeli sliku", openMaps: "Otvori u Bing Maps", menuPrices: "Meni i cijene", wip: "Rad u toku — neke funkcije možda još ne rade", realityCheck: "Provjera realnosti (procjena AI)" },
-            bg: { bgLabel: "Анимиран фон", recJobs: "Работни позиции", recTravel: "Идеи за пътуване", recFood: "Храна", listen: "Слушай", share: "Сподели в LinkedIn", addOutlook: "Добави в Outlook", saveCard: "Запази изображението", shareCard: "Сподели изображението", openMaps: "Отвори в Bing Maps", menuPrices: "Меню и цени", wip: "В процес на разработка — някои функции може още да не работят", realityCheck: "Проверка на реалността (AI оценка)" },
-            ca: { bgLabel: "Fons animat", recJobs: "Llocs de treball", recTravel: "Idees de viatge", recFood: "Gastronomia", listen: "Escolta", share: "Comparteix a LinkedIn", addOutlook: "Afegeix a l'Outlook", saveCard: "Desa la imatge", shareCard: "Comparteix la imatge", openMaps: "Obre a Bing Maps", menuPrices: "Menú i preus", wip: "En desenvolupament — algunes funcions poden no funcionar encara", realityCheck: "Contrast amb la realitat (estimació d'IA)" },
-            hr: { bgLabel: "Animirana pozadina", recJobs: "Radna mjesta", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Spremi sliku", shareCard: "Podijeli sliku", openMaps: "Otvori u Bing Maps", menuPrices: "Meni i cijene", wip: "Rad u tijeku — neke značajke možda još ne rade", realityCheck: "Provjera realnosti (procjena AI)" },
-            cs: { bgLabel: "Animované pozadí", recJobs: "Pracovní pozice", recTravel: "Tipy na cesty", recFood: "Jídlo", listen: "Poslechnout", share: "Sdílet na LinkedIn", addOutlook: "Přidat do Outlooku", saveCard: "Uložit obrázek", shareCard: "Sdílet obrázek", openMaps: "Otevřít v Bing Maps", menuPrices: "Menu a ceny", wip: "Ve vývoji — některé funkce nemusí zatím fungovat", realityCheck: "Test reality (odhad AI)" },
-            da: { bgLabel: "Animeret baggrund", recJobs: "Jobroller", recTravel: "Rejseideer", recFood: "Mad", listen: "Lyt", share: "Del på LinkedIn", addOutlook: "Føj til Outlook", saveCard: "Gem billede", shareCard: "Del billede", openMaps: "Åbn i Bing Maps", menuPrices: "Menu og priser", wip: "Under udvikling — nogle funktioner virker måske ikke endnu", realityCheck: "Realitetstjek (AI-skøn)" },
-            nl: { bgLabel: "Bewegende achtergrond", recJobs: "Functies", recTravel: "Reisideeën", recFood: "Eten", listen: "Luister", share: "Delen op LinkedIn", addOutlook: "Toevoegen aan Outlook", saveCard: "Afbeelding opslaan", shareCard: "Afbeelding delen", openMaps: "Openen in Bing Maps", menuPrices: "Menu en prijzen", wip: "Werk in uitvoering — sommige functies werken mogelijk nog niet", realityCheck: "Realiteitscheck (AI-schatting)" },
-            et: { bgLabel: "Animeeritud taust", recJobs: "Ametikohad", recTravel: "Reisiideed", recFood: "Toit", listen: "Kuula", share: "Jaga LinkedInis", addOutlook: "Lisa Outlooki", saveCard: "Salvesta pilt", shareCard: "Jaga pilti", openMaps: "Ava Bing Mapsis", menuPrices: "Menüü ja hinnad", wip: "Töös — mõned funktsioonid ei pruugi veel töötada", realityCheck: "Reaalsuskontroll (AI hinnang)" },
-            fi: { bgLabel: "Animoitu tausta", recJobs: "Työtehtävät", recTravel: "Matkaideat", recFood: "Ruoka", listen: "Kuuntele", share: "Jaa LinkedInissä", addOutlook: "Lisää Outlookiin", saveCard: "Tallenna kuva", shareCard: "Jaa kuva", openMaps: "Avaa Bing Mapsissa", menuPrices: "Menu ja hinnat", wip: "Työn alla — kaikki toiminnot eivät ehkä vielä toimi", realityCheck: "Todellisuustarkistus (tekoälyn arvio)" },
-            fr: { bgLabel: "Fond animé", recJobs: "Métiers à explorer", recTravel: "Idées de voyage", recFood: "Gastronomie", listen: "Écouter", share: "Partager sur LinkedIn", addOutlook: "Ajouter à Outlook", saveCard: "Enregistrer l'image", shareCard: "Partager l'image", openMaps: "Ouvrir dans Bing Maps", menuPrices: "Menu et prix", wip: "En cours de développement — certaines fonctions peuvent ne pas marcher", realityCheck: "Test de réalité (estimation IA)" },
-            gl: { bgLabel: "Fondo animado", recJobs: "Postos de traballo", recTravel: "Ideas de viaxe", recFood: "Gastronomía", listen: "Escoita", share: "Compartir en LinkedIn", addOutlook: "Engadir a Outlook", saveCard: "Gardar a imaxe", shareCard: "Compartir a imaxe", openMaps: "Abrir en Bing Maps", menuPrices: "Menú e prezos", wip: "En desenvolvemento — algunhas funcións poden non funcionar aínda", realityCheck: "Contraste coa realidade (estimación da IA)" },
-            de: { bgLabel: "Animierter Hintergrund", recJobs: "Jobrollen", recTravel: "Reiseideen", recFood: "Essen & Trinken", listen: "Anhören", share: "Auf LinkedIn teilen", addOutlook: "Zu Outlook hinzufügen", saveCard: "Bild speichern", shareCard: "Bild teilen", openMaps: "In Bing Maps öffnen", menuPrices: "Speisekarte & Preise", wip: "In Arbeit — einige Funktionen funktionieren eventuell noch nicht", realityCheck: "Realitätscheck (KI-Schätzung)" },
-            el: { bgLabel: "Κινούμενο φόντο", recJobs: "Θέσεις εργασίας", recTravel: "Ταξιδιωτικές ιδέες", recFood: "Φαγητό", listen: "Άκουσε", share: "Κοινοποίηση στο LinkedIn", addOutlook: "Προσθήκη στο Outlook", saveCard: "Αποθήκευση εικόνας", shareCard: "Κοινοποίηση εικόνας", openMaps: "Άνοιγμα στο Bing Maps", menuPrices: "Μενού και τιμές", wip: "Σε εξέλιξη — ορισμένες λειτουργίες ίσως να μη δουλεύουν ακόμα", realityCheck: "Έλεγχος ρεαλισμού (εκτίμηση ΤΝ)" },
-            hu: { bgLabel: "Animált háttér", recJobs: "Munkakörök", recTravel: "Utazási ötletek", recFood: "Ételek", listen: "Meghallgatás", share: "Megosztás a LinkedInen", addOutlook: "Hozzáadás az Outlookhoz", saveCard: "Kép mentése", shareCard: "Kép megosztása", openMaps: "Megnyitás a Bing Mapsben", menuPrices: "Étlap és árak", wip: "Fejlesztés alatt — egyes funkciók még nem biztos, hogy működnek", realityCheck: "Valóságpróba (MI-becslés)" },
-            is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook", saveCard: "Vista mynd", shareCard: "Deila mynd", openMaps: "Opna í Bing Maps", menuPrices: "Matseðill og verð", wip: "Í vinnslu — sumir eiginleikar virka kannski ekki enn", realityCheck: "Raunveruleikapróf (gervigreindarmat)" },
-            ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook", saveCard: "Sábháil an íomhá", shareCard: "Roinn an íomhá", openMaps: "Oscail i Bing Maps", menuPrices: "Biachlár agus praghsanna", wip: "Obair idir lámha — seans nach n-oibríonn gnéithe áirithe fós", realityCheck: "Seiceáil réaltachta (meastachán IS)" },
-            it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook", saveCard: "Salva immagine", shareCard: "Condividi immagine", openMaps: "Apri in Bing Maps", menuPrices: "Menù e prezzi", wip: "Lavori in corso — alcune funzioni potrebbero non funzionare ancora", realityCheck: "Verifica di realtà (stima IA)" },
-            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook", saveCard: "Saglabāt attēlu", shareCard: "Dalīties ar attēlu", openMaps: "Atvērt Bing Maps", menuPrices: "Ēdienkarte un cenas", wip: "Darbs procesā — dažas funkcijas vēl var nedarboties", realityCheck: "Realitātes pārbaude (MI aplēse)" },
-            lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook", saveCard: "Išsaugoti paveikslėlį", shareCard: "Bendrinti paveikslėlį", openMaps: "Atidaryti Bing Maps", menuPrices: "Meniu ir kainos", wip: "Kuriama — kai kurios funkcijos gali dar neveikti", realityCheck: "Realybės patikra (DI įvertis)" },
-            lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen", saveCard: "Bild späicheren", shareCard: "Bild deelen", openMaps: "An Bing Maps opmaachen", menuPrices: "Menü an Präisser", wip: "An Aarbecht — verschidde Funktioune kéinten nach net goen", realityCheck: "Realitéitscheck (KI-Schätzung)" },
-            mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook", saveCard: "Зачувај слика", shareCard: "Сподели слика", openMaps: "Отвори во Bing Maps", menuPrices: "Мени и цени", wip: "Во развој — некои функции можеби сè уште не работат", realityCheck: "Проверка на реалноста (АИ процена)" },
-            mt: { bgLabel: "Sfond animat", recJobs: "Rwoli tax-xogħol", recTravel: "Ideat għall-ivvjaġġar", recFood: "Ikel", listen: "Isma'", share: "Aqsam fuq LinkedIn", addOutlook: "Żid ma' Outlook", saveCard: "Issejvja l-immaġni", shareCard: "Aqsam l-immaġni", openMaps: "Iftaħ f'Bing Maps", menuPrices: "Menù u prezzijiet", wip: "Xogħol għaddej — xi funzjonijiet jistgħu għadhom ma jaħdmux", realityCheck: "Verifika tar-realtà (stima tal-IA)" },
-            no: { bgLabel: "Animert bakgrunn", recJobs: "Jobbroller", recTravel: "Reiseideer", recFood: "Mat", listen: "Lytt", share: "Del på LinkedIn", addOutlook: "Legg til i Outlook", saveCard: "Lagre bilde", shareCard: "Del bilde", openMaps: "Åpne i Bing Maps", menuPrices: "Meny og priser", wip: "Under utvikling — noen funksjoner virker kanskje ikke ennå", realityCheck: "Realitetssjekk (KI-anslag)" },
-            pl: { bgLabel: "Animowane tło", recJobs: "Stanowiska pracy", recTravel: "Pomysły na podróże", recFood: "Jedzenie", listen: "Słuchaj", share: "Udostępnij na LinkedIn", addOutlook: "Dodaj do Outlooka", saveCard: "Zapisz obraz", shareCard: "Udostępnij obraz", openMaps: "Otwórz w Bing Maps", menuPrices: "Menu i ceny", wip: "Praca w toku — niektóre funkcje mogą jeszcze nie działać", realityCheck: "Test rzeczywistości (szacunek AI)" },
-            pt: { bgLabel: "Fundo animado", recJobs: "Funções profissionais", recTravel: "Ideias de viagem", recFood: "Gastronomia", listen: "Ouvir", share: "Partilhar no LinkedIn", addOutlook: "Adicionar ao Outlook", saveCard: "Guardar imagem", shareCard: "Partilhar imagem", openMaps: "Abrir no Bing Maps", menuPrices: "Menu e preços", wip: "Em desenvolvimento — algumas funções podem ainda não funcionar", realityCheck: "Teste de realidade (estimativa de IA)" },
-            ro: { bgLabel: "Fundal animat", recJobs: "Roluri profesionale", recTravel: "Idei de călătorie", recFood: "Mâncare", listen: "Ascultă", share: "Distribuie pe LinkedIn", addOutlook: "Adaugă în Outlook", saveCard: "Salvează imaginea", shareCard: "Distribuie imaginea", openMaps: "Deschide în Bing Maps", menuPrices: "Meniu și prețuri", wip: "În lucru — unele funcții s-ar putea să nu meargă încă", realityCheck: "Verificare a realității (estimare IA)" },
-            sr: { bgLabel: "Анимирана позадина", recJobs: "Радне позиције", recTravel: "Идеје за путовања", recFood: "Храна", listen: "Слушај", share: "Подели на LinkedIn-у", addOutlook: "Додај у Outlook", saveCard: "Сачувај слику", shareCard: "Подели слику", openMaps: "Отвори у Bing Maps", menuPrices: "Мени и цене", wip: "У изради — неке функције можда још не раде", realityCheck: "Провера реалности (АИ процена)" },
-            sk: { bgLabel: "Animované pozadie", recJobs: "Pracovné pozície", recTravel: "Tipy na cestovanie", recFood: "Jedlo", listen: "Vypočuť", share: "Zdieľať na LinkedIn", addOutlook: "Pridať do Outlooku", saveCard: "Uložiť obrázok", shareCard: "Zdieľať obrázok", openMaps: "Otvoriť v Bing Maps", menuPrices: "Menu a ceny", wip: "Vo vývoji — niektoré funkcie zatiaľ nemusia fungovať", realityCheck: "Test reality (odhad AI)" },
-            sl: { bgLabel: "Animirano ozadje", recJobs: "Delovna mesta", recTravel: "Ideje za potovanja", recFood: "Hrana", listen: "Poslušaj", share: "Deli na LinkedInu", addOutlook: "Dodaj v Outlook", saveCard: "Shrani sliko", shareCard: "Deli sliko", openMaps: "Odpri v Bing Maps", menuPrices: "Meni in cene", wip: "V izdelavi — nekatere funkcije morda še ne delujejo", realityCheck: "Preizkus realnosti (ocena UI)" },
-            es: { bgLabel: "Fondo animado", recJobs: "Puestos de trabajo", recTravel: "Ideas de viaje", recFood: "Gastronomía", listen: "Escuchar", share: "Compartir en LinkedIn", addOutlook: "Añadir a Outlook", saveCard: "Guardar imagen", shareCard: "Compartir imagen", openMaps: "Abrir en Bing Maps", menuPrices: "Menú y precios", wip: "En desarrollo — algunas funciones pueden no funcionar aún", realityCheck: "Contraste con la realidad (estimación de IA)" },
-            sv: { bgLabel: "Animerad bakgrund", recJobs: "Jobbroller", recTravel: "Reseidéer", recFood: "Mat", listen: "Lyssna", share: "Dela på LinkedIn", addOutlook: "Lägg till i Outlook", saveCard: "Spara bild", shareCard: "Dela bild", openMaps: "Öppna i Bing Maps", menuPrices: "Meny och priser", wip: "Under utveckling — vissa funktioner kanske inte fungerar än", realityCheck: "Verklighetskoll (AI-uppskattning)" },
-            tr: { bgLabel: "Hareketli arka plan", recJobs: "İş rolleri", recTravel: "Seyahat fikirleri", recFood: "Yemek", listen: "Dinle", share: "LinkedIn'de paylaş", addOutlook: "Outlook'a ekle", saveCard: "Görseli kaydet", shareCard: "Görseli paylaş", openMaps: "Bing Maps'te aç", menuPrices: "Menü ve fiyatlar", wip: "Yapım aşamasında — bazı özellikler henüz çalışmayabilir", realityCheck: "Gerçeklik kontrolü (YZ tahmini)" },
-            cy: { bgLabel: "Cefndir animeiddiedig", recJobs: "Rolau swydd", recTravel: "Syniadau teithio", recFood: "Bwyd", listen: "Gwrando", share: "Rhannu ar LinkedIn", addOutlook: "Ychwanegu at Outlook", saveCard: "Cadw'r ddelwedd", shareCard: "Rhannu'r ddelwedd", openMaps: "Agor yn Bing Maps", menuPrices: "Bwydlen a phrisiau", wip: "Gwaith ar y gweill — efallai na fydd rhai nodweddion yn gweithio eto", realityCheck: "Gwiriad realiti (amcangyfrif AI)" }
+            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook", saveCard: "Save image", shareCard: "Share image", openMaps: "Open in Bing Maps", menuPrices: "Menu & prices", wip: "Work in progress — some features may not work yet", realityCheck: "Reality check (AI estimate)", gibberishHint: "Please use real words — random characters can't create a universe" },
+            sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook", saveCard: "Ruaj imazhin", shareCard: "Ndaj imazhin", openMaps: "Hap në Bing Maps", menuPrices: "Menyja dhe çmimet", wip: "Punë në vazhdim — disa veçori mund të mos funksionojnë ende", realityCheck: "Kontroll realiteti (vlerësim i IA-së)", gibberishHint: "Përdor fjalë të vërteta — shkronjat e rastësishme s'mund të krijojnë një univers" },
+            eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en", saveCard: "Gorde irudia", shareCard: "Partekatu irudia", openMaps: "Ireki Bing Maps-en", menuPrices: "Menua eta prezioak", wip: "Lanean — baliteke funtzio batzuek oraindik ez funtzionatzea", realityCheck: "Errealitate-kontrola (AAren zenbatespena)", gibberishHint: "Erabili benetako hitzak — ausazko karaktereek ezin dute unibertsorik sortu" },
+            bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Sačuvaj sliku", shareCard: "Podijeli sliku", openMaps: "Otvori u Bing Maps", menuPrices: "Meni i cijene", wip: "Rad u toku — neke funkcije možda još ne rade", realityCheck: "Provjera realnosti (procjena AI)", gibberishHint: "Koristi prave riječi — nasumična slova ne mogu stvoriti univerzum" },
+            bg: { bgLabel: "Анимиран фон", recJobs: "Работни позиции", recTravel: "Идеи за пътуване", recFood: "Храна", listen: "Слушай", share: "Сподели в LinkedIn", addOutlook: "Добави в Outlook", saveCard: "Запази изображението", shareCard: "Сподели изображението", openMaps: "Отвори в Bing Maps", menuPrices: "Меню и цени", wip: "В процес на разработка — някои функции може още да не работят", realityCheck: "Проверка на реалността (AI оценка)", gibberishHint: "Използвай истински думи — случайни букви не могат да създадат вселена" },
+            ca: { bgLabel: "Fons animat", recJobs: "Llocs de treball", recTravel: "Idees de viatge", recFood: "Gastronomia", listen: "Escolta", share: "Comparteix a LinkedIn", addOutlook: "Afegeix a l'Outlook", saveCard: "Desa la imatge", shareCard: "Comparteix la imatge", openMaps: "Obre a Bing Maps", menuPrices: "Menú i preus", wip: "En desenvolupament — algunes funcions poden no funcionar encara", realityCheck: "Contrast amb la realitat (estimació d'IA)", gibberishHint: "Fes servir paraules reals — els caràcters aleatoris no poden crear un univers" },
+            hr: { bgLabel: "Animirana pozadina", recJobs: "Radna mjesta", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Spremi sliku", shareCard: "Podijeli sliku", openMaps: "Otvori u Bing Maps", menuPrices: "Meni i cijene", wip: "Rad u tijeku — neke značajke možda još ne rade", realityCheck: "Provjera realnosti (procjena AI)", gibberishHint: "Koristi prave riječi — nasumična slova ne mogu stvoriti svemir" },
+            cs: { bgLabel: "Animované pozadí", recJobs: "Pracovní pozice", recTravel: "Tipy na cesty", recFood: "Jídlo", listen: "Poslechnout", share: "Sdílet na LinkedIn", addOutlook: "Přidat do Outlooku", saveCard: "Uložit obrázek", shareCard: "Sdílet obrázek", openMaps: "Otevřít v Bing Maps", menuPrices: "Menu a ceny", wip: "Ve vývoji — některé funkce nemusí zatím fungovat", realityCheck: "Test reality (odhad AI)", gibberishHint: "Použij skutečná slova — náhodné znaky vesmír nevytvoří" },
+            da: { bgLabel: "Animeret baggrund", recJobs: "Jobroller", recTravel: "Rejseideer", recFood: "Mad", listen: "Lyt", share: "Del på LinkedIn", addOutlook: "Føj til Outlook", saveCard: "Gem billede", shareCard: "Del billede", openMaps: "Åbn i Bing Maps", menuPrices: "Menu og priser", wip: "Under udvikling — nogle funktioner virker måske ikke endnu", realityCheck: "Realitetstjek (AI-skøn)", gibberishHint: "Brug rigtige ord — tilfældige tegn kan ikke skabe et univers" },
+            nl: { bgLabel: "Bewegende achtergrond", recJobs: "Functies", recTravel: "Reisideeën", recFood: "Eten", listen: "Luister", share: "Delen op LinkedIn", addOutlook: "Toevoegen aan Outlook", saveCard: "Afbeelding opslaan", shareCard: "Afbeelding delen", openMaps: "Openen in Bing Maps", menuPrices: "Menu en prijzen", wip: "Werk in uitvoering — sommige functies werken mogelijk nog niet", realityCheck: "Realiteitscheck (AI-schatting)", gibberishHint: "Gebruik echte woorden — willekeurige tekens kunnen geen universum maken" },
+            et: { bgLabel: "Animeeritud taust", recJobs: "Ametikohad", recTravel: "Reisiideed", recFood: "Toit", listen: "Kuula", share: "Jaga LinkedInis", addOutlook: "Lisa Outlooki", saveCard: "Salvesta pilt", shareCard: "Jaga pilti", openMaps: "Ava Bing Mapsis", menuPrices: "Menüü ja hinnad", wip: "Töös — mõned funktsioonid ei pruugi veel töötada", realityCheck: "Reaalsuskontroll (AI hinnang)", gibberishHint: "Kasuta päris sõnu — juhuslikud tähed ei loo universumit" },
+            fi: { bgLabel: "Animoitu tausta", recJobs: "Työtehtävät", recTravel: "Matkaideat", recFood: "Ruoka", listen: "Kuuntele", share: "Jaa LinkedInissä", addOutlook: "Lisää Outlookiin", saveCard: "Tallenna kuva", shareCard: "Jaa kuva", openMaps: "Avaa Bing Mapsissa", menuPrices: "Menu ja hinnat", wip: "Työn alla — kaikki toiminnot eivät ehkä vielä toimi", realityCheck: "Todellisuustarkistus (tekoälyn arvio)", gibberishHint: "Käytä oikeita sanoja — satunnaiset merkit eivät luo universumia" },
+            fr: { bgLabel: "Fond animé", recJobs: "Métiers à explorer", recTravel: "Idées de voyage", recFood: "Gastronomie", listen: "Écouter", share: "Partager sur LinkedIn", addOutlook: "Ajouter à Outlook", saveCard: "Enregistrer l'image", shareCard: "Partager l'image", openMaps: "Ouvrir dans Bing Maps", menuPrices: "Menu et prix", wip: "En cours de développement — certaines fonctions peuvent ne pas marcher", realityCheck: "Test de réalité (estimation IA)", gibberishHint: "Utilise de vrais mots — des caractères aléatoires ne créent pas d'univers" },
+            gl: { bgLabel: "Fondo animado", recJobs: "Postos de traballo", recTravel: "Ideas de viaxe", recFood: "Gastronomía", listen: "Escoita", share: "Compartir en LinkedIn", addOutlook: "Engadir a Outlook", saveCard: "Gardar a imaxe", shareCard: "Compartir a imaxe", openMaps: "Abrir en Bing Maps", menuPrices: "Menú e prezos", wip: "En desenvolvemento — algunhas funcións poden non funcionar aínda", realityCheck: "Contraste coa realidade (estimación da IA)", gibberishHint: "Usa palabras reais — os caracteres aleatorios non poden crear un universo" },
+            de: { bgLabel: "Animierter Hintergrund", recJobs: "Jobrollen", recTravel: "Reiseideen", recFood: "Essen & Trinken", listen: "Anhören", share: "Auf LinkedIn teilen", addOutlook: "Zu Outlook hinzufügen", saveCard: "Bild speichern", shareCard: "Bild teilen", openMaps: "In Bing Maps öffnen", menuPrices: "Speisekarte & Preise", wip: "In Arbeit — einige Funktionen funktionieren eventuell noch nicht", realityCheck: "Realitätscheck (KI-Schätzung)", gibberishHint: "Bitte echte Wörter verwenden — zufällige Zeichen erschaffen kein Universum" },
+            el: { bgLabel: "Κινούμενο φόντο", recJobs: "Θέσεις εργασίας", recTravel: "Ταξιδιωτικές ιδέες", recFood: "Φαγητό", listen: "Άκουσε", share: "Κοινοποίηση στο LinkedIn", addOutlook: "Προσθήκη στο Outlook", saveCard: "Αποθήκευση εικόνας", shareCard: "Κοινοποίηση εικόνας", openMaps: "Άνοιγμα στο Bing Maps", menuPrices: "Μενού και τιμές", wip: "Σε εξέλιξη — ορισμένες λειτουργίες ίσως να μη δουλεύουν ακόμα", realityCheck: "Έλεγχος ρεαλισμού (εκτίμηση ΤΝ)", gibberishHint: "Χρησιμοποίησε αληθινές λέξεις — τυχαίοι χαρακτήρες δεν φτιάχνουν σύμπαν" },
+            hu: { bgLabel: "Animált háttér", recJobs: "Munkakörök", recTravel: "Utazási ötletek", recFood: "Ételek", listen: "Meghallgatás", share: "Megosztás a LinkedInen", addOutlook: "Hozzáadás az Outlookhoz", saveCard: "Kép mentése", shareCard: "Kép megosztása", openMaps: "Megnyitás a Bing Mapsben", menuPrices: "Étlap és árak", wip: "Fejlesztés alatt — egyes funkciók még nem biztos, hogy működnek", realityCheck: "Valóságpróba (MI-becslés)", gibberishHint: "Használj valódi szavakat — véletlen karakterekből nem születik univerzum" },
+            is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook", saveCard: "Vista mynd", shareCard: "Deila mynd", openMaps: "Opna í Bing Maps", menuPrices: "Matseðill og verð", wip: "Í vinnslu — sumir eiginleikar virka kannski ekki enn", realityCheck: "Raunveruleikapróf (gervigreindarmat)", gibberishHint: "Notaðu alvöru orð — tilviljanakenndir stafir skapa ekki alheim" },
+            ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook", saveCard: "Sábháil an íomhá", shareCard: "Roinn an íomhá", openMaps: "Oscail i Bing Maps", menuPrices: "Biachlár agus praghsanna", wip: "Obair idir lámha — seans nach n-oibríonn gnéithe áirithe fós", realityCheck: "Seiceáil réaltachta (meastachán IS)", gibberishHint: "Úsáid fíorfhocail — ní féidir le carachtair randamacha cruinne a chruthú" },
+            it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook", saveCard: "Salva immagine", shareCard: "Condividi immagine", openMaps: "Apri in Bing Maps", menuPrices: "Menù e prezzi", wip: "Lavori in corso — alcune funzioni potrebbero non funzionare ancora", realityCheck: "Verifica di realtà (stima IA)", gibberishHint: "Usa parole vere — caratteri casuali non possono creare un universo" },
+            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook", saveCard: "Saglabāt attēlu", shareCard: "Dalīties ar attēlu", openMaps: "Atvērt Bing Maps", menuPrices: "Ēdienkarte un cenas", wip: "Darbs procesā — dažas funkcijas vēl var nedarboties", realityCheck: "Realitātes pārbaude (MI aplēse)", gibberishHint: "Lieto īstus vārdus — nejauši burti nevar radīt Visumu" },
+            lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook", saveCard: "Išsaugoti paveikslėlį", shareCard: "Bendrinti paveikslėlį", openMaps: "Atidaryti Bing Maps", menuPrices: "Meniu ir kainos", wip: "Kuriama — kai kurios funkcijos gali dar neveikti", realityCheck: "Realybės patikra (DI įvertis)", gibberishHint: "Naudok tikrus žodžius — atsitiktiniai simboliai visatos nesukurs" },
+            lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen", saveCard: "Bild späicheren", shareCard: "Bild deelen", openMaps: "An Bing Maps opmaachen", menuPrices: "Menü an Präisser", wip: "An Aarbecht — verschidde Funktioune kéinten nach net goen", realityCheck: "Realitéitscheck (KI-Schätzung)", gibberishHint: "Benotz richteg Wierder — zoufälleg Zeechen kënne keen Universum schafen" },
+            mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook", saveCard: "Зачувај слика", shareCard: "Сподели слика", openMaps: "Отвори во Bing Maps", menuPrices: "Мени и цени", wip: "Во развој — некои функции можеби сè уште не работат", realityCheck: "Проверка на реалноста (АИ процена)", gibberishHint: "Користи вистински зборови — случајни букви не создаваат универзум" },
+            mt: { bgLabel: "Sfond animat", recJobs: "Rwoli tax-xogħol", recTravel: "Ideat għall-ivvjaġġar", recFood: "Ikel", listen: "Isma'", share: "Aqsam fuq LinkedIn", addOutlook: "Żid ma' Outlook", saveCard: "Issejvja l-immaġni", shareCard: "Aqsam l-immaġni", openMaps: "Iftaħ f'Bing Maps", menuPrices: "Menù u prezzijiet", wip: "Xogħol għaddej — xi funzjonijiet jistgħu għadhom ma jaħdmux", realityCheck: "Verifika tar-realtà (stima tal-IA)", gibberishHint: "Uża kliem veru — karattri każwali ma jistgħux joħolqu univers" },
+            no: { bgLabel: "Animert bakgrunn", recJobs: "Jobbroller", recTravel: "Reiseideer", recFood: "Mat", listen: "Lytt", share: "Del på LinkedIn", addOutlook: "Legg til i Outlook", saveCard: "Lagre bilde", shareCard: "Del bilde", openMaps: "Åpne i Bing Maps", menuPrices: "Meny og priser", wip: "Under utvikling — noen funksjoner virker kanskje ikke ennå", realityCheck: "Realitetssjekk (KI-anslag)", gibberishHint: "Bruk ekte ord — tilfeldige tegn kan ikke skape et univers" },
+            pl: { bgLabel: "Animowane tło", recJobs: "Stanowiska pracy", recTravel: "Pomysły na podróże", recFood: "Jedzenie", listen: "Słuchaj", share: "Udostępnij na LinkedIn", addOutlook: "Dodaj do Outlooka", saveCard: "Zapisz obraz", shareCard: "Udostępnij obraz", openMaps: "Otwórz w Bing Maps", menuPrices: "Menu i ceny", wip: "Praca w toku — niektóre funkcje mogą jeszcze nie działać", realityCheck: "Test rzeczywistości (szacunek AI)", gibberishHint: "Użyj prawdziwych słów — losowe znaki nie stworzą wszechświata" },
+            pt: { bgLabel: "Fundo animado", recJobs: "Funções profissionais", recTravel: "Ideias de viagem", recFood: "Gastronomia", listen: "Ouvir", share: "Partilhar no LinkedIn", addOutlook: "Adicionar ao Outlook", saveCard: "Guardar imagem", shareCard: "Partilhar imagem", openMaps: "Abrir no Bing Maps", menuPrices: "Menu e preços", wip: "Em desenvolvimento — algumas funções podem ainda não funcionar", realityCheck: "Teste de realidade (estimativa de IA)", gibberishHint: "Usa palavras reais — caracteres aleatórios não criam um universo" },
+            ro: { bgLabel: "Fundal animat", recJobs: "Roluri profesionale", recTravel: "Idei de călătorie", recFood: "Mâncare", listen: "Ascultă", share: "Distribuie pe LinkedIn", addOutlook: "Adaugă în Outlook", saveCard: "Salvează imaginea", shareCard: "Distribuie imaginea", openMaps: "Deschide în Bing Maps", menuPrices: "Meniu și prețuri", wip: "În lucru — unele funcții s-ar putea să nu meargă încă", realityCheck: "Verificare a realității (estimare IA)", gibberishHint: "Folosește cuvinte reale — caracterele aleatorii nu pot crea un univers" },
+            sr: { bgLabel: "Анимирана позадина", recJobs: "Радне позиције", recTravel: "Идеје за путовања", recFood: "Храна", listen: "Слушај", share: "Подели на LinkedIn-у", addOutlook: "Додај у Outlook", saveCard: "Сачувај слику", shareCard: "Подели слику", openMaps: "Отвори у Bing Maps", menuPrices: "Мени и цене", wip: "У изради — неке функције можда још не раде", realityCheck: "Провера реалности (АИ процена)", gibberishHint: "Користи праве речи — насумична слова не могу створити универзум" },
+            sk: { bgLabel: "Animované pozadie", recJobs: "Pracovné pozície", recTravel: "Tipy na cestovanie", recFood: "Jedlo", listen: "Vypočuť", share: "Zdieľať na LinkedIn", addOutlook: "Pridať do Outlooku", saveCard: "Uložiť obrázok", shareCard: "Zdieľať obrázok", openMaps: "Otvoriť v Bing Maps", menuPrices: "Menu a ceny", wip: "Vo vývoji — niektoré funkcie zatiaľ nemusia fungovať", realityCheck: "Test reality (odhad AI)", gibberishHint: "Použi skutočné slová — náhodné znaky vesmír nevytvoria" },
+            sl: { bgLabel: "Animirano ozadje", recJobs: "Delovna mesta", recTravel: "Ideje za potovanja", recFood: "Hrana", listen: "Poslušaj", share: "Deli na LinkedInu", addOutlook: "Dodaj v Outlook", saveCard: "Shrani sliko", shareCard: "Deli sliko", openMaps: "Odpri v Bing Maps", menuPrices: "Meni in cene", wip: "V izdelavi — nekatere funkcije morda še ne delujejo", realityCheck: "Preizkus realnosti (ocena UI)", gibberishHint: "Uporabi prave besede — naključni znaki ne morejo ustvariti vesolja" },
+            es: { bgLabel: "Fondo animado", recJobs: "Puestos de trabajo", recTravel: "Ideas de viaje", recFood: "Gastronomía", listen: "Escuchar", share: "Compartir en LinkedIn", addOutlook: "Añadir a Outlook", saveCard: "Guardar imagen", shareCard: "Compartir imagen", openMaps: "Abrir en Bing Maps", menuPrices: "Menú y precios", wip: "En desarrollo — algunas funciones pueden no funcionar aún", realityCheck: "Contraste con la realidad (estimación de IA)", gibberishHint: "Usa palabras reales — los caracteres aleatorios no pueden crear un universo" },
+            sv: { bgLabel: "Animerad bakgrund", recJobs: "Jobbroller", recTravel: "Reseidéer", recFood: "Mat", listen: "Lyssna", share: "Dela på LinkedIn", addOutlook: "Lägg till i Outlook", saveCard: "Spara bild", shareCard: "Dela bild", openMaps: "Öppna i Bing Maps", menuPrices: "Meny och priser", wip: "Under utveckling — vissa funktioner kanske inte fungerar än", realityCheck: "Verklighetskoll (AI-uppskattning)", gibberishHint: "Använd riktiga ord — slumpmässiga tecken kan inte skapa ett universum" },
+            tr: { bgLabel: "Hareketli arka plan", recJobs: "İş rolleri", recTravel: "Seyahat fikirleri", recFood: "Yemek", listen: "Dinle", share: "LinkedIn'de paylaş", addOutlook: "Outlook'a ekle", saveCard: "Görseli kaydet", shareCard: "Görseli paylaş", openMaps: "Bing Maps'te aç", menuPrices: "Menü ve fiyatlar", wip: "Yapım aşamasında — bazı özellikler henüz çalışmayabilir", realityCheck: "Gerçeklik kontrolü (YZ tahmini)", gibberishHint: "Gerçek kelimeler kullan — rastgele karakterler bir evren oluşturamaz" },
+            cy: { bgLabel: "Cefndir animeiddiedig", recJobs: "Rolau swydd", recTravel: "Syniadau teithio", recFood: "Bwyd", listen: "Gwrando", share: "Rhannu ar LinkedIn", addOutlook: "Ychwanegu at Outlook", saveCard: "Cadw'r ddelwedd", shareCard: "Rhannu'r ddelwedd", openMaps: "Agor yn Bing Maps", menuPrices: "Bwydlen a phrisiau", wip: "Gwaith ar y gweill — efallai na fydd rhai nodweddion yn gweithio eto", realityCheck: "Gwiriad realiti (amcangyfrif AI)", gibberishHint: "Defnyddia eiriau go iawn — ni all nodau ar hap greu bydysawd" }
         };
         for (const code in I18N_EXTRA) {
             if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
@@ -2340,6 +2492,7 @@
 
             stopNarration();
             loading.classList.add('active');
+            startLoadingJourney();
             resultsSection.classList.remove('active');
 
             try {
@@ -2350,11 +2503,15 @@
                 });
 
                 if (!res.ok) {
-                    let detail = "";
+                    let detail = "", errCode = "";
                     try {
                         const errJson = await res.json();
                         detail = errJson.error || errJson.details || "";
+                        errCode = errJson.code || "";
                     } catch (_) {}
+                    if (errCode === "gibberish") {
+                        throw new Error(I18N[currentLang].gibberishHint);
+                    }
                     throw new Error(`Server error ${res.status}${detail ? ": " + detail : ""}`);
                 }
 
@@ -2365,6 +2522,7 @@
                 }
 
                 displayUniverses(data.universes);
+                showPipelineStrip(data.meta);
                 resultsSection.classList.add('active');
                 scrollToResults();
 
@@ -2373,8 +2531,43 @@
                 showError(err.message || "Something went wrong. Please try again.");
             } finally {
                 loading.classList.remove('active');
+                stopLoadingJourney();
             }
         });
+
+        // Emoji journey during generation (language-free by design)
+        const LOADING_EMOJIS = ['🌌', '🪐', '✨', '🔭', '🚀', '🌠'];
+        let loadingTimer = null;
+        function startLoadingJourney() {
+            const el = document.getElementById('loadingEmoji');
+            if (!el) return;
+            let i = 0;
+            el.textContent = LOADING_EMOJIS[0];
+            loadingTimer = setInterval(() => {
+                i = (i + 1) % LOADING_EMOJIS.length;
+                el.textContent = LOADING_EMOJIS[i];
+            }, 900);
+        }
+        function stopLoadingJourney() {
+            if (loadingTimer) { clearInterval(loadingTimer); loadingTimer = null; }
+        }
+
+        // Real backend telemetry → transparency strip (proper nouns only,
+        // so it needs no translation)
+        function showPipelineStrip(meta) {
+            const strip = document.getElementById('pipelineStrip');
+            if (!strip) return;
+            if (!meta) { strip.hidden = true; return; }
+            const parts = [];
+            parts.push(meta.grounded
+                ? `🧠 Foundry IQ ✓ ${(meta.iqMs / 1000).toFixed(1)}s`
+                : '🧠 Foundry IQ —');
+            parts.push(`✍️ ${meta.model} · ${(meta.modelMs / 1000).toFixed(1)}s`);
+            parts.push('🛡️ ✓');
+            parts.push(`🌌 ×${meta.count}`);
+            strip.innerHTML = parts.map(p => `<span>${esc(p)}</span>`).join('');
+            strip.hidden = false;
+        }
 
         function displayUniverses(universes) {
             universesContainer.innerHTML = '';
@@ -2449,7 +2642,10 @@
                             <span>🎯 ${dict.realityCheck}</span>
                             <span class="reality-score-value">${universe.realityScore}%</span>
                         </div>
-                        <div class="reality-bar"><div class="reality-cover"></div></div>
+                        <div class="reality-track">
+                            <div class="reality-bar"><div class="reality-cover"></div></div>
+                            <div class="reality-marker"></div>
+                        </div>
                         ${universe.realityNote ? `<p class="reality-note">${esc(universe.realityNote)}</p>` : ''}
                     </div>` : ''}
 
@@ -2498,12 +2694,30 @@
                 // Pinpoint real places + embed mini-maps (async, non-blocking)
                 enhanceRecommendations(card, universe);
 
-                // Animate the reality-check bar reveal
-                const realityCover = card.querySelector('.reality-cover');
-                if (realityCover && Number.isFinite(universe.realityScore)) {
+                // Animate the reality-check bar: tiered glow, sliding marker,
+                // counting score
+                const realityWrap = card.querySelector('.reality-check');
+                if (realityWrap && Number.isFinite(universe.realityScore)) {
+                    const score = universe.realityScore;
+                    realityWrap.classList.add(score >= 70 ? 'tier-high' : score >= 40 ? 'tier-mid' : 'tier-low');
+                    const cover = realityWrap.querySelector('.reality-cover');
+                    const marker = realityWrap.querySelector('.reality-marker');
+                    const valueEl = realityWrap.querySelector('.reality-score-value');
                     requestAnimationFrame(() => requestAnimationFrame(() => {
-                        realityCover.style.width = (100 - universe.realityScore) + '%';
+                        if (cover) cover.style.width = (100 - score) + '%';
+                        if (marker) marker.style.left = 'calc(' + score + '% - 8px)';
                     }));
+                    if (valueEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        const dur = 1100, t0 = performance.now() + 250;
+                        valueEl.textContent = '0%';
+                        const tick = now => {
+                            const p = Math.min(1, Math.max(0, (now - t0) / dur));
+                            const eased = 1 - Math.pow(1 - p, 3);
+                            valueEl.textContent = Math.round(eased * score) + '%';
+                            if (p < 1) requestAnimationFrame(tick);
+                        };
+                        requestAnimationFrame(tick);
+                    }
                 }
 
                 // Slow cursor-following glow
@@ -2790,10 +3004,18 @@
         function addMiniMap(container, place, zoom, modalCtx) {
             const div = document.createElement("div");
             div.className = "mini-map";
+            const addrLine = place.address && place.address !== place.name
+                ? `<div class="mini-map-addr">${esc(place.address)}</div>` : "";
             div.innerHTML = `
                 <img loading="lazy" src="${MAPS_IMG_URL}?lat=${place.lat}&lon=${place.lon}&zoom=${zoom}&w=400&h=180" alt="${esc(place.name)}">
-                <div class="mini-map-caption">📍 ${esc(place.name)}</div>
+                <div class="mini-map-caption">📍 ${esc(place.name)}</div>${addrLine}
             `;
+            const im = div.querySelector("img");
+            if (im) {
+                const reveal = () => { im.style.opacity = "1"; };
+                im.addEventListener("load", reveal);
+                if (im.complete) reveal();
+            }
             div.addEventListener("click", () => openMapModal(place, zoom, modalCtx));
             container.appendChild(div);
         }
@@ -2808,29 +3030,34 @@
 
             const recLines = card.querySelectorAll(".rec-line");
 
-            for (let i = 0; i < travel.length; i++) {
-                const t = travel[i];
-                if (!t || !t.place) continue;
-                const place = await lookupPlace(t.place, null, "geo");
-                if (!place) continue;
+            let firstTravel = null;
+            const travelPlaces = await Promise.all(
+                travel.map(t => (t && t.place) ? lookupPlace(t.place, null, "geo") : Promise.resolve(null))
+            );
+            travelPlaces.forEach((place, i) => {
+                if (!place) return;
+                if (!firstTravel) firstTravel = place;
                 const line = recLines[i];
-                if (line) addMiniMap(line, place, zoomFor(place.entityType), { type: "travel", query: t.place });
-            }
+                if (line) addMiniMap(line, place, zoomFor(place.entityType), { type: "travel", query: travel[i].place });
+            });
 
             if (food.length) {
-                const coords = await getUserCoords();
-                // Without the user's location a global fuzzy search can land
-                // anywhere on Earth (a "French bistro" in Mexico!) — so food
-                // pinpointing only runs when we truly know where they are.
-                if (!coords) return;
-                for (let j = 0; j < food.length; j++) {
-                    const f = food[j];
-                    if (!f || !f.item) continue;
-                    const place = await lookupPlace(f.item + " restaurant", coords, "poi");
-                    if (!place) continue;
+                // Location bias chain — never a global search (that's how a
+                // "French bistro" ended up in Mexico):
+                //   1) the user's real location, if they allow it
+                //   2) otherwise this universe's own travel destination
+                //   3) otherwise skip pinpointing for this card
+                let bias = await getUserCoords();
+                if (!bias && firstTravel) bias = { lat: firstTravel.lat, lon: firstTravel.lon };
+                if (!bias) return;
+                const foodPlaces = await Promise.all(
+                    food.map(f => (f && f.item) ? lookupPlace(f.item + " restaurant", bias, "poi") : Promise.resolve(null))
+                );
+                foodPlaces.forEach((place, j) => {
+                    if (!place) return;
                     const line = recLines[travel.length + j];
-                    if (line) addMiniMap(line, place, 14, { type: "food", query: f.item });
-                }
+                    if (line) addMiniMap(line, place, 14, { type: "food", query: food[j].item });
+                });
             }
         }
 
@@ -3053,17 +3280,69 @@
             errorMessage.classList.remove('active');
         }
 
-        // ====== GENERATE BUTTON STATE ======
+        // ====== GENERATE BUTTON STATE + GIBBERISH GUARD ======
+        // Mirrors the server-side detector. Language-agnostic: Unicode
+        // letters + a vowel set covering Latin diacritics, Greek, Cyrillic.
+        function isGibberish(text) {
+            const raw = String(text || "").trim();
+            if (!raw) return false;
+            const lower = raw.toLowerCase();
+            let letters = "";
+            for (const ch of lower) if (/\p{L}/u.test(ch)) letters += ch;
+            if (letters.length < 6) return false;
+
+            const VOWELS = "aeiouyàáâãäåāăąèéêëēĕėęěìíîïĩīĭįòóôõöōŏőøùúûüũūŭůűųýÿæœαεηιοωυаеёиіїоуыэюяє";
+            let vowels = 0;
+            for (const ch of letters) if (VOWELS.includes(ch)) vowels++;
+            const vowelRatio = vowels / letters.length;
+            const diversity = new Set(letters).size / letters.length;
+            const hasSpace = /\s/.test(raw);
+
+            if (/(\p{L})\1{4,}/u.test(lower)) return true;
+            const SEQS = ["qwert", "werty", "ertyu", "asdf", "sdfg", "dfgh", "fghj", "ghjk", "hjkl", "zxcv", "xcvb", "cvbn", "vbnm", "yxcv", "azert", "qsdf"];
+            let seqHits = 0;
+            for (const s of SEQS) seqHits += lower.split(s).length - 1;
+            if (seqHits >= 2) return true;
+            if (vowels === 0 && letters.length >= 9 && !hasSpace) return true;
+
+            let maxRun = 0, run = 0;
+            for (const ch of lower) {
+                if (/\p{L}/u.test(ch) && !VOWELS.includes(ch)) { run++; if (run > maxRun) maxRun = run; }
+                else run = 0;
+            }
+            let signals = 0;
+            if (vowelRatio < 0.18 && letters.length >= 10) signals++;
+            if (diversity < 0.25 && letters.length >= 10) signals++;
+            if (maxRun >= 7) signals++;
+            if (seqHits === 1) signals++;
+            if (raw.length >= 50 && !hasSpace) signals++;
+            return signals >= 2;
+        }
+
         const generateBtn = document.getElementById('generateBtn');
+        const gibberishHint = document.getElementById('gibberishHint');
         const requiredFields = ['name', 'interests', 'situation', 'decision', 'details']
             .map(id => document.getElementById(id));
 
         function updateGenerateState() {
-            generateBtn.disabled = requiredFields.some(f => !f.value.trim());
+            let empty = false, suspect = false;
+            requiredFields.forEach(f => {
+                const v = f.value.trim();
+                if (!v) empty = true;
+                const bad = !!v && isGibberish(v);
+                f.classList.toggle('field-suspect', bad);
+                if (bad) suspect = true;
+            });
+            gibberishHint.classList.toggle('active', suspect);
+            generateBtn.disabled = empty || suspect;
         }
         requiredFields.forEach(f => f.addEventListener('input', updateGenerateState));
         form.addEventListener('reset', () => setTimeout(updateGenerateState, 0));
         updateGenerateState();
+
+        // Wake the Render backend while the user is still typing —
+        // free-tier cold starts can take 30s+, this hides them entirely
+        fetch(API_BASE + "/health").catch(() => {});
 
         // ====== INIT ======
         applyLanguage('en');
