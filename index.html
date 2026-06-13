@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://parallel-backend-wq04.onrender.com" crossorigin>
     <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
-    <title>Parallel Universe - Step into the stories of the person you might have become</title>
-    <meta name="description" content="Enter who you are and a decision you're facing - AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
+    <title>Step into the stories of the person you might have become</title>
+    <meta name="description" content="Enter who you are and a decision you're facing — AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://parallia.xyz/">
@@ -16,21 +16,21 @@
     <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Discord, iMessage…) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Parallel Universe">
-    <meta property="og:title" content="Parallel Universe - Step into the stories of the person you might have become">
-    <meta property="og:description" content="AI generates three alternate-universe versions of your life - stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
+    <meta property="og:title" content="Step into the stories of the person you might have become">
+    <meta property="og:description" content="AI generates three alternate-universe versions of your life — stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League 2026.">
     <meta property="og:url" content="https://parallia.xyz/">
     <meta property="og:image" content="https://parallia.xyz/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
+    <meta property="og:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Parallel Universe - Step into the stories of the person you might have become">
-    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life - in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
+    <meta name="twitter:title" content="Step into the stories of the person you might have become">
+    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life — in 36 languages. Built for Microsoft Agents League 2026.">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
-    <meta name="twitter:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
+    <meta name="twitter:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
 
     <style>
         * {
@@ -368,14 +368,45 @@
         }
 
         .btn-reset {
-            background: rgba(176, 14, 255, 0.2);
-            color: #b00eff;
-            border: 2px solid #b00eff;
+            position: relative;
+            background: rgba(176, 14, 255, 0.08);
+            color: #d9a6ff;
+            border: 1.5px solid rgba(176, 14, 255, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            overflow: hidden;
+            transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+
+        /* Soft glow fill that rises on hover */
+        .btn-reset::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(176, 14, 255, 0.28), rgba(0, 217, 255, 0.18));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .btn-reset:hover {
-            background: rgba(176, 14, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(176, 14, 255, 0.3);
+            color: #ffffff;
+            border-color: rgba(176, 14, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(176, 14, 255, 0.4);
+        }
+
+        .btn-reset:hover::after {
+            opacity: 1;
+        }
+
+        .btn-reset:active {
+            transform: translateY(0);
+        }
+
+        .btn-reset > * {
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes slideUp {
@@ -748,31 +779,77 @@
 
         /* LinkedIn share button */
         .btn-share {
+            position: relative;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 14px clamp(20px, 4vw, 30px);
-            min-height: 48px;
-            background: #0a66c2;
+            gap: 11px;
+            padding: 14px clamp(22px, 4vw, 32px);
+            min-height: 50px;
+            background: linear-gradient(135deg, #0a66c2 0%, #0a8fd6 55%, #1276da 100%);
             color: #ffffff;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: clamp(1em, 2.5vw, 1.1em);
-            transition: all 0.3s ease;
+            letter-spacing: 0.8px;
+            font-size: clamp(1em, 2.5vw, 1.08em);
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(10, 102, 194, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+
+        /* Animated sheen sweep */
+        .btn-share::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-18deg);
+            animation: shareSheen 3.6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shareSheen {
+            0% { left: -120%; }
+            48%, 100% { left: 170%; }
         }
 
         .btn-share:hover {
-            background: #1276da;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(10, 102, 194, 0.5);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 34px rgba(10, 102, 194, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
+        .btn-share:active {
+            transform: translateY(-1px) scale(1.0);
+        }
+
+        /* Circular white LinkedIn "in" badge */
         .btn-share .in-logo {
-            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            flex: 0 0 26px;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #0a66c2;
+            font-weight: 900;
+            font-size: 0.82em;
             font-family: Arial, sans-serif;
+            letter-spacing: -0.5px;
+            text-transform: lowercase;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-share span:not(.in-logo) {
+            position: relative;
+            z-index: 1;
         }
 
         .loading {
@@ -1102,91 +1179,220 @@
             z-index: 5;
         }
 
-        /* Step-by-step wizard */
+        /* ===== Step-by-step wizard (enhanced) ===== */
         .wizard-step {
             display: none;
         }
 
         .wizard-step.ws-active {
             display: block;
-            animation: stepIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: stepIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         @keyframes stepIn {
-            from { opacity: 0; transform: translateX(28px); }
+            from { opacity: 0; transform: translateY(18px) scale(0.98); }
             to { opacity: 1; transform: none; }
         }
 
+        /* Greeting screen with floating cosmic motes */
+        .wizard-greeting-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            padding: 8px 0 4px;
+        }
+
         .wizard-greeting {
+            position: relative;
+            z-index: 2;
             text-align: center;
-            font-size: 1.15em;
-            color: #d0d0ff;
-            line-height: 1.6;
-            margin: 6px auto 24px;
-            max-width: 520px;
+            font-size: 1.45em;
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 14px auto 26px;
+            max-width: 540px;
+            background: linear-gradient(120deg, #e8e8ff 20%, #b9a6ff 50%, #8ee9ff 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .wizard-motes {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .wizard-mote {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,217,255,0.9), rgba(0,217,255,0));
+            animation: moteFloat 7s ease-in-out infinite;
+        }
+
+        .wizard-mote:nth-child(2) { background: radial-gradient(circle, rgba(176,14,255,0.9), rgba(176,14,255,0)); animation-duration: 9s; }
+        .wizard-mote:nth-child(3) { background: radial-gradient(circle, rgba(255,0,217,0.8), rgba(255,0,217,0)); animation-duration: 8s; }
+        .wizard-mote:nth-child(4) { animation-duration: 11s; }
+        .wizard-mote:nth-child(5) { background: radial-gradient(circle, rgba(176,14,255,0.8), rgba(176,14,255,0)); animation-duration: 6.5s; }
+
+        @keyframes moteFloat {
+            0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+            50% { transform: translate(14px, -22px); opacity: 0.9; }
         }
 
         .wizard-start {
             display: block;
             margin: 0 auto 8px;
+            min-width: 240px;
         }
 
+        /* Glowing step counter above each question */
+        .wizard-step-count {
+            display: block;
+            text-align: center;
+            font-size: 0.82em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #00d9ff, #b00eff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Buttons stacked vertically below the field */
         .wizard-nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            align-items: stretch;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 26px;
         }
 
         .wizard-next {
-            min-width: 132px;
+            width: 100%;
+            order: 1;
         }
 
         .wizard-back, .wizard-restart {
-            background: rgba(176, 14, 255, 0.15);
-            color: #d9a6ff;
-            border: 1.5px solid rgba(176, 14, 255, 0.6);
+            width: 100%;
+            order: 2;
+            background: transparent;
+            color: #b6a6e8;
+            border: 1.5px solid rgba(176, 14, 255, 0.35);
+            font-size: 0.95em;
+            padding-top: 12px;
+            padding-bottom: 12px;
         }
 
         .wizard-back:hover, .wizard-restart:hover {
-            background: rgba(176, 14, 255, 0.28);
+            background: rgba(176, 14, 255, 0.14);
+            color: #e3d4ff;
+            border-color: rgba(176, 14, 255, 0.7);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(176, 14, 255, 0.3);
         }
 
+        /* Animated sheen sweep across the primary wizard buttons */
+        .wizard-next, .wizard-start {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wizard-next::after, .wizard-start::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(110deg, transparent, rgba(255,255,255,0.45), transparent);
+            transform: skewX(-18deg);
+            animation: btnSheen 3.4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes btnSheen {
+            0% { left: -120%; }
+            45%, 100% { left: 160%; }
+        }
+
+        .wizard-next:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .wizard-next:disabled::after { animation: none; opacity: 0; }
+
+        /* Progress dots with a connecting track */
         .wizard-dots {
+            position: relative;
             display: flex;
-            gap: 10px;
+            gap: 14px;
             justify-content: center;
-            margin: 2px 0 24px;
+            align-items: center;
+            margin: 4px 0 26px;
+        }
+
+        .wizard-dots::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: rgba(224, 224, 255, 0.12);
+            transform: translateY(-50%);
+            z-index: 0;
         }
 
         .wizard-dot {
-            width: 10px;
-            height: 10px;
+            position: relative;
+            z-index: 1;
+            width: 11px;
+            height: 11px;
             border-radius: 50%;
             background: rgba(224, 224, 255, 0.18);
-            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .wizard-dot.done {
             background: #00d9ff;
-            box-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
         }
 
         .wizard-dot.cur {
             background: linear-gradient(135deg, #00d9ff, #b00eff);
-            transform: scale(1.3);
-            box-shadow: 0 0 12px rgba(176, 14, 255, 0.6);
+            transform: scale(1.5);
+            box-shadow: 0 0 16px rgba(176, 14, 255, 0.75);
+        }
+
+        .wizard-dot.cur::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 217, 255, 0.4);
+            animation: dotPulse 1.6s ease-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
         }
 
         .wizard-final .gibberish-hint {
             margin-top: 0;
         }
 
-        .wizard-final .btn-generate {
+        .wizard-final .btn-generate:not(.wizard-back):not(.wizard-restart) {
             display: block;
+            width: 100%;
             margin: 4px auto 0;
         }
 
@@ -1495,6 +1701,13 @@
                 animation-duration: 1.4s !important;
                 animation-iteration-count: infinite !important;
             }
+
+            /* Calm the wizard for reduced-motion: no floating motes, no sheen,
+               no pulsing ring — keep everything legible and still */
+            .wizard-mote { animation: none !important; opacity: 0.5 !important; }
+            .wizard-next::after, .wizard-start::after { animation: none !important; opacity: 0 !important; }
+            .wizard-dot.cur::after { animation: none !important; opacity: 0 !important; }
+            .btn-share::after { animation: none !important; opacity: 0 !important; }
         }
 
         @keyframes spinnerPulse {
@@ -1525,7 +1738,7 @@
     <div class="container">
         <header>
             <h1>✨ Parallel Universe ✨</h1>
-            <p data-i18n="subtitle">Explore alternate realities based on your actual history</p>
+            <p data-i18n="subtitle">Step into the stories of the person you might have become</p>
         </header>
 
         <div class="lang-bar">
@@ -1685,7 +1898,7 @@
         const I18N = {
             en: {
                 langLabel: "Language",
-                subtitle: "Explore alternate realities based on your actual history",
+                subtitle: "Step into the stories of the person you might have become",
                 sectionTitle: "Tell Me About Yourself",
                 labelName: "Your Name",
                 labelInterests: "Your Interests",
@@ -1714,9 +1927,9 @@
                 subtitle: "Izpēti alternatīvas realitātes, balstoties uz tavu patieso dzīvesstāstu",
                 sectionTitle: "Pastāsti par sevi",
                 labelName: "Tavs vārds",
-                labelInterests: "Tavas intereses (hobiji)",
+                labelInterests: "Tavas intereses",
                 labelSituation: "Pašreizējā situācija",
-                labelDecision: "Liels dzīves lēmums, ko grasies pieņemt.",
+                labelDecision: "Liels dzīves lēmums",
                 labelDetails: "Pastāsti vairāk par savu situāciju",
                 phName: "piem., Aleksis",
                 phInterests: "piem., tehnoloģijas, mūzika, sports",
@@ -1726,7 +1939,7 @@
                 btnGenerate: "Ģenerēt visumus",
                 btnClear: "Notīrīt",
                 btnNew: "Ģenerēt jaunus visumus",
-                loading: "Skenē paralēlās pasaules...",
+                loading: "Skenē paralēlos visumus...",
                 resultsTitle: "Tavi 3 paralēlie visumi",
                 story: "Stāsts",
                 career: "Karjeras ceļš",
@@ -2623,7 +2836,7 @@
 
         // Extra UI strings (background toggle + recommendation headers)
         const I18N_EXTRA = {
-            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook", saveCard: "Save image", shareCard: "Share image", openMaps: "Open in Bing Maps", menuPrices: "Menu & prices", wip: "Work in progress — some features may not work yet", realityCheck: "Reality check (AI estimate)", gibberishHint: "Please use real words — random characters can't create a universe", wizardGreeting: "Ready to explore the lives you didn't live?", wizardStart: "Start the journey", next: "Next", back: "Back", restart: "Start over", jobSearchNote: "Live search for this role — postings change daily, so results are always current.", searchLinkedIn: "Search on LinkedIn", footerCredit: "Microsoft Agents League 2026 · A project by", footerPoweredBy: "and powered by:" },
+            en: { bgLabel: "Ambient background", recJobs: "Job Roles", recTravel: "Travel Ideas", recFood: "Food & Dining", listen: "Listen", share: "Share on LinkedIn", addOutlook: "Add to Outlook", saveCard: "Save image", shareCard: "Share image", openMaps: "Open in Bing Maps", menuPrices: "Menu & prices", wip: "Work in progress — some features may not work yet", realityCheck: "Reality check (AI estimate)", gibberishHint: "Please use real words — random characters can't create a universe", wizardGreeting: "Step into the stories of the person you might have become", wizardStart: "Start the journey", next: "Next", back: "Back", restart: "Start over", jobSearchNote: "Live search for this role — postings change daily, so results are always current.", searchLinkedIn: "Search on LinkedIn", footerCredit: "Microsoft Agents League 2026 · A project by", footerPoweredBy: "and powered by:" },
             sq: { bgLabel: "Sfond i animuar", recJobs: "Role pune", recTravel: "Ide udhëtimi", recFood: "Ushqim", listen: "Dëgjo", share: "Ndaj në LinkedIn", addOutlook: "Shto në Outlook", saveCard: "Ruaj imazhin", shareCard: "Ndaj imazhin", openMaps: "Hap në Bing Maps", menuPrices: "Menyja dhe çmimet", wip: "Punë në vazhdim — disa veçori mund të mos funksionojnë ende", realityCheck: "Kontroll realiteti (vlerësim i IA-së)", gibberishHint: "Përdor fjalë të vërteta — shkronjat e rastësishme s'mund të krijojnë një univers", wizardGreeting: "Gati të eksplorosh jetët që nuk i jetove?", wizardStart: "Nis udhëtimin", next: "Tjetra", back: "Pas", restart: "Fillo nga e para", jobSearchNote: "Kërkim i drejtpërdrejtë për këtë rol — shpalljet ndryshojnë çdo ditë.", searchLinkedIn: "Kërko në LinkedIn", footerCredit: "Microsoft Agents League 2026 · Një projekt nga", footerPoweredBy: "dhe mundësuar nga:" },
             eu: { bgLabel: "Hondo animatua", recJobs: "Lanpostuak", recTravel: "Bidaia-ideiak", recFood: "Janaria", listen: "Entzun", share: "Partekatu LinkedIn-en", addOutlook: "Gehitu Outlook-en", saveCard: "Gorde irudia", shareCard: "Partekatu irudia", openMaps: "Ireki Bing Maps-en", menuPrices: "Menua eta prezioak", wip: "Lanean — baliteke funtzio batzuek oraindik ez funtzionatzea", realityCheck: "Errealitate-kontrola (AAren zenbatespena)", gibberishHint: "Erabili benetako hitzak — ausazko karaktereek ezin dute unibertsorik sortu", wizardGreeting: "Prest bizi ez zenituen bizitzak esploratzeko?", wizardStart: "Hasi bidaia", next: "Hurrengoa", back: "Atzera", restart: "Hasi berriro", jobSearchNote: "Rol honen bilaketa zuzena — iragarkiak egunero aldatzen dira.", searchLinkedIn: "Bilatu LinkedInen", footerCredit: "Microsoft Agents League 2026 · Proiektua:", footerPoweredBy: "eta honako teknologiekin:" },
             bs: { bgLabel: "Animirana pozadina", recJobs: "Poslovi", recTravel: "Ideje za putovanja", recFood: "Hrana", listen: "Slušaj", share: "Podijeli na LinkedInu", addOutlook: "Dodaj u Outlook", saveCard: "Sačuvaj sliku", shareCard: "Podijeli sliku", openMaps: "Otvori u Bing Maps", menuPrices: "Meni i cijene", wip: "Rad u toku — neke funkcije možda još ne rade", realityCheck: "Provjera realnosti (procjena AI)", gibberishHint: "Koristi prave riječi — nasumična slova ne mogu stvoriti univerzum", wizardGreeting: "Spremni istražiti živote koje niste živjeli?", wizardStart: "Započni putovanje", next: "Dalje", back: "Nazad", restart: "Počni ispočetka", jobSearchNote: "Pretraga za ovu ulogu uživo — oglasi se mijenjaju svakodnevno.", searchLinkedIn: "Pretraži na LinkedInu", footerCredit: "Microsoft Agents League 2026 · Projekt autora", footerPoweredBy: "i pokreće:" },
@@ -2643,7 +2856,7 @@
             is: { bgLabel: "Hreyfanlegur bakgrunnur", recJobs: "Störf", recTravel: "Ferðahugmyndir", recFood: "Matur", listen: "Hlusta", share: "Deila á LinkedIn", addOutlook: "Bæta við Outlook", saveCard: "Vista mynd", shareCard: "Deila mynd", openMaps: "Opna í Bing Maps", menuPrices: "Matseðill og verð", wip: "Í vinnslu — sumir eiginleikar virka kannski ekki enn", realityCheck: "Raunveruleikapróf (gervigreindarmat)", gibberishHint: "Notaðu alvöru orð — tilviljanakenndir stafir skapa ekki alheim", wizardGreeting: "Tilbúin(n) að kanna lífin sem þú lifðir ekki?", wizardStart: "Hefja ferðalagið", next: "Áfram", back: "Til baka", restart: "Byrja upp á nýtt", jobSearchNote: "Bein leit að þessu hlutverki — auglýsingar breytast daglega.", searchLinkedIn: "Leita á LinkedIn", footerCredit: "Microsoft Agents League 2026 · Verkefni eftir", footerPoweredBy: "og knúið af:" },
             ga: { bgLabel: "Cúlra beoite", recJobs: "Róil oibre", recTravel: "Smaointe taistil", recFood: "Bia", listen: "Éist", share: "Roinn ar LinkedIn", addOutlook: "Cuir le Outlook", saveCard: "Sábháil an íomhá", shareCard: "Roinn an íomhá", openMaps: "Oscail i Bing Maps", menuPrices: "Biachlár agus praghsanna", wip: "Obair idir lámha — seans nach n-oibríonn gnéithe áirithe fós", realityCheck: "Seiceáil réaltachta (meastachán IS)", gibberishHint: "Úsáid fíorfhocail — ní féidir le carachtair randamacha cruinne a chruthú", wizardGreeting: "Réidh le hiniúchadh a dhéanamh ar na saolta nár mhair tú?", wizardStart: "Tosaigh an turas", next: "Ar aghaidh", back: "Siar", restart: "Tosaigh arís", jobSearchNote: "Cuardach beo don ról seo — athraíonn poist go laethúil.", searchLinkedIn: "Cuardaigh ar LinkedIn", footerCredit: "Microsoft Agents League 2026 · Tionscadal le", footerPoweredBy: "agus á chumhachtú ag:" },
             it: { bgLabel: "Sfondo animato", recJobs: "Ruoli professionali", recTravel: "Idee di viaggio", recFood: "Cibo", listen: "Ascolta", share: "Condividi su LinkedIn", addOutlook: "Aggiungi a Outlook", saveCard: "Salva immagine", shareCard: "Condividi immagine", openMaps: "Apri in Bing Maps", menuPrices: "Menù e prezzi", wip: "Lavori in corso — alcune funzioni potrebbero non funzionare ancora", realityCheck: "Verifica di realtà (stima IA)", gibberishHint: "Usa parole vere — caratteri casuali non possono creare un universo", wizardGreeting: "Pronto a esplorare le vite che non hai vissuto?", wizardStart: "Inizia il viaggio", next: "Avanti", back: "Indietro", restart: "Ricomincia", jobSearchNote: "Ricerca dal vivo per questo ruolo — gli annunci cambiano ogni giorno.", searchLinkedIn: "Cerca su LinkedIn", footerCredit: "Microsoft Agents League 2026 · Un progetto di", footerPoweredBy: "e basato su:" },
-            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook", saveCard: "Saglabāt attēlu", shareCard: "Dalīties ar attēlu", openMaps: "Atvērt Bing Maps", menuPrices: "Ēdienkarte un cenas", wip: "Darbs procesā — dažas funkcijas vēl var nedarboties", realityCheck: "Realitātes pārbaude (MI aplēse)", gibberishHint: "Lieto īstus vārdus — nejauši burti nevar radīt Visumu", wizardGreeting: "Gatavs izpētīt dzīves, kuras tu nenodzīvoji?", wizardStart: "Sākt ceļojumu", next: "Tālāk", back: "Atpakaļ", restart: "Sākt no sākuma", jobSearchNote: "Tiešraides meklēšana šai lomai — sludinājumi mainās katru dienu.", searchLinkedIn: "Meklēt LinkedIn", footerCredit: "Microsoft Agents League 2026 · Projekta autors", footerPoweredBy: "un darbojas ar:" },
+            lv: { bgLabel: "Animēts fons", recJobs: "Darba lomas", recTravel: "Ceļojumu idejas", recFood: "Ēdiens", listen: "Klausīties", share: "Dalīties LinkedIn", addOutlook: "Pievienot Outlook", saveCard: "Saglabāt attēlu", shareCard: "Dalīties ar attēlu", openMaps: "Atvērt Bing Maps", menuPrices: "Ēdienkarte un cenas", wip: "Darbs procesā — dažas funkcijas vēl var nedarboties", realityCheck: "Realitātes pārbaude (MI aplēse)", gibberishHint: "Lieto īstus vārdus — nejauši burti nevar radīt Visumu", wizardGreeting: "Ieej tā cilvēka stāstos, par kuru tu būtu varējis kļūt", wizardStart: "Sākt ceļojumu", next: "Tālāk", back: "Atpakaļ", restart: "Sākt no sākuma", jobSearchNote: "Tiešraides meklēšana šai lomai — sludinājumi mainās katru dienu.", searchLinkedIn: "Meklēt LinkedIn", footerCredit: "Microsoft Agents League 2026 · Projekta autors", footerPoweredBy: "un darbojas ar:" },
             lt: { bgLabel: "Animuotas fonas", recJobs: "Darbo pozicijos", recTravel: "Kelionių idėjos", recFood: "Maistas", listen: "Klausytis", share: "Bendrinti LinkedIn", addOutlook: "Pridėti į Outlook", saveCard: "Išsaugoti paveikslėlį", shareCard: "Bendrinti paveikslėlį", openMaps: "Atidaryti Bing Maps", menuPrices: "Meniu ir kainos", wip: "Kuriama — kai kurios funkcijos gali dar neveikti", realityCheck: "Realybės patikra (DI įvertis)", gibberishHint: "Naudok tikrus žodžius — atsitiktiniai simboliai visatos nesukurs", wizardGreeting: "Pasiruošęs tyrinėti gyvenimus, kurių nenugyvenai?", wizardStart: "Pradėti kelionę", next: "Toliau", back: "Atgal", restart: "Pradėti iš naujo", jobSearchNote: "Tiesioginė šios rolės paieška — skelbimai keičiasi kasdien.", searchLinkedIn: "Ieškoti LinkedIn", footerCredit: "Microsoft Agents League 2026 · Projekto autorius", footerPoweredBy: "ir veikia su:" },
             lb: { bgLabel: "Animéierten Hannergrond", recJobs: "Aarbechtsplazen", recTravel: "Reesiddien", recFood: "Iessen", listen: "Lauschteren", share: "Op LinkedIn deelen", addOutlook: "Bei Outlook derbäisetzen", saveCard: "Bild späicheren", shareCard: "Bild deelen", openMaps: "An Bing Maps opmaachen", menuPrices: "Menü an Präisser", wip: "An Aarbecht — verschidde Funktioune kéinten nach net goen", realityCheck: "Realitéitscheck (KI-Schätzung)", gibberishHint: "Benotz richteg Wierder — zoufälleg Zeechen kënne keen Universum schafen", wizardGreeting: "Prett fir d'Liewen z'entdecken, déi s du net gelieft hues?", wizardStart: "Rees starten", next: "Weider", back: "Zréck", restart: "Nei ufänken", jobSearchNote: "Live-Sich fir dës Roll — Annoncen änneren sech all Dag.", searchLinkedIn: "Op LinkedIn sichen", footerCredit: "Microsoft Agents League 2026 · E Projet vu", footerPoweredBy: "a leeft mat:" },
             mk: { bgLabel: "Анимирана позадина", recJobs: "Работни позиции", recTravel: "Идеи за патување", recFood: "Храна", listen: "Слушај", share: "Сподели на LinkedIn", addOutlook: "Додај во Outlook", saveCard: "Зачувај слика", shareCard: "Сподели слика", openMaps: "Отвори во Bing Maps", menuPrices: "Мени и цени", wip: "Во развој — некои функции можеби сè уште не работат", realityCheck: "Проверка на реалноста (АИ процена)", gibberishHint: "Користи вистински зборови — случајни букви не создаваат универзум", wizardGreeting: "Подготвен да ги истражиш животите што не ги живееше?", wizardStart: "Започни го патувањето", next: "Следно", back: "Назад", restart: "Почни одново", jobSearchNote: "Пребарување во живо за оваа улога — огласите се менуваат секојдневно.", searchLinkedIn: "Барај на LinkedIn", footerCredit: "Microsoft Agents League 2026 · Проект од", footerPoweredBy: "и работи на:" },
@@ -3271,7 +3484,7 @@
         }
 
         // Adds real pinpointed locations to a card after it renders:
-        // travel -exact city/country, food - an actual restaurant near the user.
+        // travel → exact city/country, food → an actual restaurant near the user.
         async function enhanceRecommendations(card, universe) {
             const rec = universe.recommendations || {};
             const travel = Array.isArray(rec.travel) ? rec.travel : [];
@@ -3295,7 +3508,7 @@
                 // Precise food location: the AI now tells us WHICH city each
                 // dish belongs to. We search for the venue *within that city*
                 // (server geocodes the city first), so a Naples pizza lands in
-                // Naples never a same-named spot on another continent.
+                // Naples — never a same-named spot on another continent.
                 const foodPlaces = await Promise.all(food.map(f => {
                     if (!f || !f.item) return Promise.resolve(null);
                     const venue = f.venue || (f.item + " restaurant");
@@ -3367,8 +3580,8 @@
         }
 
         // Rich job modal: role + universe context + live-search deep links.
-        // (Real LinkedIn postings can't be embedded the Jobs API is
-        // partner-only and scraping violates ToS -so we frame the role
+        // (Real LinkedIn postings can't be embedded — the Jobs API is
+        // partner-only and scraping violates ToS — so we frame the role
         // beautifully and deep-link to live searches.)
         function openJobModal(role, universe) {
             document.getElementById("mapModalTitle").textContent = "💼 " + role;
@@ -3539,7 +3752,7 @@
         // dying star, then restores the input form. Honors reduced-motion.
         // Dark-star supernova: shatters the 3 universe cards into hundreds of
         // glowing particles that explode across the whole screen and rain down,
-        // then returns to the form. Pure canvas - no libraries. Reduced-motion
+        // then returns to the form. Pure canvas — no libraries. Reduced-motion
         // users get an instant, calm restore.
         function darkStarCollapse(afterDone) {
             const cards = Array.from(document.querySelectorAll('.universe-card'));
@@ -3780,56 +3993,71 @@
             // Step 0 — greeting
             const greet = document.createElement('div');
             greet.className = 'wizard-step';
+            const greetWrap = document.createElement('div');
+            greetWrap.className = 'wizard-greeting-wrap';
+            const motes = document.createElement('div');
+            motes.className = 'wizard-motes';
+            const motePos = [['8%','20%'],['82%','30%'],['18%','70%'],['70%','75%'],['46%','15%']];
+            motePos.forEach(([l,t]) => {
+                const m = document.createElement('span');
+                m.className = 'wizard-mote';
+                m.style.left = l; m.style.top = t;
+                motes.appendChild(m);
+            });
             const gp = document.createElement('p');
             gp.className = 'wizard-greeting';
             gp.setAttribute('data-i18n', 'wizardGreeting');
             gp.textContent = dict().wizardGreeting;
             const startBtn = navButton('btn-generate wizard-start', 'wizardStart');
-            greet.appendChild(gp);
+            greetWrap.appendChild(motes);
+            greetWrap.appendChild(gp);
+            greet.appendChild(greetWrap);
             greet.appendChild(startBtn);
             wizard.appendChild(greet);
             steps.push(greet);
 
-            // Steps 1–5 — one question each
+            // Steps 1–5 — one question each. The LAST step (idx 4) launches
+            // directly: its primary button IS "Generate Universes" (no extra
+            // "Next" click), with the gibberish hint shown right above it.
+            const lastIdx = groups.length - 1; // 4
             groups.forEach((g, idx) => {
                 const st = document.createElement('div');
                 st.className = 'wizard-step';
+                if (idx === lastIdx) st.classList.add('wizard-final');
+                const count = document.createElement('span');
+                count.className = 'wizard-step-count';
+                count.dataset.stepIdx = String(idx + 1);
+                count.textContent = `${idx + 1} / 5`;
+                st.appendChild(count);
                 st.appendChild(g);
+
+                if (idx === lastIdx) {
+                    // Gibberish hint + the real Generate button live on this step
+                    st.appendChild(gibberishHint);
+                    st.appendChild(generateBtn);
+                }
+
                 const nav = document.createElement('div');
                 nav.className = 'wizard-nav';
                 const back = navButton('wizard-back', 'back');
-                const next = navButton('btn-generate wizard-next', 'next');
-                nav.appendChild(back);
-                nav.appendChild(next);
+                back.textContent = '\u2190  ' + back.textContent;
+
+                if (idx === lastIdx) {
+                    // No "Next" — Generate (above) is the primary action.
+                    // Only a Back button sits in the nav row.
+                    nav.appendChild(back);
+                } else {
+                    const next = navButton('btn-generate wizard-next', 'next');
+                    next.textContent = next.textContent + '  \u2192';
+                    nav.appendChild(next);
+                    nav.appendChild(back);
+                    next.addEventListener('click', () => { if (!next.disabled) show(idx + 2); });
+                }
+
                 st.appendChild(nav);
                 wizard.appendChild(st);
                 steps.push(st);
                 back.addEventListener('click', () => show(idx));
-                next.addEventListener('click', () => { if (!next.disabled) show(idx + 2); });
-            });
-
-            // Final step — launch
-            const fin = document.createElement('div');
-            fin.className = 'wizard-step wizard-final';
-            fin.appendChild(gibberishHint);
-            fin.appendChild(generateBtn);
-            const finNav = document.createElement('div');
-            finNav.className = 'wizard-nav';
-            const backF = navButton('wizard-back', 'back');
-            const restart = navButton('wizard-restart', 'restart');
-            finNav.appendChild(backF);
-            finNav.appendChild(restart);
-            fin.appendChild(finNav);
-            wizard.appendChild(fin);
-            steps.push(fin);
-            backF.addEventListener('click', () => show(5));
-            // (restart handler below)
-            restart.addEventListener('click', () => {
-                if (resultsSection.classList.contains('active')) {
-                    darkStarCollapse(() => form.reset());
-                } else {
-                    form.reset();
-                }
             });
 
             form.insertBefore(wizard, form.firstChild);
@@ -3837,32 +4065,40 @@
                 if (p !== form && p.children.length === 0) p.style.display = 'none';
             });
 
+            const maxStep = groups.length; // 5 → last step index (1-based over greeting)
             let cur = 0;
             function fieldOk(i) {
                 const v = requiredFields[i].value.trim();
                 return !!v && !isGibberish(v);
             }
+            function allFieldsOk() {
+                return requiredFields.every((_, i) => fieldOk(i));
+            }
             function refreshNav() {
                 steps.forEach((st, i) => {
                     const nx = st.querySelector('.wizard-next');
-                    if (nx && i >= 1 && i <= 5) nx.disabled = !fieldOk(i - 1);
+                    if (nx && i >= 1 && i <= maxStep) nx.disabled = !fieldOk(i - 1);
                 });
+                // On the final question, gate the real Generate button on every
+                // field being valid (not just the last one).
+                if (generateBtn) generateBtn.disabled = !allFieldsOk();
                 const dotEls = dots.children;
                 for (let i = 0; i < 5; i++) {
-                    dotEls[i].classList.toggle('done', fieldOk(i) && (cur > i + 1 || cur === 6));
+                    dotEls[i].classList.toggle('done', fieldOk(i) && cur > i + 1);
                     dotEls[i].classList.toggle('cur', cur === i + 1);
                 }
                 dots.style.visibility = cur === 0 ? 'hidden' : 'visible';
             }
             function show(n) {
-                cur = Math.max(0, Math.min(6, n));
+                cur = Math.max(0, Math.min(maxStep, n));
                 steps.forEach((st, i) => st.classList.toggle('ws-active', i === cur));
                 refreshNav();
-                if (cur >= 1 && cur <= 5) {
+                if (cur >= 1 && cur <= maxStep) {
                     const f = requiredFields[cur - 1];
                     setTimeout(() => f.focus({ preventScroll: true }), 90);
                 }
             }
+            startBtn.textContent = startBtn.textContent + '  \u2728';
             startBtn.addEventListener('click', () => show(1));
             requiredFields.forEach((f, i) => {
                 f.addEventListener('input', refreshNav);
@@ -3870,7 +4106,11 @@
                     f.addEventListener('keydown', e => {
                         if (e.key === 'Enter') {
                             e.preventDefault();
-                            if (fieldOk(i)) show(i + 2);
+                            if (i === lastIdx) {
+                                if (allFieldsOk() && generateBtn) generateBtn.click();
+                            } else if (fieldOk(i)) {
+                                show(i + 2);
+                            }
                         }
                     });
                 }
