@@ -4,7 +4,7 @@
 
 **What if you could see where your choices might lead?
 
-Enter your personality, passions, and the decision that's keeping you up at night. Our AI generates three alternate futures - ambitious, balanced, and cautionary - each revealing a different version of your life.
+Enter your personality, passions, and the decision that's keeping you up at night. AI generates three alternate futures - ambitious, balanced, and cautionary - each revealing a different version of your life.
 
 Follow unique storylines, explore potential careers, discover key milestones, and uncover outcomes shaped by your decisions. Get actionable recommendations, from real-world job roles to search for, to travel destinations and local food spots tailored to each path. Every future includes a reality score to help separate fantasy from possibility.
 
