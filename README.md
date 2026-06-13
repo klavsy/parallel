@@ -7,10 +7,10 @@
 > 🏆 Built for **Microsoft Agents League Hackathon (2026) - Creative Apps track** by **Klavs Petersons**
 > ✅ Integrates the required **Microsoft IQ layer: Foundry IQ** (knowledge-grounded reality scoring via Azure AI Search agentic retrieval)
 
-**Live app:** `https://parallel-hazel.vercel.app`
-**Backend API:** `https://parallel-backend-wq04.onrender.com/health`
-**Backend repo:** `https://github.com/klavsy/parallel-backend`
-**Official website:** `https://parallia.xyz`
+** Official website:** [parallia.xyz](https://parallia.xyz)
+** Live app:** [parallel-hazel.vercel.app](https://parallel-hazel.vercel.app)
+** Backend API:** [health check](https://parallel-backend-wq04.onrender.com/health)
+** Backend repo:** [github.com/klavsy/parallel-backend](https://github.com/klavsy/parallel-backend)
 
 ![Architecture](architecture.png)
 
@@ -33,6 +33,8 @@
 - 🎨 Toggleable ambient animated background (preference persisted).
 - 🛡️ **Hardened**: gibberish guard, rate limiting, input sanitization, output schema validation, XSS escaping, and a strict Content-Security-Policy (see Security).
 
+![ux2](ux2.png)
+
 ## How it works
 
 ```
@@ -50,12 +52,12 @@ user input
 |---|---|---|
 | Frontend | Static HTML/CSS/JS, canvas image export, Web Share API, i18n ×36 | Vercel |
 | Backend | Node.js + Express (`/generate`, `/speak`, `/places`, `/map`, `/health`, diagnostics) | Render |
-| Microsoft IQ | **Foundry IQ** — knowledge base on Azure AI Search (`gpt-4.1-mini` for retrieval) grounds the reality-check scores | Azure |
-| Story AI | **Gemma 4 31B** via Hugging Face Inference Providers | — |
+| Microsoft IQ | **Foundry IQ** - knowledge base on Azure AI Search (`gpt-4.1-mini` for retrieval) grounds the reality-check scores | Azure |
+| Story AI | **Gemma 4 31B** via Hugging Face Inference Providers | - |
 | Voice AI | Azure AI Speech neural TTS (region `germanywestcentral`) | Azure |
 | Maps | Azure Maps (precise geocoding + static mini-map proxy) | Azure |
-| Integrations | LinkedIn, Bing Maps, Outlook Calendar (client-side deep links) | — |
-| Analytics | Microsoft Clarity | — |
+| Integrations | LinkedIn, Bing Maps, Outlook Calendar (client-side deep links) | - |
+| Analytics | Microsoft Clarity | - |
 
 See `architecture.png` / `architecture.svg` for the full diagram. The backend lives in a separate repository - see the link above.
 
