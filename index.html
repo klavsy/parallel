@@ -455,10 +455,15 @@
             justify-content: center;
             width: 50px;
             height: 50px;
+            min-width: 50px;
+            min-height: 50px;
+            flex: 0 0 50px;
+            aspect-ratio: 1 / 1;
             background: linear-gradient(135deg, #00d9ff, #b00eff);
             border-radius: 50%;
             font-weight: bold;
             font-size: 1.5em;
+            line-height: 1;
             color: #0a0e27;
         }
 
@@ -985,6 +990,55 @@
             font-style: italic;
         }
 
+        /* Form collapse when results appear */
+        .input-section {
+            transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+            overflow: hidden;
+            max-height: 4000px;
+        }
+
+        .input-section.section-collapsed {
+            opacity: 0;
+            transform: scale(0.96) translateY(-12px);
+            max-height: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            pointer-events: none;
+        }
+
+        /* Dark-star implosion of universe cards on Start Over */
+        @keyframes darkStarImplode {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+                filter: brightness(1);
+            }
+            35% {
+                transform: scale(1.06) rotate(2deg);
+                opacity: 1;
+                filter: brightness(1.5) saturate(1.4);
+            }
+            70% {
+                transform: scale(0.45) rotate(-8deg);
+                opacity: 0.85;
+                filter: brightness(2.2) saturate(1.8);
+                box-shadow: 0 0 60px 20px rgba(176, 14, 255, 0.55), 0 0 120px 40px rgba(0, 217, 255, 0.35);
+            }
+            100% {
+                transform: scale(0.02) rotate(-24deg);
+                opacity: 0;
+                filter: brightness(3);
+                box-shadow: 0 0 90px 30px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .universe-card.imploding {
+            animation: darkStarImplode 1.5s cubic-bezier(0.6, 0.04, 0.98, 0.34) forwards;
+            pointer-events: none;
+            z-index: 5;
+        }
+
         /* Step-by-step wizard */
         .wizard-step {
             display: none;
@@ -1449,7 +1503,7 @@
 
         <div class="error-message" id="errorMessage"></div>
 
-        <div class="input-section">
+        <div class="input-section" id="inputSection">
             <h2 data-i18n="sectionTitle">Tell Me About Yourself</h2>
             <form id="inputForm">
                 <div class="form-grid">
@@ -2638,6 +2692,12 @@
                 displayUniverses(data.universes);
                 showPipelineStrip(data.meta);
                 resultsSection.classList.add('active');
+                // Collapse the form away — results become the focus
+                const inputSection = document.getElementById('inputSection');
+                if (inputSection) {
+                    inputSection.classList.add('section-collapsed');
+                    setTimeout(() => { inputSection.style.display = 'none'; }, 650);
+                }
                 scrollToResults();
 
             } catch (err) {
@@ -3092,12 +3152,13 @@
             return userCoordsPromise;
         }
 
-        async function lookupPlace(query, coords, kind) {
+        async function lookupPlace(query, coords, kind, near) {
             if (!mapsAvailable) return null;
             try {
                 let url = MAPS_PLACES_URL + "?query=" + encodeURIComponent(query);
                 if (coords) url += "&lat=" + coords.lat + "&lon=" + coords.lon;
                 if (kind) url += "&kind=" + kind;
+                if (near) url += "&near=" + encodeURIComponent(near);
                 const res = await fetch(url);
                 if (res.status === 503) { mapsAvailable = false; return null; }
                 if (!res.ok) return null;
@@ -3156,17 +3217,23 @@
             });
 
             if (food.length) {
-                // Location bias chain — never a global search (that's how a
-                // "French bistro" ended up in Mexico):
-                //   1) the user's real location, if they allow it
-                //   2) otherwise this universe's own travel destination
-                //   3) otherwise skip pinpointing for this card
-                let bias = await getUserCoords();
-                if (!bias && firstTravel) bias = { lat: firstTravel.lat, lon: firstTravel.lon };
-                if (!bias) return;
-                const foodPlaces = await Promise.all(
-                    food.map(f => (f && f.item) ? lookupPlace(f.item + " restaurant", bias, "poi") : Promise.resolve(null))
-                );
+                // Precise food location: the AI now tells us WHICH city each
+                // dish belongs to. We search for the venue *within that city*
+                // (server geocodes the city first), so a Naples pizza lands in
+                // Naples — never a same-named spot on another continent.
+                const foodPlaces = await Promise.all(food.map(f => {
+                    if (!f || !f.item) return Promise.resolve(null);
+                    const venue = f.venue || (f.item + " restaurant");
+                    if (f.city) {
+                        return lookupPlace(venue, null, "poi", f.city);
+                    }
+                    // No city from the AI → fall back to the universe's travel
+                    // destination; only then skip. Never an unbiased search.
+                    if (firstTravel && firstTravel.lat != null) {
+                        return lookupPlace(venue, { lat: firstTravel.lat, lon: firstTravel.lon }, "poi");
+                    }
+                    return Promise.resolve(null);
+                }));
                 foodPlaces.forEach((place, j) => {
                     if (!place) return;
                     const line = recLines[travel.length + j];
@@ -3242,7 +3309,7 @@
             li.className = "modal-link-primary";
             li.target = "_blank";
             li.rel = "noopener";
-            li.href = "https://www.linkedin.com/jobs/search/?keywords=" + encodeURIComponent(role);
+            li.href = "https://www.linkedin.com/jobs/search/?keywords=" + encodeURIComponent('"' + role + '"');
             li.textContent = "💼 LinkedIn Jobs ↗";
             links.appendChild(li);
 
@@ -3454,6 +3521,38 @@
         form.addEventListener('reset', () => setTimeout(updateGenerateState, 0));
         updateGenerateState();
 
+        // ====== DARK-STAR COLLAPSE (Start Over) ======
+        // Slowly implodes the three universe cards like a collapsing star,
+        // then restores the form. Honors reduced-motion.
+        function darkStarCollapse(afterDone) {
+            const cards = Array.from(document.querySelectorAll('.universe-card'));
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const inputSection = document.getElementById('inputSection');
+
+            const restore = () => {
+                if (inputSection) {
+                    inputSection.style.display = '';
+                    requestAnimationFrame(() => inputSection.classList.remove('section-collapsed'));
+                }
+                resultsSection.classList.remove('active');
+                cards.forEach(c => c.classList.remove('imploding'));
+                if (typeof afterDone === 'function') afterDone();
+                const top = document.querySelector('.app-header') || document.body;
+                top.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+            };
+
+            if (reduce || !cards.length) { restore(); return; }
+
+            cards.forEach((c, i) => {
+                c.style.transformOrigin = 'center center';
+                c.style.animationDelay = (i * 160) + 'ms';
+                c.classList.add('imploding');
+            });
+            // Longest finish = last card delay + animation duration
+            const total = (cards.length - 1) * 160 + 1500 + 120;
+            setTimeout(restore, total);
+        }
+
         // ====== STEP-BY-STEP WIZARD ======
         // Reuses the existing fields and validation untouched. If anything
         // here fails, the classic full form remains as a graceful fallback.
@@ -3533,7 +3632,14 @@
             wizard.appendChild(fin);
             steps.push(fin);
             backF.addEventListener('click', () => show(5));
-            restart.addEventListener('click', () => form.reset());
+            // (restart handler below)
+            restart.addEventListener('click', () => {
+                if (resultsSection.classList.contains('active')) {
+                    darkStarCollapse(() => form.reset());
+                } else {
+                    form.reset();
+                }
+            });
 
             form.insertBefore(wizard, form.firstChild);
             oldParents.forEach(p => {
