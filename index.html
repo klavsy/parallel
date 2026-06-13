@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://parallel-backend-wq04.onrender.com" crossorigin>
     <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
-    <title>Parallel Universe — Explore the lives you didn't live</title>
+    <title>Parallel Universe - Step into the stories of the person you might have become</title>
     <meta name="description" content="Enter who you are and a decision you're facing - AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
 
     <!-- Canonical -->
@@ -16,7 +16,7 @@
     <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Discord, iMessage…) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Parallel Universe">
-    <meta property="og:title" content="Parallel Universe - Explore the lives you didn't live">
+    <meta property="og:title" content="Parallel Universe - Step into the stories of the person you might have become">
     <meta property="og:description" content="AI generates three alternate-universe versions of your life - stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta property="og:url" content="https://parallia.xyz/">
     <meta property="og:image" content="https://parallia.xyz/og-image.png">
@@ -27,7 +27,7 @@
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Parallel Universe - Explore the lives you didn't live">
+    <meta name="twitter:title" content="Parallel Universe - Step into the stories of the person you might have become">
     <meta name="twitter:description" content="AI generates three alternate-universe versions of your life - in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
     <meta name="twitter:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
@@ -1714,9 +1714,9 @@
                 subtitle: "Izpēti alternatīvas realitātes, balstoties uz tavu patieso dzīvesstāstu",
                 sectionTitle: "Pastāsti par sevi",
                 labelName: "Tavs vārds",
-                labelInterests: "Tavas intereses",
+                labelInterests: "Tavas intereses (hobiji)",
                 labelSituation: "Pašreizējā situācija",
-                labelDecision: "Liels dzīves lēmums",
+                labelDecision: "Liels dzīves lēmums, ko grasies pieņemt.",
                 labelDetails: "Pastāsti vairāk par savu situāciju",
                 phName: "piem., Aleksis",
                 phInterests: "piem., tehnoloģijas, mūzika, sports",
@@ -1726,7 +1726,7 @@
                 btnGenerate: "Ģenerēt visumus",
                 btnClear: "Notīrīt",
                 btnNew: "Ģenerēt jaunus visumus",
-                loading: "Skenē paralēlos visumus...",
+                loading: "Skenē paralēlās pasaules...",
                 resultsTitle: "Tavi 3 paralēlie visumi",
                 story: "Stāsts",
                 career: "Karjeras ceļš",
@@ -3271,7 +3271,7 @@
         }
 
         // Adds real pinpointed locations to a card after it renders:
-        // travel → exact city/country, food → an actual restaurant near the user.
+        // travel -exact city/country, food - an actual restaurant near the user.
         async function enhanceRecommendations(card, universe) {
             const rec = universe.recommendations || {};
             const travel = Array.isArray(rec.travel) ? rec.travel : [];
@@ -3295,7 +3295,7 @@
                 // Precise food location: the AI now tells us WHICH city each
                 // dish belongs to. We search for the venue *within that city*
                 // (server geocodes the city first), so a Naples pizza lands in
-                // Naples — never a same-named spot on another continent.
+                // Naples never a same-named spot on another continent.
                 const foodPlaces = await Promise.all(food.map(f => {
                     if (!f || !f.item) return Promise.resolve(null);
                     const venue = f.venue || (f.item + " restaurant");
@@ -3367,8 +3367,8 @@
         }
 
         // Rich job modal: role + universe context + live-search deep links.
-        // (Real LinkedIn postings can't be embedded — the Jobs API is
-        // partner-only and scraping violates ToS — so we frame the role
+        // (Real LinkedIn postings can't be embedded the Jobs API is
+        // partner-only and scraping violates ToS -so we frame the role
         // beautifully and deep-link to live searches.)
         function openJobModal(role, universe) {
             document.getElementById("mapModalTitle").textContent = "💼 " + role;
@@ -3539,7 +3539,7 @@
         // dying star, then restores the input form. Honors reduced-motion.
         // Dark-star supernova: shatters the 3 universe cards into hundreds of
         // glowing particles that explode across the whole screen and rain down,
-        // then returns to the form. Pure canvas — no libraries. Reduced-motion
+        // then returns to the form. Pure canvas - no libraries. Reduced-motion
         // users get an instant, calm restore.
         function darkStarCollapse(afterDone) {
             const cards = Array.from(document.querySelectorAll('.universe-card'));
