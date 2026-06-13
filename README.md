@@ -1,4 +1,4 @@
-# ✨ Parallel Universe
+# ✨ Parallel Universe (Creative App)
 
 ![maincover](maincover.png)
 
@@ -34,6 +34,7 @@
 - 📊 **Microsoft Clarity** analytics (heatmaps, session recordings).
 - 📱 Fully responsive: phones → tablets → desktops → 4K; safe-area aware (iPhone notch), `prefers-reduced-motion` respected.
 - 🎨 Toggleable ambient animated background (preference persisted).
+- 🛡️ Self-harm and crisis safety safeguards (frontednd + backend) with supportive intervention flows and access to help resources.
 - 🛡️ **Hardened**: gibberish guard, rate limiting, input sanitization, output schema validation, XSS escaping, and a strict Content-Security-Policy (see Security).
 
 ![ux2](ux2.png)
