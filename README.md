@@ -83,7 +83,11 @@ This repo is the frontend: a single `index.html` (HTML + CSS + JavaScript, no bu
 
 ## Microsoft IQ - Foundry IQ
 
-This project integrates **Foundry IQ**, the required Microsoft IQ layer. Before generating, the backend performs **agentic retrieval** against a knowledge base hosted on **Azure AI Search** (using `gpt-4.1-mini` for the retrieval/reasoning step). The knowledge base contains career-change, retraining, relocation, and labour-market reference material, and the retrieved facts are injected into the generation prompt so each universe's reality-check score is grounded in real-world base rates rather than guesswork. Retrieval has an 8-second timeout and full graceful degradation — if it is unavailable, generation still completes with ungrounded estimates and the app never hangs. The retrieval implementation lives in the [backend repository](https://github.com/klavsy/parallel-backend).
+This project integrates **Foundry IQ**, the required Microsoft IQ layer. Before generating, the backend performs **agentic retrieval** against a knowledge base hosted on **Azure AI Search** (using `gpt-4.1-mini` for the retrieval/reasoning step). 
+
+The knowledge base contains career-change, retraining, relocation, and labour-market reference material, and the retrieved facts are injected into the generation prompt so each universe's reality-check score is grounded in real-world base rates rather than guesswork. 
+
+Retrieval has an 8-second timeout and full graceful degradation — if it is unavailable, generation still completes with ungrounded estimates and the app never hangs. The retrieval implementation lives in the [backend repository](https://github.com/klavsy/parallel-backend).
 
 ## Deploy
 
