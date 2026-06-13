@@ -8,8 +8,11 @@
 > ✅ Integrates the required **Microsoft IQ layer: Foundry IQ** (knowledge-grounded reality scoring via Azure AI Search agentic retrieval)
 
 ** Official website:** [parallia.xyz](https://parallia.xyz)
+
 ** Live app:** [parallel-hazel.vercel.app](https://parallel-hazel.vercel.app)
+
 ** Backend API:** [health check](https://parallel-backend-wq04.onrender.com/health)
+
 ** Backend repo:** [github.com/klavsy/parallel-backend](https://github.com/klavsy/parallel-backend)
 
 ![Architecture](architecture.png)
