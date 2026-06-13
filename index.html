@@ -8,7 +8,7 @@
     <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
     <title>Step into the stories of the person you might have become</title>
-    <meta name="description" content="Enter who you are and a decision you're facing - AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
+    <meta name="description" content="Enter who you are and a decision you're facing — AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://parallia.xyz/">
@@ -17,20 +17,20 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Parallel Universe">
     <meta property="og:title" content="Step into the stories of the person you might have become">
-    <meta property="og:description" content="AI generates three alternate-universe versions of your life - stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League 2026.">
+    <meta property="og:description" content="AI generates three alternate-universe versions of your life — stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League 2026.">
     <meta property="og:url" content="https://parallia.xyz/">
     <meta property="og:image" content="https://parallia.xyz/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
+    <meta property="og:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Step into the stories of the person you might have become">
-    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life - in 36 languages. Built for Microsoft Agents League 2026.">
+    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life — in 36 languages. Built for Microsoft Agents League 2026.">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
-    <meta name="twitter:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
+    <meta name="twitter:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
 
     <style>
         * {
@@ -2073,7 +2073,7 @@
                     <textarea id="details" data-i18n-ph="phDetails" placeholder="Provide more context to make your universes more personalized..." required></textarea>
                 </div>
                 <div class="button-container">
-                    <p class="gibberish-hint" id="gibberishHint" data-i18n="gibberishHint">Please use real words - random characters can't create a universe</p>
+                    <p class="gibberish-hint" id="gibberishHint" data-i18n="gibberishHint">Please use real words — random characters can't create a universe</p>
                     <button type="submit" class="btn-generate" id="generateBtn" data-i18n="btnGenerate" disabled>Generate Universes</button>
                     <button type="reset" class="btn-reset" data-i18n="btnClear">Clear</button>
                 </div>
@@ -4086,7 +4086,7 @@
         function looksLikeCrisis(text) {
             const t = ' ' + String(text || '').toLowerCase().replace(/[\n\r]+/g, ' ') + ' ';
             const phrases = [
-                'kill myself', 'killing myself', 'want to die', 'wanna die', 'wish i was dead',
+                'kill myself', 'killing myself', 'die', 'dead', 'hang myself', 'cutting myself', 'cut wrists', 'shoot myself', 'no point to live', 'no reason to live', 'rope', 'jump from building', 'want to die', 'wanna die', 'wish i was dead',
                 'wish i were dead', 'end my life', 'ending my life', 'take my own life',
                 'suicidal', 'suicide', "don't want to live", 'do not want to live',
                 'no reason to live', 'better off dead', 'self harm', 'self-harm', 'hurt myself',
@@ -4096,7 +4096,7 @@
                 'mich umbringen', 'selbstmord', 'nicht mehr leben',
                 'voglio morire', 'suicidarmi',
                 'quero morrer', 'me matar',
-                'gribu nomirt', 'pašnāvība', 'nogalināt', 'gribu mirt', 'negribu dzīvot', 'uztaisīt pašnāvību', 'pašnāvīb', 'pašnāvības', 'pakārties', 'kārties', 'pakar', 'nogalināts', 'atņemt dzīvību', 'atņemt sev dzīvību', 'nolekt', 'nolekt no mājas', 'nolekt no jumta', 'nolēkt', 'nosisties', 'nosprāgt', 'izdarīt pašnāvību'
+                'gribu nomirt', 'pašnāvība', 'nomirt', 'mirt', 'padarīt galu', 'nogalināt', 'striķī', 'striķis', 'gribu mirt', 'negribu dzīvot', 'uztaisīt pašnāvību', 'pašnāvīb', 'pašnāvības', 'pakārties', 'kārties', 'pakar', 'nogalināts', 'atņemt dzīvību', 'atņemt sev dzīvību', 'nolekt', 'nolekt no mājas', 'nolekt no jumta', 'nolēkt', 'nosisties', 'nosprāgt', 'izdarīt pašnāvību'
             ];
             return phrases.some(p => t.includes(p));
         }
