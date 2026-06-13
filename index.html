@@ -3308,6 +3308,8 @@
 
             const links = document.getElementById("mapModalLinks");
             links.innerHTML = "";
+            const staleNoteM = document.querySelector(".job-modal-note");
+            if (staleNoteM) staleNoteM.remove();
 
             const openBing = document.createElement("a");
             openBing.className = "modal-link-primary";
@@ -3389,6 +3391,8 @@
 
         function closeMapModal() {
             mapModal.classList.remove("active");
+            const leftoverNote = document.querySelector(".job-modal-note");
+            if (leftoverNote) leftoverNote.remove();
         }
         mapModalClose.addEventListener("click", closeMapModal);
         mapModal.addEventListener("click", e => { if (e.target === mapModal) closeMapModal(); });
