@@ -31,7 +31,7 @@ Available in your native language and narrated with lifelike Azure AI voices, yo
 ### 🌌 AI-Powered Universe Generation
 - **3 AI-generated parallel universes** tailored to the user's name, interests, situation, and decision.
 - Powered by **Gemma 4 31B**, with **Gemma 3 27B** automatically serving as a fallback model via Hugging Face Inference Providers.
-- 🤖 **Smart AI chips (Qwen)** that generate contextual, pill-shaped answer suggestions beside form fields to speed up user input and reduce typing.
+- **Smart AI chips (Qwen)** that generate contextual, pill-shaped answer suggestions beside form fields to speed up user input and reduce typing.
 
 ### 🧭 Guided Experience
 - **Step-by-step wizard** that greets users and guides them through one question at a time instead of a long form.
