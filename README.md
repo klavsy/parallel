@@ -37,7 +37,7 @@ Available in your native language and narrated with lifelike Azure AI voices, yo
 - **Step-by-step wizard** that greets users and guides them through one question at a time instead of a long form.
 
 ### 🎯 Reality-Grounded Insights
-- **Reality-check score (0–100)** for every universe, calibrated against real labour-market and career data retrieved from an Azure AI Search knowledge base using agentic retrieval and GPT-4.1 Mini.
+- **Foundry IQ Reality-check score (0–100)** for every universe, calibrated against real labour-market and career data retrieved from an Azure AI Search knowledge base using agentic retrieval and GPT-4.1 Mini.
 - Scores are displayed as animated gradient bars and clearly labelled as AI-generated estimates.
 - 💼 **Tailored job recommendations** with one-click LinkedIn or Bing job searches for each generated role.
 
