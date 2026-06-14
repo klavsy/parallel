@@ -279,17 +279,38 @@
 
         .input-section {
             position: relative;
-            background: rgba(26, 31, 79, 0.55);
-            border: 1.5px solid rgba(0, 217, 255, 0.3);
-            border-radius: 24px;
-            padding: clamp(20px, 4vw, 40px);
+            background:
+                radial-gradient(135% 115% at 0% 0%, rgba(0, 230, 200, 0.24), transparent 55%),
+                radial-gradient(135% 115% at 100% 100%, rgba(255, 60, 170, 0.24), transparent 55%),
+                linear-gradient(160deg, rgba(20, 55, 75, 0.78), rgba(60, 25, 65, 0.80));
+            border: 1px solid transparent;
+            border-radius: 28px;
+            padding: clamp(22px, 4vw, 44px);
             margin-bottom: 50px;
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(26px) saturate(185%);
+            -webkit-backdrop-filter: blur(26px) saturate(185%);
             box-shadow:
-                0 8px 32px rgba(0, 217, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 24px 60px rgba(0, 0, 0, 0.40),
+                0 8px 28px rgba(0, 200, 180, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.16),
+                inset 0 -24px 60px rgba(160, 40, 120, 0.10);
             animation: slideUp 0.8s ease-out;
+        }
+
+        /* Gradient border glow — teal → magenta lit edge to match the body */
+        .input-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(0, 230, 200, 0.6), rgba(140, 120, 200, 0.25) 45%, rgba(255, 60, 170, 0.55));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.85;
         }
 
         .input-section h2 {
@@ -563,8 +584,6 @@
             -webkit-backdrop-filter: blur(6px);
             overflow: hidden;
             transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-            width: auto;
-            min-width: 160px
         }
 
         /* Soft glow fill that rises on hover */
@@ -1635,14 +1654,6 @@
             font-size: 0.95em;
             padding-top: 12px;
             padding-bottom: 12px;
-            /* Glass Stylings */
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.26), rgba(123, 160, 255, 0.18));
-            -webkit-backdrop-filter: blur(14px) saturate(160%);
-            backdrop-filter: blur(14px) saturate(160%);
-            color: #eaf9ff;
-            border: 1px solid rgba(255, 255, 255, 0.20);
-            box-shadow: 0 8px 26px rgba(0, 217, 255, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.30);
-            text-shadow: 0 1px 8px rgba(0, 200, 255, 0.4);
         }
 
         .wizard-back:hover, .wizard-restart:hover {
@@ -1748,8 +1759,8 @@
 
         .wizard-final .btn-generate:not(.wizard-back):not(.wizard-restart) {
             display: block;
-            width: 26%;
-            margin: 20px auto 0;
+            width: 100%;
+            margin: 4px auto 0;
         }
 
         /* Loading: emoji journey + indeterminate glow bar */
@@ -2063,7 +2074,9 @@
             box-shadow: 0 15px 50px rgba(255, 0, 217, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        /* Work-in-progress disclaimer pill */
+        /* Work-in-progress disclaimer pill.
+           Toggle visibility by adding/removing the "wip-disabled" class on the
+           element — keep it off for a finished look, flip on if needed. */
         .footer-wip {
             display: inline-flex;
             align-items: center;
@@ -2079,8 +2092,55 @@
             font-size: 0.85em;
         }
 
+        .footer-wip.wip-disabled { display: none; }
+
         .footer-wip .wip-icon {
             font-size: 1.05em;
+        }
+
+        /* ===== Standardized wizard action buttons =====
+           Next, Back, and Clear share ONE size + the same cyan glass style,
+           so they look like a matched set. */
+        .wizard-next,
+        .wizard-back,
+        .wizard-restart,
+        #inputForm .button-container .btn-reset {
+            width: auto;
+            min-width: 200px;
+            min-height: 50px;
+            padding: 13px 26px;
+            font-size: 0.98em;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.26), rgba(123, 160, 255, 0.18));
+            -webkit-backdrop-filter: blur(14px) saturate(160%);
+            backdrop-filter: blur(14px) saturate(160%);
+            color: #eaf9ff;
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            box-shadow:
+                0 8px 26px rgba(0, 217, 255, 0.24),
+                inset 0 1px 0 rgba(255, 255, 255, 0.30);
+            text-shadow: 0 1px 8px rgba(0, 200, 255, 0.4);
+            transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .wizard-next:hover,
+        .wizard-back:hover,
+        .wizard-restart:hover,
+        #inputForm .button-container .btn-reset:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.34);
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.34), rgba(123, 160, 255, 0.24));
+            box-shadow:
+                0 12px 32px rgba(0, 217, 255, 0.34),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+        /* Keep the Clear button's rising-glow pseudo-element from clashing */
+        #inputForm .button-container .btn-reset::after { display: none; }
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+            .wizard-next, .wizard-back, .wizard-restart,
+            #inputForm .button-container .btn-reset {
+                background: linear-gradient(135deg, rgba(10,45,75,0.94), rgba(20,30,70,0.94));
+            }
         }
 
         @media (max-width: 768px) {
@@ -2333,13 +2393,13 @@
             <div class="disclaimer-box">
                 <div class="disclaimer-icon">🌌</div>
                 <h3 id="disclaimerTitle" data-i18n="dscTitle">Welcome to Parallel Universe</h3>
-                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life - just for fun and reflection.</p>
+                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life — just for fun and reflection.</p>
                 <ul class="disclaimer-points">
                     <li><strong data-i18n="dscAgeLabel">For ages 18+.</strong> <span data-i18n="dscAgeText">This experience is intended for adults.</span></li>
                     <li><strong data-i18n="dscFunLabel">Entertainment only.</strong> <span data-i18n="dscFunText">Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.</span></li>
                     <li><strong data-i18n="dscRespLabel">Use your own judgment.</strong> <span data-i18n="dscRespText">The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.</span></li>
                 </ul>
-                <button type="button" class="disclaimer-accept" id="disclaimerAccept" data-i18n="dscAccept">I am 18+ and I understand — let's begin</button>
+                <button type="button" class="disclaimer-accept" id="disclaimerAccept" data-i18n="dscAccept">I am 18+ and I understand - let's begin</button>
             </div>
         </div>
 
@@ -2367,7 +2427,7 @@
         </div>
 
         <footer>
-            <p class="footer-wip"><span class="wip-icon">🚧</span><span data-i18n="wip">Work in progress - some features may not work yet</span></p>
+            <p class="footer-wip wip-disabled"><span class="wip-icon">🚧</span><span data-i18n="wip">Work in progress - some features may not work yet</span></p>
             <p data-i18n="footer">🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌</p>
             <p class="footer-credit"><span data-i18n="footerCredit">Microsoft Agents League Hackathon (2026) · A project by</span> <strong>Klavs Petersons</strong></p>
             <div class="footer-tech">
@@ -2412,7 +2472,7 @@
         const I18N = {"en":{"langLabel":"Language","subtitle":"Step into the stories of the person you might have become","sectionTitle":"Tell Me About Yourself","labelName":"Your Name","labelInterests":"Your Interests","labelSituation":"Current Situation","labelDecision":"Big Life Decision","labelDetails":"Tell me more about your situation","phName":"e.g., Alex","phInterests":"e.g., technology, music, sports","phSituation":"e.g., student, working in tech, freelancer","phDecision":"e.g., change careers, move abroad, start a business","phDetails":"Provide more context to make your universes more personalized...","btnGenerate":"Generate Universes","btnClear":"Clear","btnNew":"Generate New Universes","loading":"Scanning parallel universes...","resultsTitle":"Your 3 Parallel Universes","story":"The Story","career":"Career Path","events":"Key Events","outcome":"Outcome","footer":"🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌","errFill":"Please fill in all fields"}};
 
         // Extra UI strings (background toggle + recommendation headers)
-        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress — some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words — random characters can't create a universe","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role — postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available — please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life — just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future — and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand — let's begin"}};
+        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress - some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words - random characters can't create a universe","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role — postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available - please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life - just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand - let's begin"}};
         const CHIP_DATA = {"en":{"interests":[{"label":"📷 Photography & travel","fill":"Photography, travel, and cooking"},{"label":"💻 Tech & gaming","fill":"Coding, gaming, and technology"},{"label":"🎨 Music & art","fill":"Music, art, and creative writing"},{"label":"🏔️ Fitness & outdoors","fill":"Fitness, nature, and the outdoors"}],"situation":[{"label":"🎓 Student","fill":"A university student figuring out my path"},{"label":"💼 Office job","fill":"Working a 9-to-5 office job"},{"label":"🚀 Freelancer","fill":"Freelancing and working for myself"},{"label":"🔄 In transition","fill":"Between jobs and looking for change"}],"decision":[{"label":"🔀 Change careers","fill":"Whether to change careers entirely"},{"label":"🌍 Move abroad","fill":"Whether to move to another country"},{"label":"💡 Start a business","fill":"Whether to start my own business"},{"label":"📚 Go back to school","fill":"Whether to go back to school"}],"details":[{"label":"😶‍🌫️ Feeling stuck","fill":"I've felt stuck for a while and wonder what life would look like if I'd been braver and taken more risks."},{"label":"🛤️ At a crossroads","fill":"I'm at a crossroads and curious how different choices might have shaped who I'd become."},{"label":"✨ Just curious","fill":"I'm generally happy but sometimes wonder about the paths I didn't take."}]}};
         for (const code in I18N_EXTRA) {
             if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
@@ -3416,7 +3476,7 @@
                 String(d.getHours()).padStart(2, '0') + ':' +
                 String(d.getMinutes()).padStart(2, '0') + ':00';
             const subject = encodeURIComponent('🌌 ' + String(eventText).slice(0, 120));
-            const body = encodeURIComponent('Milestone from "' + universeTitle + '" - Parallel Universe app');
+            const body = encodeURIComponent('Milestone from "' + universeTitle + '" — Parallel Universe app');
             return 'https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent' +
                 '&subject=' + subject + '&body=' + body +
                 '&startdt=' + fmt(start) + '&enddt=' + fmt(end);
@@ -3485,7 +3545,7 @@
                         detail = j.error || j.details || "";
                     } catch (_) {}
                     if (res.status === 404) {
-                        throw new Error("Backend has no /speak endpoint - deploy the latest server.js (404)");
+                        throw new Error("Backend has no /speak endpoint — deploy the latest server.js (404)");
                     }
                     if (res.status === 503) {
                         throw new Error("Azure Speech env vars missing on Render (503)");
