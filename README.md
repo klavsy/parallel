@@ -33,15 +33,15 @@ Available in your native language and narrated with lifelike Azure AI voices, yo
 - 🧭 **Step-by-step wizard** - a guided, one-question-at-a-time flow that greets the user and walks them through each field, instead of a single long form.
 - 🔊 **Voice narration** of every universe with **Azure AI Speech** neural voices (36 voices mapped, e.g. `lv-LV-EveritaNeural`).
 - 🎯 **Reality-check score** per universe - a 0–100 feasibility estimate **grounded by Foundry IQ**: the backend retrieves real career/labour-market facts from an Azure AI Search knowledge base (agentic retrieval, using `gpt-4.1-mini`) and the model calibrates each score against them. Rendered as an animated, tiered gradient bar and clearly labelled as an AI estimate.
-- 💼 **Tailored job roles** per universe → a beautiful modal that opens a live **LinkedIn** (or Bing) job search for that exact role.
+- 💼 **Tailored job roles** per universe - a beautiful modal that opens a live **LinkedIn** (or Bing) job search for that exact role.
 - 🗺️ **Embedded mini-maps (Azure Maps)** - travel destinations geocoded precisely and real food places pinpointed within the right city via two-step geocoding; tap a map for a detail modal with the address and an "Open in Bing Maps" link.
 - 📅 **Outlook Calendar** - turn any universe milestone into a real scheduled goal (deep link, no API key).
 - 📤💾 **Shareable image cards** - 1080×1350 PNG rendered on canvas; native share sheet on mobile, direct download on desktop.
 - 🌠 **Dark-star shatter** - clicking "Generate New Universes" implodes the cards into a full-screen particle supernova before returning to the form.
 - 📊 **Microsoft Clarity** analytics (heatmaps, session recordings).
-- 📱 Fully responsive: phones → tablets → desktops → 4K; safe-area aware (iPhone notch), `prefers-reduced-motion` respected.
+- 📱 Fully responsive: phones - tablets, desktops, 4K; safe-area aware (iPhone notch), `prefers-reduced-motion` respected.
 - 🎨 Toggleable ambient animated background (preference persisted).
-- 🛡️ Self-harm and crisis safety safeguards (frontend + backend) with supportive intervention flows and access to help resources.
+- 🛡️ **Self-harm and crisis safety safeguards** - (frontend + backend) with supportive intervention flows and access to help resources.
 - 🛡️ **Hardened**: gibberish guard, rate limiting, input sanitization, output schema validation, XSS escaping, and a strict Content-Security-Policy (see Security).
 - 🔗 Rich Open Graph previews for social sharing.
 - 🌐 Modular Translations (JSON) - Translation resources are organized in modular `translations.json` files for improved maintainability and scalability.
