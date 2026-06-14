@@ -2,7 +2,7 @@
 
 ![maincover](maincover.png)
 
-What if you could see where your choices might lead?
+# What if you could see where your choices might lead?
 
 Enter your personality, passions, and the decision that's keeping you up at night. AI generates three alternate futures - ambitious, balanced, and cautionary - each revealing a different version of your life.
 
