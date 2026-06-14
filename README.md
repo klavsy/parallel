@@ -42,7 +42,7 @@
 - 💼 **Tailored job roles** - a polished modal that opens a live **LinkedIn** (or Bing) job search for that exact role.
 - 🗺️ **Embedded mini-maps (Azure Maps)** — travel spots geocoded precisely and real food places pinpointed in the right city via two-step geocoding; tap a map for address details and an "Open in Bing Maps" link.
 - 📅 **Outlook Calendar** - turn any universe milestone into a real scheduled goal (deep link, no API key).
-- 📤 **Shareable image cards** — 1080×1350 PNG rendered on canvas; native share sheet on mobile, direct download on desktop.
+- 📤 **Shareable image cards** - 1080×1350 PNG rendered on canvas; native share sheet on mobile, direct download on desktop.
 
 ### 🎨 Crafted, polished UI
 
