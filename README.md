@@ -44,6 +44,10 @@ Available in your native language and narrated with lifelike Azure AI voices, yo
 - 🛡️ Self-harm and crisis safety safeguards (frontend + backend) with supportive intervention flows and access to help resources.
 - 🛡️ **Hardened**: gibberish guard, rate limiting, input sanitization, output schema validation, XSS escaping, and a strict Content-Security-Policy (see Security).
 - 🔗 Rich Open Graph previews for social sharing.
+- 🌐 Modular Translations - Translation resources are organized in modular `translations.json` files for improved maintainability and scalability.
+- 🤖 AI Chips - Powered by Qwen-based AI chips/models.
+- 📦 Gzip Compression - Optimized payload delivery using Gzip compression for reduced bandwidth usage and faster transfers.
+- 🔄 Gemma 3 Fallback - Automatic fallback to Gemma 3 when the primary model is unavailable or fails to respond.
 
 ![ux2](ux2.png)
 
