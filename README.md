@@ -63,7 +63,7 @@ user input
 | Backend | Node.js + Express (`/generate`, `/chips`, `/speak`, `/places`, `/map`, `/health`, diagnostics), gzip-compressed | Render |
 | Microsoft IQ | **Foundry IQ** — knowledge base on Azure AI Search (`gpt-4.1-mini` for retrieval) grounds the reality-check scores | Azure |
 | Story AI | **Gemma 4 31B** via Hugging Face Inference Providers (fallback: **Gemma 3 27B**) | - |
-| Chips AI | **Qwen2.5-7B** via Hugging Face — small/fast model for example-chip suggestions | - |
+| Chips AI | **Qwen2.5-7B** via Hugging Face - small/fast model for example-chip suggestions | - |
 | Voice AI | Azure AI Speech neural TTS (region `germanywestcentral`) | Azure |
 | Maps | Azure Maps (precise geocoding + static mini-map proxy) | Azure |
 | Integrations | LinkedIn, Bing Maps, Outlook Calendar (client-side deep links) | - |
