@@ -1,5 +1,7 @@
 # ✨ Parallel Universe (Creative App)
 
+![main](maincover.png)
+
 **Explore the lives you didn't live.** Enter who you are, what you love, and the big decision you're facing - an AI generates three alternate-universe versions of your life (bold, balanced, cautionary), each with a story, a career path, key milestones, an outcome, and *actionable* next steps: real job roles to search on LinkedIn, travel destinations and food places pinpointed on a map, and a reality-check score - all in your native language, narrated aloud by Azure AI.
 
 > 🏆 Built for **Microsoft Agents League Hackathon (2026) - Creative Apps track** by **Klavs Petersons**
