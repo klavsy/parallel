@@ -14,13 +14,13 @@ Available in your native language and narrated with lifelike Azure AI voices, yo
 > 🏆 Built for **Microsoft Agents League Hackathon (2026) - Creative Apps track** by **Klavs Petersons**
 > ✅ Integrates the required **Microsoft IQ layer: Foundry IQ** (knowledge-grounded reality scoring via Azure AI Search agentic retrieval)
 
-** Official website:** [parallia.xyz](https://parallia.xyz)
+Official website: [parallia.xyz](https://parallia.xyz)
 
-** Live app:** [parallel-hazel.vercel.app](https://parallel-hazel.vercel.app)
+Live app: [parallel-hazel.vercel.app](https://parallel-hazel.vercel.app)
 
-** Backend API:** [health check](https://parallel-backend-wq04.onrender.com/health)
+Backend API: [health check](https://parallel-backend-wq04.onrender.com/health)
 
-** Backend repo:** [github.com/klavsy/parallel-backend](https://github.com/klavsy/parallel-backend)
+Backend repo: [github.com/klavsy/parallel-backend](https://github.com/klavsy/parallel-backend)
 
 ![Architecture](architecture.png)
 
