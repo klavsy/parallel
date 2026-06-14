@@ -35,7 +35,7 @@
 ### 🧭 Guided, friendly input
 
 - **Step-by-step wizard** - a guided, one-question-at-a-time flow that greets the user and walks them through each field, instead of one long form.
-- 💡 **Smart example chips** — tappable suggestions under each field. A small, fast model (`Qwen2.5-7B`) pre-generates fresh, localized examples in the background; if it's slow or unavailable, verified static chips (translated into all 36 languages) show instantly. *Pure enhancement, never a blocker.*
+- 💡 **Smart example chips** - tappable suggestions under each field. A small, fast model (`Qwen2.5-7B`) pre-generates fresh, localized examples in the background; if it's slow or unavailable, verified static chips (translated into all 36 languages) show instantly. *Pure enhancement, never a blocker.*
 
 ### 🗺️ Bring each universe to life
 
