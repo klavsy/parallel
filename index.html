@@ -8,7 +8,7 @@
     <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
     <title>Step into the stories of the person you might have become</title>
-    <meta name="description" content="Enter who you are and a decision you're facing — AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
+    <meta name="description" content="Enter who you are and a decision you're facing - AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://parallia.xyz/">
@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Parallel Universe">
     <meta property="og:title" content="Step into the stories of the person you might have become">
-    <meta property="og:description" content="AI generates three alternate-universe versions of your life — stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League 2026.">
+    <meta property="og:description" content="AI generates three alternate-universe versions of your life - stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League 2026.">
     <meta property="og:url" content="https://parallia.xyz/">
     <meta property="og:image" content="https://parallia.xyz/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Step into the stories of the person you might have become">
-    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life — in 36 languages. Built for Microsoft Agents League 2026.">
+    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life - in 36 languages. Built for Microsoft Agents League 2026.">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
     <meta name="twitter:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
 
@@ -2283,7 +2283,7 @@
         // simply means English-only, never a broken UI.
         let TRANSLATIONS_READY = false;
         (function loadTranslations() {
-            fetch('translations.json', { cache: 'force-cache' })
+            fetch('translations.json', { cache: 'no-cache' })
                 .then(r => r.ok ? r.json() : null)
                 .then(data => {
                     if (!data || !data.ui) return;     // keep English-only on failure
@@ -2404,6 +2404,30 @@
             .then(d => {
                 clearTimeout(timer);
                 if (d && d.chips && d.chips.interests && d.chips.situation && d.chips.decision && d.chips.details) {
+                    // Safety: reject AI chips that look like they came back in the
+                    // WRONG language. We check whether any AI fill exactly matches
+                    // a different language's known static chip — if so, the model
+                    // likely echoed the wrong language, so we keep static chips.
+                    let wrongLang = false;
+                    try {
+                        const aiFills = [];
+                        ['interests','situation','decision','details'].forEach(f =>
+                            (d.chips[f] || []).forEach(c => aiFills.push(String(c.fill || ''))));
+                        if (typeof CHIP_DATA !== 'undefined') {
+                            for (const otherLang in CHIP_DATA) {
+                                if (otherLang === lang) continue;
+                                const otherFills = new Set();
+                                ['interests','situation','decision','details'].forEach(f =>
+                                    (CHIP_DATA[otherLang][f] || []).forEach(c => otherFills.add(String(c.fill || ''))));
+                                if (aiFills.some(fill => fill.length > 8 && otherFills.has(fill))) {
+                                    wrongLang = true;
+                                    break;
+                                }
+                            }
+                        }
+                    } catch (_) {}
+                    if (wrongLang) return;     // keep verified static chips for this language
+
                     AI_CHIPS[lang] = d.chips;
                     if (currentLang === lang) renderChips(lang);   // swap in if still on this lang
                 }
