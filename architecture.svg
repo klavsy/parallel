@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1080" viewBox="0 0 1680 1080" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e27"/>
+      <stop offset="0.3" stop-color="#1a1f4f"/>
+      <stop offset="0.55" stop-color="#2d0a4e"/>
+      <stop offset="0.8" stop-color="#1a0033"/>
+      <stop offset="1" stop-color="#0a0e27"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00d9ff"/>
+      <stop offset="1" stop-color="#b00eff"/>
+    </linearGradient>
+    <radialGradient id="glowCyan" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00d9ff" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#00d9ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowPurple" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#b00eff" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#b00eff" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00d9ff"/>
+    </marker>
+  </defs>
+
+  <rect width="1680" height="1080" fill="url(#bg)"/>
+  <ellipse cx="340" cy="260" rx="430" ry="330" fill="url(#glowCyan)"/>
+  <ellipse cx="1420" cy="840" rx="470" ry="350" fill="url(#glowPurple)"/>
+
+  <g fill="#e0e0ff">
+    <circle cx="150" cy="130" r="2" opacity="0.35"/>
+    <circle cx="540" cy="90" r="1.5" opacity="0.3"/>
+    <circle cx="920" cy="120" r="2" opacity="0.3"/>
+    <circle cx="1230" cy="80" r="1.5" opacity="0.35"/>
+    <circle cx="1560" cy="140" r="2" opacity="0.3"/>
+    <circle cx="1030" cy="65" r="1.2" opacity="0.25"/>
+    <circle cx="320" cy="70" r="1.2" opacity="0.25"/>
+    <circle cx="730" cy="145" r="1.2" opacity="0.25"/>
+  </g>
+
+  <text x="840" y="64" text-anchor="middle" font-size="36" font-weight="bold" fill="url(#accent)">PARALLEL UNIVERSE — system architecture</text>
+  <text x="840" y="100" text-anchor="middle" font-size="17" fill="#b0a8ff">Microsoft Agents League 2026 · Creative Apps track · AI-assisted development with GitHub Copilot</text>
+
+  <!-- User -->
+  <rect x="60" y="240" width="220" height="170" rx="16" fill="rgba(26,31,79,0.78)" stroke="rgba(0,217,255,0.5)" stroke-width="2"/>
+  <text x="170" y="280" text-anchor="middle" font-size="20" font-weight="bold" fill="#00d9ff">User</text>
+  <text x="170" y="314" text-anchor="middle" font-size="16" fill="#d8d8ff">Any device</text>
+  <text x="170" y="340" text-anchor="middle" font-size="16" fill="#d8d8ff">36 UI languages</text>
+  <text x="170" y="366" text-anchor="middle" font-size="16" fill="#d8d8ff">phone · tablet · TV</text>
+
+  <!-- Frontend -->
+  <rect x="360" y="180" width="340" height="290" rx="16" fill="rgba(26,31,79,0.78)" stroke="rgba(0,217,255,0.5)" stroke-width="2"/>
+  <text x="384" y="218" font-size="20" font-weight="bold" fill="#00d9ff">Frontend — Vercel</text>
+  <text x="384" y="250" font-size="15" fill="#d8d8ff">Static HTML · CSS · JS</text>
+  <text x="384" y="274" font-size="15" fill="#d8d8ff">36-lang UI · translations.json</text>
+  <text x="384" y="298" font-size="15" fill="#d8d8ff">Guided wizard · example chips</text>
+  <text x="384" y="322" font-size="15" fill="#d8d8ff">Canvas share cards (PNG)</text>
+  <text x="384" y="346" font-size="15" fill="#d8d8ff">Web Share API + download</text>
+  <text x="384" y="370" font-size="15" fill="#d8d8ff">Plays Azure Speech audio</text>
+  <text x="384" y="394" font-size="15" fill="#d8d8ff">Reduced-motion friendly</text>
+  <rect x="384" y="404" width="232" height="36" rx="11" fill="rgba(0,120,212,0.25)" stroke="#0078d4" stroke-width="1.5"/>
+  <text x="500" y="428" text-anchor="middle" font-size="15" fill="#9ecbff">Microsoft Clarity tag</text>
+
+  <!-- Backend -->
+  <rect x="820" y="215" width="300" height="220" rx="16" fill="rgba(26,31,79,0.78)" stroke="rgba(0,217,255,0.5)" stroke-width="2"/>
+  <text x="844" y="249" font-size="20" font-weight="bold" fill="#00d9ff">Backend — Render</text>
+  <text x="844" y="280" font-size="15" fill="#d8d8ff">Node.js + Express · gzip</text>
+  <text x="844" y="304" font-size="15" fill="#d8d8ff">/generate · /chips · /speak · /places</text>
+  <text x="844" y="328" font-size="15" fill="#d8d8ff">Retry + backoff · model fallback</text>
+  <text x="844" y="352" font-size="15" fill="#d8d8ff">Crisis safety net · input guards</text>
+  <text x="844" y="376" font-size="15" fill="#d8d8ff">Rate-limited · secrets via env</text>
+  <text x="844" y="400" font-size="15" fill="#d8d8ff">Language-aware prompts</text>
+
+  <!-- Story AI + Foundry IQ -->
+  <rect x="1200" y="150" width="420" height="190" rx="16" fill="rgba(26,31,79,0.78)" stroke="rgba(0,217,255,0.5)" stroke-width="2"/>
+  <text x="1224" y="184" font-size="20" font-weight="bold" fill="#00d9ff">Story AI — Gemma 4 31B</text>
+  <text x="1224" y="214" font-size="15" fill="#d8d8ff">Hugging Face Inference Providers</text>
+  <text x="1224" y="238" font-size="15" fill="#d8d8ff">3 universes + recs · 36 languages</text>
+  <text x="1224" y="262" font-size="15" fill="#d8d8ff">Gemma 3 27B auto-fallback · Qwen chips</text>
+  <text x="1224" y="294" font-size="15" font-weight="bold" fill="#9ecbff">Foundry IQ (Azure AI Search)</text>
+  <text x="1224" y="318" font-size="15" fill="#d8d8ff">gpt-4.1-mini retrieval · grounds scores</text>
+
+  <!-- Azure Speech -->
+  <rect x="1200" y="390" width="420" height="190" rx="16" fill="rgba(26,31,79,0.78)" stroke="#0078d4" stroke-width="2"/>
+  <rect x="1518" y="406" width="86" height="24" rx="9" fill="#0078d4"/>
+  <text x="1561" y="423" text-anchor="middle" font-size="13" fill="#ffffff">Microsoft</text>
+  <text x="1224" y="428" font-size="20" font-weight="bold" fill="#00d9ff">Azure AI Speech</text>
+  <text x="1224" y="462" font-size="16" fill="#d8d8ff">Neural text-to-speech (REST)</text>
+  <text x="1224" y="488" font-size="16" fill="#d8d8ff">36 voices · lv-LV Everita</text>
+  <text x="1224" y="514" font-size="16" fill="#d8d8ff">Region: germanywestcentral</text>
+  <text x="1224" y="540" font-size="16" fill="#d8d8ff">Narrates full universe card</text>
+
+  <!-- Arrows: main flow -->
+  <line x1="284" y1="325" x2="356" y2="325" stroke="#00d9ff" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+
+  <line x1="704" y1="300" x2="816" y2="300" stroke="#00d9ff" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="760" y="288" text-anchor="middle" font-size="14" fill="#b0a8ff">requests</text>
+  <line x1="816" y1="350" x2="704" y2="350" stroke="#00d9ff" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="760" y="376" text-anchor="middle" font-size="14" fill="#b0a8ff">JSON · MP3</text>
+
+  <path d="M 1124 260 H 1160 V 245 H 1196" fill="none" stroke="#00d9ff" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <text x="1160" y="230" text-anchor="middle" font-size="14" fill="#b0a8ff">stories</text>
+
+  <path d="M 1124 400 H 1160 V 470 H 1196" fill="none" stroke="#00d9ff" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <text x="1148" y="445" text-anchor="end" font-size="14" fill="#b0a8ff">audio</text>
+
+  <!-- Clarity -->
+  <rect x="60" y="560" width="220" height="130" rx="16" fill="rgba(26,31,79,0.78)" stroke="#0078d4" stroke-width="2"/>
+  <rect x="178" y="574" width="86" height="24" rx="9" fill="#0078d4"/>
+  <text x="221" y="591" text-anchor="middle" font-size="13" fill="#ffffff">Microsoft</text>
+  <text x="84" y="596" font-size="19" font-weight="bold" fill="#00d9ff">Clarity</text>
+  <text x="84" y="630" font-size="15" fill="#d8d8ff">Heatmaps · recordings</text>
+  <text x="84" y="656" font-size="15" fill="#d8d8ff">Usage analytics</text>
+  <path d="M 360 444 H 170 V 556" fill="none" stroke="#00d9ff" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Deep links -->
+  <rect x="340" y="560" width="800" height="140" rx="16" fill="rgba(26,31,79,0.6)" stroke="rgba(176,14,255,0.55)" stroke-width="2"/>
+  <text x="364" y="594" font-size="17" font-weight="bold" fill="#b00eff">Microsoft deep links — client-side, no API keys</text>
+  <g font-size="15" fill="#0a0e27" font-weight="bold">
+    <rect x="364" y="616" width="140" height="40" rx="20" fill="url(#accent)"/>
+    <text x="434" y="642" text-anchor="middle">Bing Maps</text>
+    <rect x="520" y="616" width="170" height="40" rx="20" fill="url(#accent)"/>
+    <text x="605" y="642" text-anchor="middle">LinkedIn Jobs</text>
+    <rect x="706" y="616" width="175" height="40" rx="20" fill="url(#accent)"/>
+    <text x="793" y="642" text-anchor="middle">LinkedIn Share</text>
+    <rect x="897" y="616" width="195" height="40" rx="20" fill="url(#accent)"/>
+    <text x="994" y="642" text-anchor="middle">Outlook Calendar</text>
+  </g>
+  <line x1="560" y1="470" x2="560" y2="556" stroke="#00d9ff" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Dev pipeline -->
+  <rect x="60" y="760" width="1560" height="180" rx="16" fill="rgba(26,31,79,0.6)" stroke="rgba(0,217,255,0.4)" stroke-width="2"/>
+  <text x="84" y="796" font-size="19" font-weight="bold" fill="#00d9ff">AI-assisted development &amp; delivery</text>
+
+  <rect x="100" y="820" width="360" height="88" rx="12" fill="rgba(10,14,39,0.7)" stroke="#0078d4" stroke-width="2"/>
+  <rect x="360" y="832" width="86" height="24" rx="9" fill="#0078d4"/>
+  <text x="403" y="849" text-anchor="middle" font-size="13" fill="#ffffff">Microsoft</text>
+  <text x="124" y="854" font-size="18" font-weight="bold" fill="#e0e0ff">GitHub Copilot</text>
+  <text x="124" y="884" font-size="15" fill="#b0a8ff">completions · review · docs · tests</text>
+
+  <rect x="540" y="820" width="400" height="88" rx="12" fill="rgba(10,14,39,0.7)" stroke="rgba(0,217,255,0.5)" stroke-width="2"/>
+  <text x="564" y="854" font-size="18" font-weight="bold" fill="#e0e0ff">Public GitHub repository</text>
+  <text x="564" y="884" font-size="15" fill="#b0a8ff">source · commits · judging access</text>
+
+  <rect x="1020" y="820" width="560" height="88" rx="12" fill="rgba(10,14,39,0.7)" stroke="rgba(0,217,255,0.5)" stroke-width="2"/>
+  <text x="1044" y="854" font-size="18" font-weight="bold" fill="#e0e0ff">Auto-deploy</text>
+  <text x="1044" y="884" font-size="15" fill="#b0a8ff">Vercel — frontend (index.html) · Render — backend (server.js)</text>
+
+  <line x1="460" y1="864" x2="536" y2="864" stroke="#00d9ff" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="940" y1="864" x2="1016" y2="864" stroke="#00d9ff" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <text x="840" y="1020" text-anchor="middle" font-size="15" fill="#6a6a8f">Klavs Petersons · Microsoft Agents League 2026 · Gemma 4 (Hugging Face) · Foundry IQ · Azure AI Speech · Azure Maps · LinkedIn · Outlook · Clarity · GitHub Copilot</text>
+</svg>
