@@ -30,7 +30,7 @@
     <meta name="twitter:title" content="Step into the stories of the person you might have become">
     <meta name="twitter:description" content="AI generates three alternate-universe versions of your life - in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
-    <meta name="twitter:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
+    <meta name="twitter:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
 
     <style>
         * {
@@ -2366,7 +2366,7 @@
                     <div class="chip-row" data-chips-for="details"></div>
                 </div>
                 <div class="button-container">
-                    <p class="gibberish-hint" id="gibberishHint" data-i18n="gibberishHint">Please use real words - random characters can't create a universe</p>
+                    <p class="gibberish-hint" id="gibberishHint" data-i18n="gibberishHint">Please use real words — random characters can't create a universe</p>
                     <button type="submit" class="btn-generate" id="generateBtn" data-i18n="btnGenerate" disabled>Generate Universes</button>
                     <button type="button" class="btn-reset" data-i18n="btnClear">Clear</button>
                 </div>
@@ -2396,10 +2396,10 @@
             <div class="disclaimer-box">
                 <div class="disclaimer-icon">🌌</div>
                 <h3 id="disclaimerTitle" data-i18n="dscTitle">Welcome to Parallel Universe</h3>
-                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life - just for fun and reflection.</p>
+                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life — just for fun and reflection.</p>
                 <ul class="disclaimer-points">
                     <li><strong data-i18n="dscAgeLabel">For ages 18+.</strong> <span data-i18n="dscAgeText">This experience is intended for adults.</span></li>
-                    <li><strong data-i18n="dscFunLabel">Entertainment only.</strong> <span data-i18n="dscFunText">Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.</span></li>
+                    <li><strong data-i18n="dscFunLabel">Entertainment only.</strong> <span data-i18n="dscFunText">Scenarios are AI-generated and plausible, but they are not real predictions of your future — and not professional, career, financial, medical, or legal advice.</span></li>
                     <li><strong data-i18n="dscRespLabel">Use your own judgment.</strong> <span data-i18n="dscRespText">The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.</span></li>
                 </ul>
                 <button type="button" class="disclaimer-accept" id="disclaimerAccept" data-i18n="dscAccept">I am 18+ and I understand - let's begin</button>
@@ -2410,7 +2410,7 @@
             <div class="crisis-box">
                 <div class="crisis-heart">💙</div>
                 <h3 id="crisisTitle" data-i18n="crisisTitle">You don't have to face this alone</h3>
-                <p data-i18n="crisisBody">It sounds like you might be going through something really hard right now. You matter, and support is available — please consider reaching out to someone who can help.</p>
+                <p data-i18n="crisisBody">It sounds like you might be going through something really hard right now. You matter, and support is available - please consider reaching out to someone who can help.</p>
                 <div class="crisis-links">
                     <a href="https://findahelpline.com" target="_blank" rel="noopener" class="crisis-link-primary" data-i18n="crisisFind">Find a helpline near you ↗</a>
                     <a href="https://988lifeline.org" target="_blank" rel="noopener" class="crisis-link-secondary" data-i18n="crisisUS">US & Canada: call or text 988 ↗</a>
@@ -2430,7 +2430,7 @@
         </div>
 
         <footer>
-            <p class="footer-wip wip-disabled"><span class="wip-icon">🚧</span><span data-i18n="wip">Work in progress — some features may not work yet</span></p>
+            <p class="footer-wip wip-disabled"><span class="wip-icon">🚧</span><span data-i18n="wip">Work in progress - some features may not work yet</span></p>
             <p data-i18n="footer">🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌</p>
             <p class="footer-credit"><span data-i18n="footerCredit">Microsoft Agents League Hackathon (2026) · A project by</span> <strong>Klavs Petersons</strong></p>
             <div class="footer-tech">
@@ -2892,30 +2892,18 @@
                         <button class="btn-sharecard" title="${dict.shareCard}" aria-label="${dict.shareCard}">📤</button>
                     </div>
 
-                   ${(() => {
-    const score = Number(universe.realityScore);
-    if (!Number.isFinite(score)) return '';
-
-    const safeScore = Math.round(score);
-
-    return `
-        <div class="reality-check">
-            <div class="reality-label">
-                <span>🎯 ${dict.realityCheck}</span>
-                <span class="reality-score-value">${safeScore}%</span>
-            </div>
-
-            <div class="reality-track">
-                <div class="reality-bar">
-                    <div class="reality-cover" style="width:${safeScore}%"></div>
-                </div>
-                <div class="reality-marker"></div>
-            </div>
-
-            ${universe.realityNote ? `<p class="reality-note">${esc(universe.realityNote)}</p>` : ''}
-        </div>
-    `;
-})()}
+                    ${Number.isFinite(universe.realityScore) ? `
+                    <div class="reality-check">
+                        <div class="reality-label">
+                            <span>🎯 ${dict.realityCheck}</span>
+                            <span class="reality-score-value">${universe.realityScore}%</span>
+                        </div>
+                        <div class="reality-track">
+                            <div class="reality-bar"><div class="reality-cover"></div></div>
+                            <div class="reality-marker"></div>
+                        </div>
+                        ${universe.realityNote ? `<p class="reality-note">${esc(universe.realityNote)}</p>` : ''}
+                    </div>` : ''}
 
                     <div class="universe-content">
                         <div class="content-block">
@@ -2984,13 +2972,13 @@
                 // counting score
                 const realityWrap = card.querySelector('.reality-check');
                 if (realityWrap && Number.isFinite(universe.realityScore)) {
-                    const score = Number(universe.realityScore);
+                    const score = universe.realityScore;
                     realityWrap.classList.add(score >= 70 ? 'tier-high' : score >= 40 ? 'tier-mid' : 'tier-low');
                     const cover = realityWrap.querySelector('.reality-cover');
                     const marker = realityWrap.querySelector('.reality-marker');
                     const valueEl = realityWrap.querySelector('.reality-score-value');
                     requestAnimationFrame(() => requestAnimationFrame(() => {
-                        if (cover) cover.style.width = score + '%';
+                        if (cover) cover.style.width = (100 - score) + '%';
                         if (marker) marker.style.left = 'calc(' + score + '% - 8px)';
                     }));
                     if (valueEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -3491,7 +3479,7 @@
                 String(d.getHours()).padStart(2, '0') + ':' +
                 String(d.getMinutes()).padStart(2, '0') + ':00';
             const subject = encodeURIComponent('🌌 ' + String(eventText).slice(0, 120));
-            const body = encodeURIComponent('Milestone from "' + universeTitle + '" — Parallel Universe app');
+            const body = encodeURIComponent('Milestone from "' + universeTitle + '" - Parallel Universe app');
             return 'https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent' +
                 '&subject=' + subject + '&body=' + body +
                 '&startdt=' + fmt(start) + '&enddt=' + fmt(end);
