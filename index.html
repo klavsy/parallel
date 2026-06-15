@@ -2984,13 +2984,13 @@
                 // counting score
                 const realityWrap = card.querySelector('.reality-check');
                 if (realityWrap && Number.isFinite(universe.realityScore)) {
-                    const score = universe.realityScore;
+                    const score = Number(universe.realityScore);
                     realityWrap.classList.add(score >= 70 ? 'tier-high' : score >= 40 ? 'tier-mid' : 'tier-low');
                     const cover = realityWrap.querySelector('.reality-cover');
                     const marker = realityWrap.querySelector('.reality-marker');
                     const valueEl = realityWrap.querySelector('.reality-score-value');
                     requestAnimationFrame(() => requestAnimationFrame(() => {
-                        if (cover) cover.style.width = (100 - score) + '%';
+                        if (cover) cover.style.width = score + '%';
                         if (marker) marker.style.left = 'calc(' + score + '% - 8px)';
                     }));
                     if (valueEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
