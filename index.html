@@ -2892,18 +2892,30 @@
                         <button class="btn-sharecard" title="${dict.shareCard}" aria-label="${dict.shareCard}">📤</button>
                     </div>
 
-                    ${Number.isFinite(universe.realityScore) ? `
-                    <div class="reality-check">
-                        <div class="reality-label">
-                            <span>🎯 ${dict.realityCheck}</span>
-                            <span class="reality-score-value">${universe.realityScore}%</span>
-                        </div>
-                        <div class="reality-track">
-                            <div class="reality-bar"><div class="reality-cover"></div></div>
-                            <div class="reality-marker"></div>
-                        </div>
-                        ${universe.realityNote ? `<p class="reality-note">${esc(universe.realityNote)}</p>` : ''}
-                    </div>` : ''}
+                   ${(() => {
+    const score = Number(universe.realityScore);
+    if (!Number.isFinite(score)) return '';
+
+    const safeScore = Math.round(score);
+
+    return `
+        <div class="reality-check">
+            <div class="reality-label">
+                <span>🎯 ${dict.realityCheck}</span>
+                <span class="reality-score-value">${safeScore}%</span>
+            </div>
+
+            <div class="reality-track">
+                <div class="reality-bar">
+                    <div class="reality-cover" style="width:${safeScore}%"></div>
+                </div>
+                <div class="reality-marker"></div>
+            </div>
+
+            ${universe.realityNote ? `<p class="reality-note">${esc(universe.realityNote)}</p>` : ''}
+        </div>
+    `;
+})()}
 
                     <div class="universe-content">
                         <div class="content-block">
