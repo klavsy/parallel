@@ -12,13 +12,13 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Parallel">
+    <meta name="apple-mobile-web-app-title" content="Parallel Universe">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="preconnect" href="https://parallel-backend-wq04.onrender.com" crossorigin>
     <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
     <title>Step into the stories of the person you might have become</title>
-    <meta name="description" content="Enter who you are and a decision you're facing — AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
+    <meta name="description" content="Enter who you are and a decision you're facing - AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://parallia.xyz/">
@@ -27,7 +27,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Parallel Universe">
     <meta property="og:title" content="Step into the stories of the person you might have become">
-    <meta property="og:description" content="AI generates three alternate-universe versions of your life — stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
+    <meta property="og:description" content="AI generates three alternate-universe versions of your life - stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta property="og:url" content="https://parallia.xyz/">
     <meta property="og:image" content="https://parallia.xyz/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -38,9 +38,9 @@
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Step into the stories of the person you might have become">
-    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life — in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
+    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life - in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
-    <meta name="twitter:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
+    <meta name="twitter:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
 
     <style>
         * {
@@ -2289,6 +2289,56 @@
             }
             .universe-title h3 {
                 font-size: 1.05em;
+            }
+        }
+
+        /* ============================================================
+           MOBILE FIX v2 — food/dining + embedded maps overflow.
+           The recommendation lines (food/travel) put a pill next to a
+           long description; on narrow screens the text ran off-screen
+           and the maps exceeded the viewport. Force everything to wrap
+           and constrain maps to the card width.
+           ============================================================ */
+        @media (max-width: 700px) {
+            /* Recommendation lines: let the pill + description wrap onto
+               multiple lines instead of overflowing horizontally. */
+            .rec-line {
+                display: block;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+            .rec-line .rec-link {
+                white-space: normal;     /* pill text can wrap */
+                display: inline-flex;
+                max-width: 100%;
+                margin-bottom: 4px;
+            }
+            .rec-reason {
+                display: block;          /* description drops below the pill */
+                margin-top: 2px;
+                overflow-wrap: anywhere;
+            }
+            /* Embedded mini-maps: never wider than the card */
+            .mini-map {
+                max-width: 100%;
+                width: 100%;
+            }
+            .mini-map img {
+                width: 100%;
+                height: auto;
+            }
+            .mini-map-caption,
+            .mini-map-addr {
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+            /* Content blocks shouldn't reserve excess height (fixes the
+               large empty gap when maps load asynchronously). */
+            .universe-card {
+                contain-intrinsic-size: auto 500px;
+            }
+            .content-block {
+                overflow-wrap: anywhere;
             }
         }
 
