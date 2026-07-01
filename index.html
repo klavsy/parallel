@@ -18,7 +18,7 @@
     <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
     <title>Step into the stories of the person you might have become</title>
-    <meta name="description" content="Enter who you are and a decision you're facing — AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
+    <meta name="description" content="Enter who you are and a decision you're facing - AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://parallia.xyz/">
@@ -32,7 +32,7 @@
     <meta property="og:image" content="https://parallia.xyz/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
+    <meta property="og:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter / X Card -->
@@ -40,7 +40,7 @@
     <meta name="twitter:title" content="Step into the stories of the person you might have become">
     <meta name="twitter:description" content="AI generates three alternate-universe versions of your life — in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
-    <meta name="twitter:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
+    <meta name="twitter:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
 
     <style>
         * {
@@ -896,6 +896,24 @@
             -webkit-backdrop-filter: blur(10px);
         }
         .disclaimer-modal.active { display: flex; animation: fadeIn 0.4s ease-out; }
+
+        /* Language selector inside the disclaimer popup */
+        .disclaimer-lang-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .disclaimer-lang-label {
+            font-size: 0.9em;
+            color: #bfe9ff;
+            font-weight: 600;
+        }
+        .disclaimer-lang-row .lang-select {
+            max-width: 180px;
+        }
         .disclaimer-box {
             position: relative;
             max-width: 480px;
@@ -2579,15 +2597,19 @@
 
         <div class="disclaimer-modal" id="disclaimerModal" role="dialog" aria-modal="true" aria-labelledby="disclaimerTitle">
             <div class="disclaimer-box">
+                <div class="disclaimer-lang-row">
+                    <label for="dscLangSelect" class="disclaimer-lang-label" data-i18n="langLabel">Language</label>
+                    <select id="dscLangSelect" class="lang-select" aria-label="Choose language"></select>
+                </div>
                 <div class="disclaimer-icon">🌌</div>
                 <h3 id="disclaimerTitle" data-i18n="dscTitle">Welcome to Parallel Universe</h3>
-                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life — just for fun and reflection.</p>
+                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life - just for fun and reflection.</p>
                 <ul class="disclaimer-points">
                     <li><strong data-i18n="dscAgeLabel">For ages 18+.</strong> <span data-i18n="dscAgeText">This experience is intended for adults.</span></li>
-                    <li><strong data-i18n="dscFunLabel">Entertainment only.</strong> <span data-i18n="dscFunText">Scenarios are AI-generated and plausible, but they are not real predictions of your future — and not professional, career, financial, medical, or legal advice.</span></li>
+                    <li><strong data-i18n="dscFunLabel">Entertainment only.</strong> <span data-i18n="dscFunText">Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.</span></li>
                     <li><strong data-i18n="dscRespLabel">Use your own judgment.</strong> <span data-i18n="dscRespText">The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.</span></li>
                 </ul>
-                <button type="button" class="disclaimer-accept" id="disclaimerAccept" data-i18n="dscAccept">I am 18+ and I understand — let's begin</button>
+                <button type="button" class="disclaimer-accept" id="disclaimerAccept" data-i18n="dscAccept">I am 18+ and I understand - let's begin</button>
             </div>
         </div>
 
@@ -2595,7 +2617,7 @@
             <div class="crisis-box">
                 <div class="crisis-heart">💙</div>
                 <h3 id="crisisTitle" data-i18n="crisisTitle">You don't have to face this alone</h3>
-                <p data-i18n="crisisBody">It sounds like you might be going through something really hard right now. You matter, and support is available — please consider reaching out to someone who can help.</p>
+                <p data-i18n="crisisBody">It sounds like you might be going through something really hard right now. You matter, and support is available - please consider reaching out to someone who can help.</p>
                 <div class="crisis-links">
                     <a href="https://findahelpline.com" target="_blank" rel="noopener" class="crisis-link-primary" data-i18n="crisisFind">Find a helpline near you ↗</a>
                     <a href="https://988lifeline.org" target="_blank" rel="noopener" class="crisis-link-secondary" data-i18n="crisisUS">US & Canada: call or text 988 ↗</a>
@@ -3638,6 +3660,26 @@
             const modal = document.getElementById("disclaimerModal");
             const accept = document.getElementById("disclaimerAccept");
             if (!modal || !accept) return;
+
+            // Populate the disclaimer's language selector by cloning the main
+            // switcher's options (keeps them automatically in sync), then wire
+            // it so choosing a language here updates the disclaimer text AND
+            // carries through to the wizard (via applyLanguage) and the main
+            // switcher stays synced.
+            const mainSel = document.getElementById("langSelect");
+            const dscSel = document.getElementById("dscLangSelect");
+            if (mainSel && dscSel) {
+                dscSel.innerHTML = mainSel.innerHTML;
+                dscSel.value = mainSel.value || "en";
+                dscSel.addEventListener("change", () => {
+                    const lang = dscSel.value;
+                    if (mainSel) mainSel.value = lang;            // keep main switcher synced
+                    if (typeof applyLanguage === "function") applyLanguage(lang);
+                });
+                // If the main switcher changes later, reflect it here too.
+                mainSel.addEventListener("change", () => { dscSel.value = mainSel.value; });
+            }
+
             if (!seen) modal.classList.add("active");
             accept.addEventListener("click", () => {
                 modal.classList.remove("active");
