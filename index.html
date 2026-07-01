@@ -2768,6 +2768,47 @@
         const errorMessage = document.getElementById('errorMessage');
         const langSelect = document.getElementById('langSelect');
 
+        // ====== UNIFIED LANGUAGE SWITCHER ======
+        // Single source of truth for the language list. Both the wizard's
+        // switcher and the disclaimer's switcher are generated from this, so
+        // adding/removing a language means editing ONE array. No duplicated
+        // <option> markup, no drift, trivial sync.
+        const LANGS = [
+            ["en","English"],["sq","Shqip"],["eu","Euskara"],["bs","Bosanski"],
+            ["bg","Български"],["ca","Català"],["hr","Hrvatski"],["cs","Čeština"],
+            ["da","Dansk"],["nl","Nederlands"],["et","Eesti"],["fi","Suomi"],
+            ["fr","Français"],["gl","Galego"],["de","Deutsch"],["el","Ελληνικά"],
+            ["hu","Magyar"],["is","Íslenska"],["ga","Gaeilge"],["it","Italiano"],
+            ["lv","Latviešu"],["lt","Lietuvių"],["lb","Lëtzebuergesch"],["mk","Македонски"],
+            ["mt","Malti"],["no","Norsk"],["pl","Polski"],["pt","Português"],
+            ["ro","Română"],["sr","Српски"],["sk","Slovenčina"],["sl","Slovenščina"],
+            ["es","Español"],["sv","Svenska"],["tr","Türkçe"],["cy","Cymraeg"]
+        ];
+
+        // Populate any <select> from the registry (idempotent — safe to call
+        // even if the HTML already has fallback <option>s; this replaces them).
+        function fillLangSelect(sel) {
+            if (!sel) return;
+            const current = sel.value || "en";
+            sel.innerHTML = LANGS.map(([code, name]) =>
+                `<option value="${code}">${name}</option>`).join("");
+            sel.value = current;
+        }
+
+        // Collect every language <select> on the page (wizard + disclaimer, and
+        // any future ones) so we can keep them all in sync from one place.
+        function allLangSelects() {
+            return Array.from(document.querySelectorAll('.lang-select'));
+        }
+
+        // The ONE function that changes language everywhere: applies the
+        // translation and syncs every switcher to the chosen code.
+        function setLanguage(code) {
+            allLangSelects().forEach(s => { if (s.value !== code) s.value = code; });
+            if (typeof applyLanguage === "function") applyLanguage(code);
+        }
+
+
         // ====== LANGUAGE HANDLING ======
         function applyLanguage(lang) {
             // Remember the user's chosen language even if its data hasn't
@@ -2888,9 +2929,15 @@
             .catch(() => { clearTimeout(timer); /* keep static chips */ });
         }
 
-        langSelect.addEventListener('change', (e) => {
-            applyLanguage(e.target.value);
-            fetchAiChips(currentLang);          // try fresh AI chips for the new language
+        // Build both dropdowns from the registry, then wire a single change
+        // handler that syncs all switchers and applies the language. Event
+        // delegation on each .lang-select keeps this DRY.
+        allLangSelects().forEach(fillLangSelect);
+        allLangSelects().forEach(sel => {
+            sel.addEventListener('change', (e) => {
+                setLanguage(e.target.value);
+                fetchAiChips(currentLang);      // try fresh AI chips for the new language
+            });
         });
 
         // ====== AMBIENT BACKGROUND TOGGLE ======
@@ -3716,25 +3763,9 @@
             const accept = document.getElementById("disclaimerAccept");
             if (!modal || !accept) return;
 
-            // Populate the disclaimer's language selector by cloning the main
-            // switcher's options (keeps them automatically in sync), then wire
-            // it so choosing a language here updates the disclaimer text AND
-            // carries through to the wizard (via applyLanguage) and the main
-            // switcher stays synced.
-            const mainSel = document.getElementById("langSelect");
-            const dscSel = document.getElementById("dscLangSelect");
-            if (mainSel && dscSel) {
-                // Options are already inline in the HTML (so the selector shows
-                // immediately). Just sync the selected value and wire changes
-                // both ways so disclaimer + wizard stay on the same language.
-                dscSel.value = mainSel.value || "en";
-                dscSel.addEventListener("change", () => {
-                    const lang = dscSel.value;
-                    if (mainSel) mainSel.value = lang;            // keep main switcher synced
-                    if (typeof applyLanguage === "function") applyLanguage(lang);
-                });
-                mainSel.addEventListener("change", () => { dscSel.value = mainSel.value; });
-            }
+            // The disclaimer's language <select> is populated and synced by the
+            // unified language switcher system above (it has class "lang-select",
+            // so allLangSelects() already handles it). Nothing extra needed here.
 
             if (!seen) modal.classList.add("active");
             accept.addEventListener("click", () => {
