@@ -2599,7 +2599,44 @@
             <div class="disclaimer-box">
                 <div class="disclaimer-lang-row">
                     <label for="dscLangSelect" class="disclaimer-lang-label" data-i18n="langLabel">Language</label>
-                    <select id="dscLangSelect" class="lang-select" aria-label="Choose language"></select>
+                    <select id="dscLangSelect" class="lang-select" aria-label="Choose language">
+                        <option value="en">English</option>
+                        <option value="sq">Shqip</option>
+                        <option value="eu">Euskara</option>
+                        <option value="bs">Bosanski</option>
+                        <option value="bg">Български</option>
+                        <option value="ca">Català</option>
+                        <option value="hr">Hrvatski</option>
+                        <option value="cs">Čeština</option>
+                        <option value="da">Dansk</option>
+                        <option value="nl">Nederlands</option>
+                        <option value="et">Eesti</option>
+                        <option value="fi">Suomi</option>
+                        <option value="fr">Français</option>
+                        <option value="gl">Galego</option>
+                        <option value="de">Deutsch</option>
+                        <option value="el">Ελληνικά</option>
+                        <option value="hu">Magyar</option>
+                        <option value="is">Íslenska</option>
+                        <option value="ga">Gaeilge</option>
+                        <option value="it">Italiano</option>
+                        <option value="lv">Latviešu</option>
+                        <option value="lt">Lietuvių</option>
+                        <option value="lb">Lëtzebuergesch</option>
+                        <option value="mk">Македонски</option>
+                        <option value="mt">Malti</option>
+                        <option value="no">Norsk</option>
+                        <option value="pl">Polski</option>
+                        <option value="pt">Português</option>
+                        <option value="ro">Română</option>
+                        <option value="sr">Српски</option>
+                        <option value="sk">Slovenčina</option>
+                        <option value="sl">Slovenščina</option>
+                        <option value="es">Español</option>
+                        <option value="sv">Svenska</option>
+                        <option value="tr">Türkçe</option>
+                        <option value="cy">Cymraeg</option>
+                    </select>
                 </div>
                 <div class="disclaimer-icon">🌌</div>
                 <h3 id="disclaimerTitle" data-i18n="dscTitle">Welcome to Parallel Universe</h3>
@@ -2682,7 +2719,7 @@
         const I18N = {"en":{"langLabel":"Language","subtitle":"Step into the stories of the person you might have become","sectionTitle":"Tell Me About Yourself","labelName":"Your Name","labelInterests":"Your Interests","labelSituation":"Current Situation","labelDecision":"Big Life Decision","labelDetails":"Tell me more about your situation","phName":"e.g., Alex","phInterests":"e.g., technology, music, sports","phSituation":"e.g., student, working in tech, freelancer","phDecision":"e.g., change careers, move abroad, start a business","phDetails":"Provide more context to make your universes more personalized...","btnGenerate":"Generate Universes","btnClear":"Clear","btnNew":"Generate New Universes","loading":"Scanning parallel universes...","resultsTitle":"Your 3 Parallel Universes","story":"The Story","career":"Career Path","events":"Key Events","outcome":"Outcome","footer":"🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌","errFill":"Please fill in all fields"}};
 
         // Extra UI strings (background toggle + recommendation headers)
-        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress - some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words - random characters can't create a universe","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role - postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available - please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life — just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand - let's begin"}};
+        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress — some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words — random characters can't create a universe","nameCapital":"Names should start with a capital letter (e.g. \u201CAlex\u201D).","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role — postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available - please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life - just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand - let's begin"}};
         const CHIP_DATA = {"en":{"interests":[{"label":"📷 Photography & travel","fill":"Photography, travel, and cooking"},{"label":"💻 Tech & gaming","fill":"Coding, gaming, and technology"},{"label":"🎨 Music & art","fill":"Music, art, and creative writing"},{"label":"🏔️ Fitness & outdoors","fill":"Fitness, nature, and the outdoors"}],"situation":[{"label":"🎓 Student","fill":"A university student figuring out my path"},{"label":"💼 Office job","fill":"Working a 9-to-5 office job"},{"label":"🚀 Freelancer","fill":"Freelancing and working for myself"},{"label":"🔄 In transition","fill":"Between jobs and looking for change"}],"decision":[{"label":"🔀 Change careers","fill":"Whether to change careers entirely"},{"label":"🌍 Move abroad","fill":"Whether to move to another country"},{"label":"💡 Start a business","fill":"Whether to start my own business"},{"label":"📚 Go back to school","fill":"Whether to go back to school"}],"details":[{"label":"😶‍🌫️ Feeling stuck","fill":"I've felt stuck for a while and wonder what life would look like if I'd been braver and taken more risks."},{"label":"🛤️ At a crossroads","fill":"I'm at a crossroads and curious how different choices might have shaped who I'd become."},{"label":"✨ Just curious","fill":"I'm generally happy but sometimes wonder about the paths I didn't take."}]}};
         for (const code in I18N_EXTRA) {
             if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
@@ -2931,6 +2968,22 @@
                 // caring modal instead of an error.
                 if (data.code === "crisis") {
                     showCrisisModal();
+                    return;
+                }
+
+                // Harmful/illegal request was declined by the backend — show a
+                // calm message steering back to the app's purpose, not an error.
+                if (data.code === "declined") {
+                    const em = document.getElementById("errorMessage");
+                    if (em) {
+                        em.textContent = data.message || "That request can't be processed. Please try a real life scenario.";
+                        em.classList.add("active");
+                    }
+                    // Re-enable the form so they can try again
+                    const gb = document.getElementById("generateBtn");
+                    if (gb) gb.disabled = false;
+                    const ld = document.getElementById("loading");
+                    if (ld) ld.classList.remove("active");
                     return;
                 }
 
@@ -3669,14 +3722,15 @@
             const mainSel = document.getElementById("langSelect");
             const dscSel = document.getElementById("dscLangSelect");
             if (mainSel && dscSel) {
-                dscSel.innerHTML = mainSel.innerHTML;
+                // Options are already inline in the HTML (so the selector shows
+                // immediately). Just sync the selected value and wire changes
+                // both ways so disclaimer + wizard stay on the same language.
                 dscSel.value = mainSel.value || "en";
                 dscSel.addEventListener("change", () => {
                     const lang = dscSel.value;
                     if (mainSel) mainSel.value = lang;            // keep main switcher synced
                     if (typeof applyLanguage === "function") applyLanguage(lang);
                 });
-                // If the main switcher changes later, reflect it here too.
                 mainSel.addEventListener("change", () => { dscSel.value = mainSel.value; });
             }
 
@@ -3775,7 +3829,7 @@
                         detail = j.error || j.details || "";
                     } catch (_) {}
                     if (res.status === 404) {
-                        throw new Error("Backend has no /speak endpoint — deploy the latest server.js (404)");
+                        throw new Error("Backend has no /speak endpoint - deploy the latest server.js (404)");
                     }
                     if (res.status === 503) {
                         throw new Error("Azure Speech env vars missing on Render (503)");
@@ -4037,6 +4091,58 @@
         // ====== GENERATE BUTTON STATE + GIBBERISH GUARD ======
         // Mirrors the server-side detector. Language-agnostic: Unicode
         // letters + a vowel set covering Latin diacritics, Greek, Cyrillic.
+        // Name-specific validation: real names start with a capital letter and
+        // aren't pure numbers, symbols, or keyboard mash. Kept permissive enough
+        // for the world's real names (short names, apostrophes, hyphens, and
+        // non-Latin scripts like Cyrillic/Greek all pass). Returns a reason
+        // string if invalid, or "" if the name looks acceptable.
+        function nameProblem(text) {
+            const raw = String(text || "").trim();
+            if (!raw) return "";  // empty handled separately (required)
+
+            // Must contain at least one letter (any script).
+            const hasLetter = /\p{L}/u.test(raw);
+            if (!hasLetter) return "letters";           // "123", "@#%^", "0980"
+
+            // Reject if it's mostly digits/symbols (a few are fine, e.g. "José").
+            const letterCount = (raw.match(/\p{L}/gu) || []).length;
+            const totalCount = raw.replace(/\s/g, "").length;
+            if (totalCount > 0 && letterCount / totalCount < 0.6) return "letters"; // "a1b2c3", "x_99"
+
+            // First letter (first actual letter character) must be uppercase —
+            // for scripts that HAVE case. Scripts without case (CJK etc.) are
+            // exempt since uppercase doesn't apply.
+            const firstLetter = (raw.match(/\p{L}/u) || [""])[0];
+            const hasCase = firstLetter.toLowerCase() !== firstLetter.toUpperCase();
+            if (hasCase && firstLetter !== firstLetter.toUpperCase()) {
+                // Exception: genuine name particles ("van der Berg", "de la Cruz",
+                // "von Trapp"). Only allowed when the name STARTS with a known
+                // particle AND a later word is properly capitalized — so real
+                // particled names pass, but "asdf jkl" or a lone lowercase word
+                // still gets rejected.
+                const PARTICLES = new Set([
+                    "van","von","de","del","della","der","den","di","da","dos","das",
+                    "du","la","le","el","bin","ibn","al","ter","ten","op","'t","st"
+                ]);
+                const words = raw.split(/\s+/);
+                const firstWord = words[0].toLowerCase().replace(/[.,]/g, "");
+                const startsWithParticle = PARTICLES.has(firstWord);
+                const hasCapitalizedWord = words.some(w => {
+                    const fl = (w.match(/\p{L}/u) || [""])[0];
+                    return fl && fl === fl.toUpperCase() && fl.toLowerCase() !== fl.toUpperCase();
+                });
+                if (!(startsWithParticle && words.length >= 2 && hasCapitalizedWord)) {
+                    return "capital";  // "alex" -> needs "Alex"; garbage still caught
+                }
+            }
+
+            // Reuse the gibberish detector to catch keyboard mash like
+            // "hgdffsd", "eewqe", "asdfgh".
+            if (isGibberish(raw)) return "gibberish";
+
+            return "";  // looks like a real name
+        }
+
         function isGibberish(text) {
             const raw = String(text || "").trim();
             if (!raw) return false;
@@ -4086,14 +4192,34 @@
             .map(id => document.getElementById(id));
 
         function updateGenerateState() {
-            let empty = false, suspect = false;
+            let empty = false, suspect = false, nameCapitalIssue = false;
             requiredFields.forEach(f => {
                 const v = f.value.trim();
                 if (!v) empty = true;
-                const bad = !!v && isGibberish(v);
+                // The name field gets stricter, name-specific validation;
+                // other fields use the general gibberish check.
+                let bad;
+                if (f.id === "name") {
+                    const problem = v ? nameProblem(v) : "";
+                    bad = problem !== "";
+                    // Track the capital-letter case so we can show a specific,
+                    // more helpful message instead of the generic gibberish hint.
+                    if (problem === "capital") nameCapitalIssue = true;
+                } else {
+                    bad = !!v && isGibberish(v);
+                }
                 f.classList.toggle('field-suspect', bad);
                 if (bad) suspect = true;
             });
+            // Choose the hint message: if the ONLY problem is name capitalization,
+            // show the capital-letter message; otherwise the generic one.
+            const dictNow = I18N[currentLang] || I18N.en;
+            if (suspect && nameCapitalIssue) {
+                gibberishHint.textContent = dictNow.nameCapital || I18N.en.nameCapital ||
+                    "Names should start with a capital letter (e.g. \u201CAlex\u201D).";
+            } else {
+                gibberishHint.textContent = dictNow.gibberishHint || I18N.en.gibberishHint || "";
+            }
             gibberishHint.classList.toggle('active', suspect);
             generateBtn.disabled = empty || suspect;
         }
