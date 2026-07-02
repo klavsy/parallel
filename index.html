@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- BUILD: features-v5 — disclaimer lang switcher + surprise me + continue universe -->
-    <meta name="pu-build" content="features-v6">
+    <!-- BUILD: features-v7 — reactive parallax + cinematic portal reveal -->
+    <meta name="pu-build" content="features-v7">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0a0e27">
 
@@ -109,18 +109,81 @@
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
-        body::before {
-            content: '';
+
+        /* ===== CINEMATIC REVEAL — portal flash when universes materialize ===== */
+        .portal-flash {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0;
             background:
-                radial-gradient(circle at 20% 35%, rgba(0, 200, 255, 0.07) 0%, transparent 45%),
-                radial-gradient(circle at 80% 75%, rgba(180, 40, 255, 0.07) 0%, transparent 48%);
+                radial-gradient(circle at 50% 50%, rgba(180, 220, 255, 0.9) 0%, rgba(120, 60, 255, 0.4) 25%, transparent 60%);
+        }
+        .portal-flash.fire { animation: portalFlash 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        @keyframes portalFlash {
+            0%   { opacity: 0; transform: scale(0.2); }
+            35%  { opacity: 0.9; }
+            100% { opacity: 0; transform: scale(2.4); }
+        }
+        .portal-ring {
+            position: fixed;
+            top: 50%; left: 50%;
+            width: 40px; height: 40px;
+            margin: -20px 0 0 -20px;
+            border: 2px solid rgba(150, 210, 255, 0.9);
+            border-radius: 50%;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .portal-ring.fire { animation: portalRing 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        @keyframes portalRing {
+            0%   { opacity: 0.9; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-width: 3px; }
+            100% { opacity: 0; width: 140vmax; height: 140vmax; margin: -70vmax 0 0 -70vmax; border-width: 0.5px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .portal-flash.fire, .portal-ring.fire { animation-duration: 0.4s; }
+        }
+
+        /* ===== REACTIVE PARALLAX — depth orbs that respond to pointer/tilt ===== */
+        .parallax-field {
+            position: fixed;
+            inset: -10%;
             pointer-events: none;
             z-index: 0;
+            overflow: hidden;
+        }
+        .parallax-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            will-change: transform;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .parallax-orb.o1 {
+            width: 420px; height: 420px;
+            top: 8%; left: 12%;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.35), transparent 70%);
+        }
+        .parallax-orb.o2 {
+            width: 500px; height: 500px;
+            top: 55%; left: 68%;
+            background: radial-gradient(circle, rgba(176, 40, 255, 0.32), transparent 70%);
+        }
+        .parallax-orb.o3 {
+            width: 340px; height: 340px;
+            top: 72%; left: 18%;
+            background: radial-gradient(circle, rgba(255, 40, 170, 0.25), transparent 70%);
+        }
+        .parallax-orb.o4 {
+            width: 300px; height: 300px;
+            top: 20%; left: 78%;
+            background: radial-gradient(circle, rgba(90, 90, 255, 0.28), transparent 70%);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .parallax-orb { transition: none; }
         }
 
         .container {
@@ -501,6 +564,45 @@
             flex: 0 0 20px;
             font-size: 0.82em;
         }
+
+        /* Compact secondary share buttons (WhatsApp, FB, Telegram, etc.) */
+        .share-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-mini {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 11px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.06);
+            color: #dfe8ff;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .share-mini svg { width: 20px; height: 20px; }
+        .share-mini:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.28);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+        }
+        /* Brand tints on hover — subtle, still on-theme */
+        .share-whatsapp:hover { background: rgba(37, 211, 102, 0.22); color: #6effa0; }
+        .share-facebook:hover { background: rgba(24, 119, 242, 0.22); color: #7db4ff; }
+        .share-telegram:hover { background: rgba(34, 158, 217, 0.22); color: #7fd4ff; }
+        .share-draugiem:hover { background: rgba(255, 140, 0, 0.20); color: #ffc06e; }
+        .share-native:hover   { background: rgba(176, 14, 255, 0.20); color: #d9a6ff; }
 
         .button-container {
             display: flex;
@@ -1425,6 +1527,7 @@
             transform: translateY(-1px);
         }
         .surprise-btn:active { transform: translateY(0); }
+        .surprise-spin { display: inline-block; animation: continueSpinAnim 0.9s linear infinite; }
 
         .loading.active {
             display: block;
@@ -2595,7 +2698,14 @@
     </script>
 </head>
 <body>
-    <div class="vignette" aria-hidden="true"></div>
+    <div class="parallax-field" aria-hidden="true">
+        <div class="parallax-orb o1" data-depth="0.03"></div>
+        <div class="parallax-orb o2" data-depth="0.055"></div>
+        <div class="parallax-orb o3" data-depth="0.04"></div>
+        <div class="parallax-orb o4" data-depth="0.07"></div>
+    </div>
+    <div class="portal-flash" id="portalFlash" aria-hidden="true"></div>
+    <div class="portal-ring" id="portalRing" aria-hidden="true"></div>
     <div class="container">
         <header>
             <h1 style="position:relative"><span class="logo-spark">✦</span> Parallel Universe <span class="logo-spark">✦</span></h1>
@@ -2700,6 +2810,23 @@
             <div class="button-container">
                 <button class="btn-generate btn-new-universes" onclick="scrollToForm()"><svg class="btn-new-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5l1.9 5.1 5.1 1.9-5.1 1.9L12 16.5l-1.9-5.1L5 9.5l5.1-1.9L12 2.5z" fill="currentColor"/><circle cx="18.5" cy="4.5" r="1.3" fill="currentColor" opacity="0.85"/><circle cx="5" cy="17" r="1" fill="currentColor" opacity="0.7"/></svg><span data-i18n="btnNew">Generate New Universes</span></button>
                 <a id="shareLinkedIn" class="btn-share" href="#" target="_blank" rel="noopener"><span class="in-logo">in</span><span data-i18n="share">Share on LinkedIn</span></a>
+            </div>
+            <div class="share-row" id="shareRow">
+                <a class="share-mini share-whatsapp" id="shareWhatsApp" href="#" target="_blank" rel="noopener" title="WhatsApp" aria-label="Share on WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2.1-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.5 13.5 3.5 12 3.5 7.3 7.3 3.5 12 3.5S20.5 7.3 20.5 12 16.7 20.2 12 20.2z"/></svg>
+                </a>
+                <a class="share-mini share-facebook" id="shareFacebook" href="#" target="_blank" rel="noopener" title="Facebook" aria-label="Share on Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12z"/></svg>
+                </a>
+                <a class="share-mini share-telegram" id="shareTelegram" href="#" target="_blank" rel="noopener" title="Telegram" aria-label="Share on Telegram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3l-3.3 15.6c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1L18 5.5c.4-.4-.1-.6-.6-.2L6.9 12.1l-4.9-1.5c-1.1-.3-1.1-1 .2-1.5l19.1-7.4c.9-.3 1.7.2 1.5 1.6z"/></svg>
+                </a>
+                <a class="share-mini share-draugiem" id="shareDraugiem" href="#" target="_blank" rel="noopener" title="Draugiem.lv" aria-label="Share on Draugiem.lv">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.5 5C6 5 4 7 4 9.5S6 14 8.5 14c1 0 1.9-.3 2.6-.9.7.6 1.6.9 2.6.9 2.5 0 4.5-2 4.5-4.5S16.7 5 14.2 5c-1 0-1.9.3-2.6.9C10.9 5.3 10 5 8.5 5zm-2 12c-.8 0-1.5.7-1.5 1.5S5.7 20 6.5 20 8 19.3 8 18.5 7.3 17 6.5 17zm11 0c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5-.7-1.5-1.5-1.5z"/></svg>
+                </a>
+                <button class="share-mini share-native" id="shareNative" title="More…" aria-label="More share options" type="button">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 16c-.8 0-1.5.3-2 .8l-7-4c.1-.3.1-.5 0-.8l7-4c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .3 0 .5.1.8l-7 4c-.5-.5-1.2-.8-2-.8-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7 4c-.1.3-.1.5-.1.8 0 1.6 1.3 3 3 3s3-1.3 3-3-1.3-3-3-3z"/></svg>
+                </button>
             </div>
         </div>
 
@@ -2815,6 +2942,7 @@
         const BACKEND_URL = API_BASE + "/generate";
         const SPEAK_URL = API_BASE + "/speak";
         const CONTINUE_URL = API_BASE + "/continue";
+        const SURPRISE_URL = API_BASE + "/surprise";
 
         // ====== CONTINUE THIS UNIVERSE ======
         // Asks the backend to write the next chapter (~5 years later) of a
@@ -2883,7 +3011,7 @@
         const I18N = {"en":{"langLabel":"Language","subtitle":"Step into the stories of the person you might have become","sectionTitle":"Tell Me About Yourself","labelName":"Your Name","labelInterests":"Your Interests","labelSituation":"Current Situation","labelDecision":"Big Life Decision","labelDetails":"Tell me more about your situation","phName":"e.g., Alex","phInterests":"e.g., technology, music, sports","phSituation":"e.g., student, working in tech, freelancer","phDecision":"e.g., change careers, move abroad, start a business","phDetails":"Provide more context to make your universes more personalized...","btnGenerate":"Generate Universes","btnClear":"Clear","btnNew":"Generate New Universes","loading":"Scanning parallel universes...","resultsTitle":"Your 3 Parallel Universes","story":"The Story","career":"Career Path","events":"Key Events","outcome":"Outcome","footer":"🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌","errFill":"Please fill in all fields"}};
 
         // Extra UI strings (background toggle + recommendation headers)
-        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress - some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words — random characters can't create a universe","nameCapital":"Names should start with a capital letter (e.g. \u201CAlex\u201D).","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","surpriseMe":"Surprise me","continueUniverse":"Continue this universe →","continuing":"Writing the next chapter…","continueAgain":"Continue further →","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role - postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available - please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life - just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand - let's begin"}};
+        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress - some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words - random characters can't create a universe","nameCapital":"Names should start with a capital letter (e.g. \u201CAlex\u201D).","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","surpriseMe":"Surprise me","surprising":"Dreaming one up…","continueUniverse":"Continue this universe →","continuing":"Writing the next chapter…","continueAgain":"Continue further →","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role - postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available - please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life - just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand - let's begin"}};
         const CHIP_DATA = {"en":{"interests":[{"label":"📷 Photography & travel","fill":"Photography, travel, and cooking"},{"label":"💻 Tech & gaming","fill":"Coding, gaming, and technology"},{"label":"🎨 Music & art","fill":"Music, art, and creative writing"},{"label":"🏔️ Fitness & outdoors","fill":"Fitness, nature, and the outdoors"}],"situation":[{"label":"🎓 Student","fill":"A university student figuring out my path"},{"label":"💼 Office job","fill":"Working a 9-to-5 office job"},{"label":"🚀 Freelancer","fill":"Freelancing and working for myself"},{"label":"🔄 In transition","fill":"Between jobs and looking for change"}],"decision":[{"label":"🔀 Change careers","fill":"Whether to change careers entirely"},{"label":"🌍 Move abroad","fill":"Whether to move to another country"},{"label":"💡 Start a business","fill":"Whether to start my own business"},{"label":"📚 Go back to school","fill":"Whether to go back to school"}],"details":[{"label":"😶‍🌫️ Feeling stuck","fill":"I've felt stuck for a while and wonder what life would look like if I'd been braver and taken more risks."},{"label":"🛤️ At a crossroads","fill":"I'm at a crossroads and curious how different choices might have shaped who I'd become."},{"label":"✨ Just curious","fill":"I'm generally happy but sometimes wonder about the paths I didn't take."}]}};
         for (const code in I18N_EXTRA) {
             if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
@@ -3202,6 +3330,9 @@
                     throw new Error("No universes returned from the server");
                 }
 
+                // Cinematic reveal: fire a portal flash + ripple ring the moment
+                // the universes materialize, so generation feels like an event.
+                firePortal();
                 displayUniverses(data.universes);
                 showPipelineStrip(data.meta);
                 resultsSection.classList.add('active');
@@ -4408,26 +4539,73 @@
             { name: "Leo", interests: "music production, coding, coffee", situation: "a junior software developer", decision: "start an indie game studio", details: "I love building things and dream of making my own game, but the startup risk and steady paycheck pull me in opposite directions." },
             { name: "Sofia", interests: "cooking, languages, history", situation: "a high school teacher", decision: "open a small restaurant in another country", details: "I speak three languages and have always dreamed of running a cozy place serving food from my travels, but I've never run a business." },
             { name: "Adrian", interests: "photography, hiking, writing", situation: "a corporate lawyer", decision: "become a full-time travel photographer", details: "The money is good but I feel creatively empty. I have a good eye and a small following online, and I'm wondering if I could make it real." },
-            { name: "Nina", interests: "robotics, teaching, sustainability", situation: "a recent engineering graduate", decision: "join a climate-tech startup instead of a big corporation", details: "I have two job offers - one safe and prestigious, one risky and mission-driven. I care about impact but also about stability." },
+            { name: "Nina", interests: "robotics, teaching, sustainability", situation: "a recent engineering graduate", decision: "join a climate-tech startup instead of a big corporation", details: "I have two job offers — one safe and prestigious, one risky and mission-driven. I care about impact but also about stability." },
             { name: "Tomas", interests: "fitness, psychology, entrepreneurship", situation: "a physiotherapist", decision: "build a health and wellness app", details: "I see the same problems with my clients every day and think technology could help thousands of people, but I've never built software." }
         ];
 
-        function fillSurprise() {
-            const s = SURPRISE_SCENARIOS[Math.floor(Math.random() * SURPRISE_SCENARIOS.length)];
+        // "Surprise me" — fetches a fresh, natively-localized scenario from the
+        // backend (in the user's language), fills the form, and auto-generates.
+        // Falls back to built-in English scenarios if the backend call fails, so
+        // it never breaks.
+        let surpriseBusy = false;
+        async function fillSurprise() {
+            if (surpriseBusy) return;
+            surpriseBusy = true;
+            const btn = document.querySelector('.surprise-btn');
+            const dictNow = I18N[currentLang] || I18N.en;
+            if (btn) {
+                btn.disabled = true;
+                btn.dataset.orig = btn.innerHTML;
+                btn.innerHTML = '<span class="surprise-spin" aria-hidden="true">🎲</span> <span>' +
+                    (dictNow.surprising || dictNow.continuing || 'One moment…') + '</span>';
+            }
+
+            let s = null;
+            try {
+                const resp = await fetch(SURPRISE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ language: currentLang })
+                });
+                const data = await resp.json().catch(() => ({}));
+                if (resp.ok && data.scenario && data.scenario.decision) s = data.scenario;
+            } catch (_) { /* fall through to local fallback */ }
+
+            // Fallback: built-in English scenarios (output is still in the user's
+            // language because the backend generator honours the language param).
+            if (!s) {
+                s = SURPRISE_SCENARIOS[Math.floor(Math.random() * SURPRISE_SCENARIOS.length)];
+            }
+
             const setVal = (id, v) => {
                 const el = document.getElementById(id);
-                if (el) { el.value = v; el.dispatchEvent(new Event('input', { bubbles: true })); }
+                if (el && v != null) { el.value = v; el.dispatchEvent(new Event('input', { bubbles: true })); }
             };
             setVal('name', s.name);
             setVal('interests', s.interests);
             setVal('situation', s.situation);
             setVal('decision', s.decision);
             setVal('details', s.details);
-            // Jump to the final step so the user can review + generate immediately.
+
+            if (btn) {
+                btn.disabled = false;
+                if (btn.dataset.orig) btn.innerHTML = btn.dataset.orig;
+            }
+            surpriseBusy = false;
+
+            // Show the final step so the filled fields are visible, then
+            // auto-generate after a short beat (feels intentional).
             if (typeof show === 'function' && typeof steps !== 'undefined') {
                 show(steps.length - 1);
             }
             updateGenerateState();
+            setTimeout(() => {
+                const okToGo = (typeof allFieldsOk === 'function') ? allFieldsOk() : (generateBtn && !generateBtn.disabled);
+                if (okToGo) {
+                    const form = document.getElementById('inputForm');
+                    if (form) { form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true })); }
+                }
+            }, 500);
         }
 
         function updateGenerateState() {
@@ -4701,6 +4879,106 @@
             shareLink.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' +
                 encodeURIComponent(window.location.href);
         }
+
+        // Wire the compact share buttons. Each uses the platform's official
+        // web-share URL with the current page URL. Instagram/Signal have no web
+        // share URL, so the "native" button uses the OS share sheet (which does
+        // include them on phones); on desktop it falls back to copying the link.
+        (function wireShareButtons() {
+            const pageUrl = window.location.href;
+            const shareText = "Discover the parallel lives you could have lived ✨";
+            const u = encodeURIComponent(pageUrl);
+            const t = encodeURIComponent(shareText);
+
+            const set = (id, url) => {
+                const el = document.getElementById(id);
+                if (el) el.href = url;
+            };
+            set('shareWhatsApp', `https://wa.me/?text=${t}%20${u}`);
+            set('shareFacebook', `https://www.facebook.com/sharer/sharer.php?u=${u}`);
+            set('shareTelegram', `https://t.me/share/url?url=${u}&text=${t}`);
+            set('shareDraugiem', `https://www.draugiem.lv/say/ext/add.php?url=${u}&title=${t}`);
+
+            const nativeBtn = document.getElementById('shareNative');
+            if (nativeBtn) {
+                nativeBtn.addEventListener('click', async () => {
+                    // Native OS share sheet — includes Instagram, Signal, Messages,
+                    // etc. on mobile devices.
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({ title: 'Parallel Universe', text: shareText, url: pageUrl });
+                        } catch (_) { /* user cancelled — ignore */ }
+                    } else {
+                        // Desktop fallback: copy the link to clipboard.
+                        try {
+                            await navigator.clipboard.writeText(pageUrl);
+                            const original = nativeBtn.getAttribute('title');
+                            nativeBtn.setAttribute('title', 'Link copied!');
+                            nativeBtn.style.background = 'rgba(110, 255, 160, 0.25)';
+                            setTimeout(() => {
+                                nativeBtn.setAttribute('title', original || 'More…');
+                                nativeBtn.style.background = '';
+                            }, 1500);
+                        } catch (_) {
+                            window.prompt('Copy this link:', pageUrl);
+                        }
+                    }
+                });
+            }
+        })();
+        // ===== CINEMATIC REVEAL trigger =====
+        function firePortal() {
+            const flash = document.getElementById('portalFlash');
+            const ring = document.getElementById('portalRing');
+            [flash, ring].forEach(el => {
+                if (!el) return;
+                el.classList.remove('fire');
+                // force reflow so the animation can replay on repeat generations
+                void el.offsetWidth;
+                el.classList.add('fire');
+            });
+        }
+
+        // ===== REACTIVE PARALLAX driver =====
+        // Depth orbs shift subtly with pointer movement (desktop) and device
+        // tilt (mobile), giving the cosmic background real dimensionality.
+        (function initParallax() {
+            const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce) return;
+            const orbs = Array.from(document.querySelectorAll('.parallax-orb'));
+            if (!orbs.length) return;
+            let tx = 0, ty = 0, cx = 0, cy = 0;
+            let raf = null;
+
+            function apply() {
+                cx += (tx - cx) * 0.08;
+                cy += (ty - cy) * 0.08;
+                orbs.forEach(o => {
+                    const d = parseFloat(o.getAttribute('data-depth')) || 0.04;
+                    o.style.transform = `translate3d(${cx * d * 100}px, ${cy * d * 100}px, 0)`;
+                });
+                if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) {
+                    raf = requestAnimationFrame(apply);
+                } else { raf = null; }
+            }
+            function nudge() { if (!raf) raf = requestAnimationFrame(apply); }
+
+            window.addEventListener('pointermove', (e) => {
+                tx = (e.clientX / window.innerWidth - 0.5) * 2;   // -1..1
+                ty = (e.clientY / window.innerHeight - 0.5) * 2;
+                nudge();
+            }, { passive: true });
+
+            // Device tilt on mobile (if permitted)
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', (e) => {
+                    if (e.gamma == null || e.beta == null) return;
+                    tx = Math.max(-1, Math.min(1, e.gamma / 45));   // left-right tilt
+                    ty = Math.max(-1, Math.min(1, (e.beta - 45) / 45)); // front-back
+                    nudge();
+                }, { passive: true });
+            }
+        })();
     </script>
 </body>
 </html>
