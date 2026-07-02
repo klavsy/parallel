@@ -20,7 +20,7 @@
     <link rel="dns-prefetch" href="https://parallel-backend-wq04.onrender.com">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; connect-src 'self' https://parallel-backend-wq04.onrender.com https://*.clarity.ms https://c.bing.com; media-src 'self' blob:; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
     <title>Step into the stories of the person you might have become</title>
-    <meta name="description" content="Enter who you are and a decision you're facing — AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
+    <meta name="description" content="Enter who you are and a decision you're facing - AI generates three alternate-universe versions of your life, with stories, careers, and a reality-check score, in 36 languages.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://parallia.xyz/">
@@ -29,18 +29,18 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Parallel Universe">
     <meta property="og:title" content="Step into the stories of the person you might have become">
-    <meta property="og:description" content="AI generates three alternate-universe versions of your life — stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
+    <meta property="og:description" content="AI generates three alternate-universe versions of your life - stories, careers, and a reality-check score, in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta property="og:url" content="https://parallia.xyz/">
     <meta property="og:image" content="https://parallia.xyz/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
+    <meta property="og:image:alt" content="Parallel Universe - AI-generated alternate life scenarios">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Step into the stories of the person you might have become">
-    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life — in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
+    <meta name="twitter:description" content="AI generates three alternate-universe versions of your life - in 36 languages. Built for Microsoft Agents League Hackathon (2026).">
     <meta name="twitter:image" content="https://parallia.xyz/og-image.png">
     <meta name="twitter:image:alt" content="Parallel Universe — AI-generated alternate life scenarios">
 
@@ -108,6 +108,19 @@
         @keyframes shimmer {
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 35%, rgba(0, 200, 255, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 80% 75%, rgba(180, 40, 255, 0.07) 0%, transparent 48%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
@@ -464,6 +477,10 @@
         }
         @media (prefers-reduced-motion: reduce) {
             .btn-new-icon { animation: none; }
+            /* Badge stays still (just a gentle scale) for motion-sensitive users */
+            .universe-card:hover .universe-number {
+                transform: scale(1.05) !important;
+            }
         }
 
         /* Make the LinkedIn share button smaller, sleeker, more premium */
@@ -728,19 +745,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
-            min-width: 50px;
-            min-height: 50px;
-            flex: 0 0 50px;
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            min-height: 52px;
+            flex: 0 0 52px;
             aspect-ratio: 1 / 1;
             background: linear-gradient(135deg, #00d9ff, #b00eff);
-            border-radius: 50%;
+            /* Hexagon shape — cosmic "gem" feel instead of a plain circle */
+            clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
             font-weight: bold;
-            font-size: 1.5em;
+            font-size: 1.45em;
             line-height: 1;
             color: #ffffff;
-            text-shadow: 0 1px 4px rgba(10, 14, 39, 0.45);
+            text-shadow: 0 1px 4px rgba(10, 14, 39, 0.55);
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Soft glowing halo behind the hex badge (uses a blurred copy) */
+        .universe-number::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: inherit;
+            clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+            filter: blur(9px);
+            opacity: 0.55;
+            z-index: -1;
+        }
+
+        /* Gentle idle float so the badge feels alive (motion-safe: paused for
+           reduced-motion users below) */
+        .universe-card:hover .universe-number {
+            transform: rotate(360deg) scale(1.08);
+        }
+
+        /* Per-card badge colors to match each card's accent stripe */
+        .universe-card:nth-child(1) .universe-number {
+            background: linear-gradient(135deg, #00d9ff, #0088ff);
+        }
+        .universe-card:nth-child(2) .universe-number {
+            background: linear-gradient(135deg, #b00eff, #7c3aed);
+        }
+        .universe-card:nth-child(3) .universe-number {
+            background: linear-gradient(135deg, #ff00d9, #ff3ca6);
         }
 
         .universe-title {
@@ -1292,23 +1341,93 @@
             display: none;
         }
 
+        /* "Continue this universe" — prominent action + generated chapters */
+        .continue-wrap {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 217, 255, 0.15);
+        }
+        .btn-continue {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.16), rgba(176, 14, 255, 0.16));
+            border: 1px solid rgba(0, 217, 255, 0.35);
+            border-radius: 30px;
+            color: #eaf9ff;
+            font-size: 0.95em;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .btn-continue:hover:not(:disabled) {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.26), rgba(176, 14, 255, 0.26));
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 217, 255, 0.15);
+        }
+        .btn-continue:disabled { opacity: 0.7; cursor: wait; }
+        .continue-spin { display: inline-block; animation: continueSpinAnim 1.2s linear infinite; }
+        @keyframes continueSpinAnim { to { transform: rotate(360deg); } }
+
+        .chapter-block {
+            margin-top: 18px;
+            padding: 18px 20px;
+            background: rgba(0, 217, 255, 0.05);
+            border-left: 3px solid #b00eff;
+            border-radius: 12px;
+            animation: chapterReveal 0.5s ease both;
+        }
+        @keyframes chapterReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chapter-block h4 {
+            color: #d9a6ff;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .chapter-block p { color: #d8d8ff; margin-bottom: 8px; line-height: 1.6; }
+        .chapter-block ul { margin: 8px 0 8px 18px; color: #c5c5e8; }
+        .chapter-block li { margin-bottom: 4px; }
+        .chapter-outcome { font-style: italic; color: #a8e6ff !important; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .continue-spin { animation: continueSpinAnim 2s linear infinite; }
+            .chapter-block { animation: none; }
+        }
+
+        /* "Surprise me" button — a subtle secondary action under Start */
+        .surprise-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 14px auto 0;
+            padding: 9px 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(0, 217, 255, 0.28);
+            border-radius: 30px;
+            color: #bfefff;
+            font-size: 0.92em;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .surprise-btn:hover {
+            background: rgba(0, 217, 255, 0.14);
+            border-color: rgba(0, 217, 255, 0.5);
+            transform: translateY(-1px);
+        }
+        .surprise-btn:active { transform: translateY(0); }
+
         .loading.active {
             display: block;
             animation: fadeIn 0.5s ease-out;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(0, 217, 255, 0.2);
-            border-top: 4px solid #00d9ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         .loading-text {
@@ -2434,14 +2553,8 @@
                 transition-duration: 0.001ms !important;
             }
 
-            /* Loading indicators stay alive as motionless opacity pulses —
-               many iPhones have Reduce Motion ON, which froze the spinner */
-            .spinner {
-                animation: spinnerPulse 1.4s ease-in-out infinite !important;
-                animation-duration: 1.4s !important;
-                animation-iteration-count: infinite !important;
-            }
-
+            /* Loading indicator stays alive as a motionless opacity pulse —
+               many iPhones have Reduce Motion ON */
             .loading-progress-glow {
                 left: 30% !important;
                 width: 40% !important;
@@ -2458,11 +2571,6 @@
             .btn-share::after { animation: none !important; opacity: 0 !important; }
             .pipeline-strip::before { animation: none !important; }
             .perf-spark-line { animation: none !important; stroke-dashoffset: 0 !important; }
-        }
-
-        @keyframes spinnerPulse {
-            0%, 100% { opacity: 0.35; transform: scale(0.9); }
-            50%      { opacity: 1; transform: scale(1.05); }
         }
 
         @keyframes progressPulse {
@@ -2486,6 +2594,7 @@
     </script>
 </head>
 <body>
+    <div class="vignette" aria-hidden="true"></div>
     <div class="container">
         <header>
             <h1 style="position:relative"><span class="logo-spark">✦</span> Parallel Universe <span class="logo-spark">✦</span></h1>
@@ -2579,7 +2688,6 @@
         </div>
 
         <div class="loading" id="loading">
-            <div class="spinner"></div>
             <p class="loading-text"><span class="loading-emoji" id="loadingEmoji">🌌</span> <span data-i18n="loading">Scanning parallel universes...</span></p>
             <div class="loading-progress"><div class="loading-progress-glow"></div></div>
         </div>
@@ -2642,13 +2750,13 @@
                 </div>
                 <div class="disclaimer-icon">🌌</div>
                 <h3 id="disclaimerTitle" data-i18n="dscTitle">Welcome to Parallel Universe</h3>
-                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life — just for fun and reflection.</p>
+                <p class="disclaimer-lead" data-i18n="dscLead">A creative AI experience that imagines alternate versions of your life - just for fun and reflection.</p>
                 <ul class="disclaimer-points">
                     <li><strong data-i18n="dscAgeLabel">For ages 18+.</strong> <span data-i18n="dscAgeText">This experience is intended for adults.</span></li>
-                    <li><strong data-i18n="dscFunLabel">Entertainment only.</strong> <span data-i18n="dscFunText">Scenarios are AI-generated and plausible, but they are not real predictions of your future — and not professional, career, financial, medical, or legal advice.</span></li>
+                    <li><strong data-i18n="dscFunLabel">Entertainment only.</strong> <span data-i18n="dscFunText">Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.</span></li>
                     <li><strong data-i18n="dscRespLabel">Use your own judgment.</strong> <span data-i18n="dscRespText">The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.</span></li>
                 </ul>
-                <button type="button" class="disclaimer-accept" id="disclaimerAccept" data-i18n="dscAccept">I am 18+ and I understand — let's begin</button>
+                <button type="button" class="disclaimer-accept" id="disclaimerAccept" data-i18n="dscAccept">I am 18+ and I understand - let's begin</button>
             </div>
         </div>
 
@@ -2656,7 +2764,7 @@
             <div class="crisis-box">
                 <div class="crisis-heart">💙</div>
                 <h3 id="crisisTitle" data-i18n="crisisTitle">You don't have to face this alone</h3>
-                <p data-i18n="crisisBody">It sounds like you might be going through something really hard right now. You matter, and support is available — please consider reaching out to someone who can help.</p>
+                <p data-i18n="crisisBody">It sounds like you might be going through something really hard right now. You matter, and support is available - please consider reaching out to someone who can help.</p>
                 <div class="crisis-links">
                     <a href="https://findahelpline.com" target="_blank" rel="noopener" class="crisis-link-primary" data-i18n="crisisFind">Find a helpline near you ↗</a>
                     <a href="https://988lifeline.org" target="_blank" rel="noopener" class="crisis-link-secondary" data-i18n="crisisUS">US & Canada: call or text 988 ↗</a>
@@ -2676,7 +2784,7 @@
         </div>
 
         <footer>
-            <p class="footer-wip wip-disabled"><span class="wip-icon">🚧</span><span data-i18n="wip">Work in progress — some features may not work yet</span></p>
+            <p class="footer-wip wip-disabled"><span class="wip-icon">🚧</span><span data-i18n="wip">Work in progress - some features may not work yet</span></p>
             <p data-i18n="footer">🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌</p>
             <p class="footer-credit"><span data-i18n="footerCredit">Microsoft Agents League Hackathon (2026) · A project by</span> <strong>Klavs Petersons</strong></p>
             <div class="footer-tech">
@@ -2706,6 +2814,60 @@
         const API_BASE = "https://parallel-backend-wq04.onrender.com";
         const BACKEND_URL = API_BASE + "/generate";
         const SPEAK_URL = API_BASE + "/speak";
+        const CONTINUE_URL = API_BASE + "/continue";
+
+        // ====== CONTINUE THIS UNIVERSE ======
+        // Asks the backend to write the next chapter (~5 years later) of a
+        // universe and appends it below the card. Each click adds another
+        // chapter, so a universe can grow into a branching story.
+        async function continueUniverse(universe, btn, outputEl) {
+            if (!btn || !outputEl) return;
+            const dictNow = I18N[currentLang] || I18N.en;
+            btn.disabled = true;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="continue-spin" aria-hidden="true">🔮</span> <span>' +
+                (dictNow.continuing || 'Writing the next chapter…') + '</span>';
+            try {
+                const resp = await fetch(CONTINUE_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        universe: universe,
+                        name: (document.getElementById('name') || {}).value || "",
+                        language: currentLang
+                    })
+                });
+                const data = await resp.json().catch(() => ({}));
+                if (data.code === "crisis") { showCrisisModal(); return; }
+                if (!resp.ok || !data.chapter) {
+                    throw new Error(data.error || "Could not continue this universe.");
+                }
+                const ch = data.chapter;
+                const events = Array.isArray(ch.newEvents) ? ch.newEvents : [];
+                const block = document.createElement('div');
+                block.className = 'chapter-block';
+                block.innerHTML =
+                    '<h4>🔮 ' + esc(ch.chapterTitle || 'The next chapter') + '</h4>' +
+                    '<p>' + esc(ch.chapter || '') + '</p>' +
+                    (events.length ? '<ul>' + events.map(e => '<li>' + esc(e) + '</li>').join('') + '</ul>' : '') +
+                    (ch.outcome ? '<p class="chapter-outcome">' + esc(ch.outcome) + '</p>' : '');
+                outputEl.hidden = false;
+                outputEl.appendChild(block);
+                // Smooth-scroll the new chapter into view
+                block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                // Update the universe's "current state" so the NEXT continuation
+                // builds on this chapter, forming a coherent ongoing story.
+                if (ch.outcome) universe.outcome = ch.outcome;
+                universe.description = (universe.description || '') + ' ' + (ch.chapter || '');
+            } catch (err) {
+                if (typeof showError === 'function') showError("🔮 " + (err.message || "Continuation failed"));
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<span aria-hidden="true">🔮</span> <span data-i18n="continueUniverse">' +
+                    (dictNow.continueAgain || 'Continue further →') + '</span>';
+            }
+        }
+
 
         // Escape any dynamic value before inserting into innerHTML (XSS defense)
         function esc(v) {
@@ -2721,7 +2883,7 @@
         const I18N = {"en":{"langLabel":"Language","subtitle":"Step into the stories of the person you might have become","sectionTitle":"Tell Me About Yourself","labelName":"Your Name","labelInterests":"Your Interests","labelSituation":"Current Situation","labelDecision":"Big Life Decision","labelDetails":"Tell me more about your situation","phName":"e.g., Alex","phInterests":"e.g., technology, music, sports","phSituation":"e.g., student, working in tech, freelancer","phDecision":"e.g., change careers, move abroad, start a business","phDetails":"Provide more context to make your universes more personalized...","btnGenerate":"Generate Universes","btnClear":"Clear","btnNew":"Generate New Universes","loading":"Scanning parallel universes...","resultsTitle":"Your 3 Parallel Universes","story":"The Story","career":"Career Path","events":"Key Events","outcome":"Outcome","footer":"🌌 Remember: Your future is never fixed. Every choice creates new possibilities. 🌌","errFill":"Please fill in all fields"}};
 
         // Extra UI strings (background toggle + recommendation headers)
-        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress — some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words — random characters can't create a universe","nameCapital":"Names should start with a capital letter (e.g. \u201CAlex\u201D).","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role — postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available — please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life — just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future — and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand — let's begin"}};
+        const I18N_EXTRA = {"en":{"bgLabel":"Ambient background","recJobs":"Job Roles","recTravel":"Travel Ideas","recFood":"Food & Dining","listen":"Listen","share":"Share on LinkedIn","addOutlook":"Add to Outlook","saveCard":"Save image","shareCard":"Share image","openMaps":"Open in Bing Maps","menuPrices":"Menu & prices","wip":"Work in progress — some features may not work yet","realityCheck":"Reality check (AI estimate)","gibberishHint":"Please use real words — random characters can't create a universe","nameCapital":"Names should start with a capital letter (e.g. \u201CAlex\u201D).","wizardGreeting":"Somewhere across the multiverse, you became someone extraordinary. Let's go meet them.","wizardStart":"Start the journey","surpriseMe":"Surprise me","continueUniverse":"Continue this universe →","continuing":"Writing the next chapter…","continueAgain":"Continue further →","next":"Next","back":"Back","restart":"Start over","jobSearchNote":"Live search for this role - postings change daily, so results are always current.","searchLinkedIn":"Search on LinkedIn","footerCredit":"Microsoft Agents League Hackathon (2026) · A project by","footerPoweredBy":"and powered by:","perfLabel":"Response time","poweredByLabel":"Powered by","crisisTitle":"You don't have to face this alone","crisisBody":"It sounds like you might be going through something really hard. You matter, and support is available - please consider reaching out to someone who can help.","crisisFind":"Find a helpline near you ↗","crisisUS":"US & Canada: call or text 988 ↗","crisisClose":"Close","shareCardLink":"Copy link to share","dscTitle":"Welcome to Parallel Universe","dscLead":"A creative AI experience that imagines alternate versions of your life - just for fun and reflection.","dscAgeLabel":"For ages 18+.","dscAgeText":"This experience is intended for adults.","dscFunLabel":"Entertainment only.","dscFunText":"Scenarios are AI-generated and plausible, but they are not real predictions of your future - and not professional, career, financial, medical, or legal advice.","dscRespLabel":"Use your own judgment.","dscRespText":"The creator accepts no responsibility for decisions made based on this tool's output. Please don't rely on it for real-life choices.","dscAccept":"I am 18+ and I understand - let's begin"}};
         const CHIP_DATA = {"en":{"interests":[{"label":"📷 Photography & travel","fill":"Photography, travel, and cooking"},{"label":"💻 Tech & gaming","fill":"Coding, gaming, and technology"},{"label":"🎨 Music & art","fill":"Music, art, and creative writing"},{"label":"🏔️ Fitness & outdoors","fill":"Fitness, nature, and the outdoors"}],"situation":[{"label":"🎓 Student","fill":"A university student figuring out my path"},{"label":"💼 Office job","fill":"Working a 9-to-5 office job"},{"label":"🚀 Freelancer","fill":"Freelancing and working for myself"},{"label":"🔄 In transition","fill":"Between jobs and looking for change"}],"decision":[{"label":"🔀 Change careers","fill":"Whether to change careers entirely"},{"label":"🌍 Move abroad","fill":"Whether to move to another country"},{"label":"💡 Start a business","fill":"Whether to start my own business"},{"label":"📚 Go back to school","fill":"Whether to go back to school"}],"details":[{"label":"😶‍🌫️ Feeling stuck","fill":"I've felt stuck for a while and wonder what life would look like if I'd been braver and taken more risks."},{"label":"🛤️ At a crossroads","fill":"I'm at a crossroads and curious how different choices might have shaped who I'd become."},{"label":"✨ Just curious","fill":"I'm generally happy but sometimes wonder about the paths I didn't take."}]}};
         for (const code in I18N_EXTRA) {
             if (I18N[code]) Object.assign(I18N[code], I18N_EXTRA[code]);
@@ -3238,6 +3400,14 @@
                         </div>
 
                         ${recHtml}
+
+                        <div class="continue-wrap">
+                            <button class="btn-continue" type="button">
+                                <span aria-hidden="true">🔮</span>
+                                <span data-i18n="continueUniverse">${dict.continueUniverse || 'Continue this universe →'}</span>
+                            </button>
+                            <div class="continue-output" hidden></div>
+                        </div>
                     </div>
                 `;
 
@@ -3248,6 +3418,12 @@
 
                 const saveBtn = card.querySelector('.btn-savecard');
                 saveBtn.addEventListener('click', () => downloadCardImage(universe, number, saveBtn));
+
+                const continueBtn = card.querySelector('.btn-continue');
+                if (continueBtn) {
+                    continueBtn.addEventListener('click', () =>
+                        continueUniverse(universe, continueBtn, card.querySelector('.continue-output')));
+                }
 
                 const shareCardBtn = card.querySelector('.btn-sharecard');
                 if (CAN_SHARE_FILES) {
@@ -4224,6 +4400,36 @@
         const requiredFields = ['name', 'interests', 'situation', 'decision', 'details']
             .map(id => document.getElementById(id));
 
+        // ====== "SURPRISE ME" — ready-made scenarios ======
+        // Fills the wizard with a random, interesting, well-formed scenario so
+        // first-time users have an instant example instead of a blank form.
+        const SURPRISE_SCENARIOS = [
+            { name: "Maya", interests: "painting, travel, marine biology", situation: "a burned-out marketing manager", decision: "quit to study ocean conservation abroad", details: "I'm 29, have some savings, and have always felt happiest near the sea. I studied business but regret not following science." },
+            { name: "Leo", interests: "music production, coding, coffee", situation: "a junior software developer", decision: "start an indie game studio", details: "I love building things and dream of making my own game, but the startup risk and steady paycheck pull me in opposite directions." },
+            { name: "Sofia", interests: "cooking, languages, history", situation: "a high school teacher", decision: "open a small restaurant in another country", details: "I speak three languages and have always dreamed of running a cozy place serving food from my travels, but I've never run a business." },
+            { name: "Adrian", interests: "photography, hiking, writing", situation: "a corporate lawyer", decision: "become a full-time travel photographer", details: "The money is good but I feel creatively empty. I have a good eye and a small following online, and I'm wondering if I could make it real." },
+            { name: "Nina", interests: "robotics, teaching, sustainability", situation: "a recent engineering graduate", decision: "join a climate-tech startup instead of a big corporation", details: "I have two job offers — one safe and prestigious, one risky and mission-driven. I care about impact but also about stability." },
+            { name: "Tomas", interests: "fitness, psychology, entrepreneurship", situation: "a physiotherapist", decision: "build a health and wellness app", details: "I see the same problems with my clients every day and think technology could help thousands of people, but I've never built software." }
+        ];
+
+        function fillSurprise() {
+            const s = SURPRISE_SCENARIOS[Math.floor(Math.random() * SURPRISE_SCENARIOS.length)];
+            const setVal = (id, v) => {
+                const el = document.getElementById(id);
+                if (el) { el.value = v; el.dispatchEvent(new Event('input', { bubbles: true })); }
+            };
+            setVal('name', s.name);
+            setVal('interests', s.interests);
+            setVal('situation', s.situation);
+            setVal('decision', s.decision);
+            setVal('details', s.details);
+            // Jump to the final step so the user can review + generate immediately.
+            if (typeof show === 'function' && typeof steps !== 'undefined') {
+                show(steps.length - 1);
+            }
+            updateGenerateState();
+        }
+
         function updateGenerateState() {
             let empty = false, suspect = false, nameCapitalIssue = false;
             requiredFields.forEach(f => {
@@ -4322,6 +4528,16 @@
             greetWrap.appendChild(gp);
             greet.appendChild(greetWrap);
             greet.appendChild(startBtn);
+
+            // "Surprise me" — fills the wizard with a random ready-made scenario
+            // so first-time users aren't staring at a blank form. Big UX win.
+            const surpriseBtn = document.createElement('button');
+            surpriseBtn.type = 'button';
+            surpriseBtn.className = 'surprise-btn';
+            surpriseBtn.innerHTML = '<span aria-hidden="true">🎲</span> <span data-i18n="surpriseMe">' + (dict().surpriseMe || 'Surprise me') + '</span>';
+            surpriseBtn.addEventListener('click', fillSurprise);
+            greet.appendChild(surpriseBtn);
+
             wizard.appendChild(greet);
             steps.push(greet);
 
