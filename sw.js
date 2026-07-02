@@ -13,7 +13,7 @@
  * Bump CACHE_VERSION whenever you want clients to refresh the cached shell.
  */
 
-const CACHE_VERSION = 'pu-v6';
+const CACHE_VERSION = 'pu-v7';
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 
 // Same-origin static assets to pre-cache.
